@@ -1,4 +1,4 @@
-﻿public class RealSequence : Sequence{
+public class RealSequence : Sequence{
     public bool Equals(Sequence a){
         for (int i = 0; i < 4; i++)
         {
@@ -22,8 +22,6 @@
             at_least = at_least + replace_letters[i];
         }
     }
-
-
 }
 
 public class Sequence {
@@ -57,7 +55,8 @@ public class Program {
                 for (int j = 0; j <= a.secuence.Length - i ; j++)
                 {
                     Sequence test = new Sequence(a.secuence.Substring(j, i ));
-                    if(a.Equals(test)){
+                    if(a.Equals(test))
+                    {
                         return test.secuence;
                     }
                 }
