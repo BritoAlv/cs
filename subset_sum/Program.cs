@@ -27,7 +27,7 @@ public class config : ManualConfig
 public class benchmark
 {
     public int[] set;
-    [Params(5,6,7,8,9,10,11)]
+    [Params(5, 6, 7, 8, 9)]
     public int size { get; set; }
     public int k;
     public bool[] mask;
@@ -36,16 +36,16 @@ public class benchmark
     {
         set = random_utils.generate_array(size);
         Random a = new Random();
-        k = size*1000+1;
+        k = size * 1000 + 1;
         mask = new bool[size];
     }
 
-/*     [Benchmark]
+    [Benchmark]
     public bool with_list() => SubsetSum.WithList(set, k, 0, new List<int>(set.Length));
     [Benchmark]
-    public bool with_mask() => SubsetSum.WithMask(set, k, 0, mask); */
-/*     [Benchmark]
-    public bool with_counter() => SubsetSum.WithCounter(set, k, 0, 0); */
+    public bool with_mask() => SubsetSum.WithMask(set, k, 0, mask);
+    [Benchmark]
+    public bool with_counter() => SubsetSum.WithCounter(set, k, 0, 0);
     [Benchmark]
     public bool without_extra_params() => SubsetSum.WithoutExtraParam(set, k, 0);
 }
