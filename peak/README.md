@@ -1,4 +1,4 @@
-Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Logarítmica.
+Dado un tablero encontrar un número que sea mayor que sus vecinos. Complejidad linear
 
 | Method        | Tamaño    | Tiempo           | $\frac{Tamaño}{{n}}$ |
 |:-------------:| --------- | ----------------:|:--------------------:|
@@ -9,7 +9,8 @@ Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Lo
 | **twod_peak** | **50000** | **6,257,837.01** | **125.156740**       |
 | **twod_peak** | **60000** | **7,468,680.37** | **124.478006**       |
 
-Dado un tablero encontrar un número que sea mayor que sus vecinos. Complejidad linear
+Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Logarítmica.
+
 
 | Method        | Tamaño    | Tiempo    | $\frac{Tamaño}{\log_2{n}}$ |
 |:-------------:|:---------:| ---------:| -------------------------- |
