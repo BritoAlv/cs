@@ -1,4 +1,4 @@
-Dado un tablero encontrar un número que sea mayor que sus vecinos. Complejidad linear.
+Dado un tablero encontrar un número que sea mayor que sus vecinos. Complejidad linear. La idea es una generalización de la versión en una dimensión. El algoritmo es el siguiente dado un tablero rectangular calcular la fila y la columna en el medio, hallar el mayor número que está en esta fila o en esta columna, ( notar que esto divide el tablero en 4 subtableros ) si este mayor número no es un peak, entonces tiene un vecino que es mayor que él, lo que hacemos es buscar en el subtablero donde se encuentra este mayor número un peak (demostrar que hay un peak ahí), recursivamente la complejidad es linear.
 
 | Method        | Tamaño    | Tiempo           | $\frac{Tamaño}{{n}}$ |
 |:-------------:| --------- | ----------------:|:--------------------:|
@@ -9,8 +9,7 @@ Dado un tablero encontrar un número que sea mayor que sus vecinos. Complejidad 
 | **twod_peak** | **50000** | **6,257,837.01** | **125.156740**       |
 | **twod_peak** | **60000** | **7,468,680.37** | **124.478006**       |
 
-Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Logarítmica.
-
+Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Logarítmica. La idea es revisar el elemento del medio, si es un peak we are done revisar en el subtablero donde se encuentra el vecino que es mayor que él (demostrar que hay un peak ahí).
 
 | Method        | Tamaño    | Tiempo    | $\frac{Tamaño}{\log_2{n}}$ |
 |:-------------:|:---------:| ---------:| -------------------------- |
