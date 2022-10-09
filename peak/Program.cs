@@ -1,4 +1,67 @@
-﻿public static class peak_algs
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Columns;
+using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Exporters.Csv;
+using BenchmarkDotNet.Reports;
+using BenchmarkDotNet.Running;
+
+public class config : ManualConfig
+{
+    public CsvExporter exporter = new CsvExporter(
+    CsvSeparator.CurrentCulture,
+    new SummaryStyle(
+        cultureInfo: System.Globalization.CultureInfo.CurrentCulture,
+        printUnitsInHeader: true,
+        printUnitsInContent: false,
+        timeUnit: Perfolizer.Horology.TimeUnit.Microsecond,
+        sizeUnit: SizeUnit.B
+    ));
+    public config()
+    {
+        AddExporter(exporter);
+    }
+}
+
+[Config(typeof(config))]
+[MemoryDiagnoser]
+public class benchmark
+{
+    public int[][] values;
+    [Params(1000, 2000, 4000, 8000, 16000, 32000, 64000)]
+    public int size { get; set; }
+    [GlobalSetup]
+    public void Setup()
+    {
+        int start = 0;
+        values = new int[size][];
+        for (int i = 0; i < size; i++)
+        {
+            values[i] = new int[size];
+            for (int j = 0; j < size; j++)
+            {
+                values[i][j] = start;
+                start++;
+            }
+        }
+    }
+
+    /*[Benchmark]
+    public Tuple<int, int> twod_peak() => peak_algs.twod_peak(values, 0, size - 1, 0, size - 1);*/
+    [Benchmark]
+    public int oned_peak() => peak_algs.oned_peak(values[0], 0, size - 1);
+
+}
+public static class program
+{
+    public static void Main()
+    {
+        BenchmarkRunner.Run<benchmark>();
+    }
+}
+
+
+
+public static class peak_algs
 {
     public static bool is_oned_peak(int[] A, int index)
     {
@@ -99,7 +162,7 @@
         {
             // now compute middle row and middle column: constant time
             int middle_row = (start_row + end_row) / 2;
-            int middle_column = (start_column + end_column);
+            int middle_column = (start_column + end_column) / 2;
             bool is_peak = true;
             // check if element at the middle is a 2d peak: constant time
             if (middle_row + 1 <= end_row && A[middle_row][middle_column] < A[middle_row + 1][middle_column])
@@ -148,7 +211,7 @@
             // call recursively the function.
             if (max.Item1 == middle_row)
             {
-                if (max.Item2 < middle_column && middle_column - 1 >= start_column) // look to first and 2scn cuadrant
+                if (max.Item2 < middle_column && middle_column - 1 >= start_column) // look to first and second cuadrant
                 {
                     if (max.Item1 - 1 >= start_row && A[max.Item1][max.Item2] < A[max.Item1 - 1][max.Item2])
                     {
@@ -159,7 +222,7 @@
                         return twod_peak(A, middle_row + 1, end_row, start_column, middle_column - 1);
                     }
                 }
-                else if (middle_column + 1 <= end_column) // look at third and four
+                else if (middle_column + 1 <= end_column) // look at third and four cuadrant
                 {
                     if (max.Item1 - 1 >= start_row && A[max.Item1][max.Item2] < A[max.Item1 - 1][max.Item2])
                     {
@@ -204,7 +267,7 @@
 }
 
 
-public class test
+/* public class test
 {
     public static void Main()
     {
@@ -234,4 +297,4 @@ public class test
 
 
     }
-}
+} */
