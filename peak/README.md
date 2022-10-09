@@ -1,4 +1,4 @@
-Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Logarítmica.
+Dado un array encontrar un número que sea mayor que sus vecinos. Complejidad Logarítmica. 
 
 | Method        | Tamaño    | Tiempo           | $\frac{Tamaño}{{n}}$ |
 |:-------------:| --------- | ----------------:|:--------------------:|
