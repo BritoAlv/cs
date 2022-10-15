@@ -1,0 +1,1 @@
+Dada una fecha saber si es válida, cuantos días han pasado entre dos fechas, y a partir de una fecha y cierta cantidad de días saber la fecha resultante de haber pasado la cantidad de días a partir de la fecha dada.
