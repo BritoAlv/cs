@@ -1,5 +1,7 @@
 public static class Lee
 {
+    static int[] dx = new int[8] { 1, -1, 0, 0, -1, -1, 1, 1 }; // last four are diagonals
+    static int[] dy = new int[8] { 0, 0, 1, -1, -1, 1, -1, 1 };
     public static void checker() // to check if implementation is fine,
     {
         int cant_rows = 4;
@@ -44,41 +46,14 @@ public static class Lee
             {
                 if (distancias[i, j] > 0)
                 {
-                    if (inside_cell(i + 1, j) && Math.Abs(distancias[i, j] - distancias[i + 1, j]) >= 2)
+                    for (int desp = 0; desp < dx.Length; desp++)
                     {
-                        return false;
+                        if (inside_cell(i + dx[desp], j + dy[desp]) && Math.Abs(distancias[i, j] - distancias[i + dx[desp], j + dy[desp]]) >= 2)
+                        {
+                            return false;
+                        }
                     }
-                    if (inside_cell(i - 1, j) && Math.Abs(distancias[i, j] - distancias[i - 1, j]) >= 2)
-                    {
-                        return false;
-                    }
-                    if (inside_cell(i, j + 1) && Math.Abs(distancias[i, j] - distancias[i, j + 1]) >= 2)
-                    {
-                        return false;
-                    }
-                    if (inside_cell(i, j - 1) && Math.Abs(distancias[i, j] - distancias[i, j - 1]) >= 2)
-                    {
-                        return false;
-                    }
-                    // comment to remove diagonals
 
-                    if (inside_cell(i - 1, j - 1) && Math.Abs(distancias[i, j] - distancias[i - 1, j - 1]) >= 2)
-                    {
-                        return false;
-                    }
-                    if (inside_cell(i - 1, j + 1) && Math.Abs(distancias[i, j] - distancias[i - 1, j + 1]) >= 2)
-                    {
-                        return false;
-                    }
-                    if (inside_cell(i + 1, j - 1) && Math.Abs(distancias[i, j] - distancias[i + 1, j - 1]) >= 2)
-                    {
-                        return false;
-                    }
-                    if (inside_cell(i + 1, j + 1) && Math.Abs(distancias[i, j] - distancias[i + 1, j + 1]) >= 2)
-                    {
-                        return false;
-                    }
-                    // end comment
                 }
             }
         }
@@ -141,16 +116,12 @@ public static class Lee
         {
             int valor = distancias[j, l] + 1;
             // check neigbours and update its value and to the queue
-            set_value(j + 1, l);
-            set_value(j - 1, l);
-            set_value(j, l + 1);
-            set_value(j, l - 1);
-            // coment to remove diagonals.
-            set_value(j + 1, l + 1);
-            set_value(j + 1, l - 1);
-            set_value(j - 1, l + 1);
-            set_value(j - 1, l - 1);
-            // end comment here.
+            for (int desp = 0; desp < dx.Length; desp++)
+            {
+                set_value(j + dx[desp], l + dy[desp]);
+            }
+
+           
             void set_value(int a, int b)
             {
                 if ((a >= 0) && (a < filas) && (b >= 0) && (b < columnas)) // cell is inside the board.
