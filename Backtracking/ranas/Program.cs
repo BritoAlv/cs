@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿// Solved using Mutual Recursion
+using System.Diagnostics;
 public class ranas
 {
     public static void Main()
