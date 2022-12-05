@@ -221,19 +221,6 @@ class date
     // Driver code
     public static void Main()
     {
-        int d = 14, m = 3, y = 2015;
-        int x = 366;
-        addDays(d, m, y, x);
-        if (isValidDate(27, 2, 2021))
-            Console.WriteLine("Yes");
-        else
-            Console.WriteLine("No");
-
-        if (isValidDate(31, 11, 2000))
-            Console.WriteLine("Yes");
-        else
-            Console.WriteLine("No");
-
         date dt1 = new date(27, 2, 2021);
         date dt2 = new date(27, 9, 2022);
 
