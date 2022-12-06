@@ -2,7 +2,7 @@ using FluentAssertions;
 
 namespace Poker
 {
-    public class FiveCardPokerScorerTests
+    public class ScorerTests
     {
         [Fact]
         public void CanGetHighCard()
@@ -13,7 +13,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Cinco, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Rey, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Dos, CardSuit.CorazónRojo));
-            FiveCardPokerScorer.HighCard(hand.Cards).Value.Should().Be(CardValue.Rey);
+            Scorer.HighCard(hand.Cards).Value.Should().Be(CardValue.Rey);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Cinco, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Rey, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Dos, CardSuit.CorazónRojo));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.CartaAlta);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.CartaAlta);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.As, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Cinco, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Seis, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.Color);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.Color);
         }
         [Fact]
         public void CanScoreRoyalFlush()
@@ -48,7 +48,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Reina, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Rey, CardSuit.Pica));
             hand.Draw(new Card(CardValue.As, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.EscaleraReal);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.EscaleraReal);
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Nueve, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Diez, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.As, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.Pareja);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.Pareja);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Príncipe, CardSuit.Diamante));
             hand.Draw(new Card(CardValue.Diez, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.As, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.DosParejas);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.DosParejas);
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Nueve, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Diez, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Diez, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.Trio);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.Trio);
         }
         [Fact]
         public void CanScoreFourOfAKind()
@@ -95,7 +95,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Diez, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Diez, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Diez, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.CuatroIguales);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.CuatroIguales);
 
         }
         [Fact]
@@ -107,7 +107,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Diez, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Príncipe, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.Diez, CardSuit.Pica));
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.Full);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.Full);
 
         }
 
@@ -121,7 +121,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Rey, CardSuit.CorazónRojo));
             hand.Draw(new Card(CardValue.As, CardSuit.Pica));
 
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.Escalera);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.Escalera);
         }
 
         [Fact]
@@ -134,7 +134,7 @@ namespace Poker
             hand.Draw(new Card(CardValue.Diez, CardSuit.Pica));
             hand.Draw(new Card(CardValue.Rey, CardSuit.CorazónRojo));
 
-            FiveCardPokerScorer.GetHandRank(hand.Cards).Should().Be(HandRank.Escalera);
+            Scorer.GetHandRank(hand.Cards).Should().Be(HandRank.Escalera);
         }
     }
 
