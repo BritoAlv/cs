@@ -5,8 +5,8 @@ public class Test
     public static void Main()
     {
         Hand A = new Hand();
-        A.Draw(new Card(CardValue.Príncipe, CardSuit.Diamante));
-        A.Draw(new Card(CardValue.Príncipe, CardSuit.Diamante));
+        A.Draw(new Card(CardValue.Reina, CardSuit.Diamante));
+        A.Draw(new Card(CardValue.Reina, CardSuit.Diamante));
         A.Draw(new Card(CardValue.As, CardSuit.Diamante));
         A.Draw(new Card(CardValue.Reina, CardSuit.Diamante));
         A.Draw(new Card(CardValue.As, CardSuit.Diamante));
@@ -18,6 +18,7 @@ public class Test
         B.Draw(new Card(CardValue.As, CardSuit.Diamante));
 
         Console.WriteLine(A.ToStringWithRank());
+        Console.WriteLine(B.ToStringWithRank());
         int result = A.CompareTo(B);
         switch (result)
         {
@@ -31,7 +32,6 @@ public class Test
                 Console.WriteLine("=> Están empatados");
                 break;
         }
-        Console.WriteLine(B.ToStringWithRank());    
 
     }
 }

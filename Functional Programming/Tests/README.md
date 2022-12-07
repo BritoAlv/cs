@@ -1,1 +1,1 @@
-### Probando Algunas  Funcionalidades de Programación Funcional.
+### Probando Algunas  Características de Programación Funcional.
