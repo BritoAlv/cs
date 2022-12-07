@@ -7,7 +7,7 @@ namespace Poker
     /*
     scorer for five cards poker.
     */
-    public class Scorer
+    public static class Scorer
     {
         /*
         Every function that we use to rank a hand.

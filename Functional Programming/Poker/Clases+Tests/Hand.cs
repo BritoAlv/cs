@@ -1,7 +1,20 @@
+using NeoSmart.Unicode;
 namespace Poker
 {
     public class Hand : IComparable<Hand>
     {
+
+        public override string ToString()
+        {
+            var result = "";
+            foreach (var card in Cards.OrderByDescending( x => ((int)x.Value == 1) ? 15: (int)x.Value))
+            {
+                result = result + card.ToString();
+            }
+            return result;
+        }
+
+        public string ToStringWithRank() => this.ToString() + " => " +  Scorer.GetHandRank(Cards);
         private List<Card> _cards = new List<Card>();
         public IEnumerable<Card> Cards
         {

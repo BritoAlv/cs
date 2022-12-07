@@ -1,3 +1,4 @@
+using NeoSmart.Unicode;
 public class Card
 {
     public Card(CardValue value, CardSuit suit)
@@ -9,5 +10,6 @@ public class Card
     public CardValue Value { get; }
     public CardSuit Suit { get; }
 
-    public override string ToString() => $"Un {this.Value} de {this.Suit}";
+    public override string ToString() => $" {((int)this.Value)}{this.Suit.GetEmoji()} ";
 }
+  
