@@ -1,8 +1,11 @@
-public static class RandomExtensions
+namespace Poker
+{
+public static class EnumExtensions
 {
     public static T NextEnum<T>(this Random random)
     {
         var values = Enum.GetValues(typeof(T));
         return (T)values.GetValue(random.Next(values.Length));
     }
+}
 }
