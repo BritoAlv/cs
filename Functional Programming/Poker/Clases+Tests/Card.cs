@@ -10,6 +10,16 @@ public class Card
     public CardValue Value { get; }
     public CardSuit Suit { get; }
 
-    public override string ToString() => $" {((int)this.Value)}{this.Suit.GetEmoji()} ";
+    public override string ToString()
+    {
+        string number = ((int)this.Value).ToString();
+        string suit = this.Suit.GetEmoji().ToString();
+        if(number.Length == 1)
+        {
+            number = " " + number;
+        }
+        return number + suit + "   ";
+
+    } 
 }
   
