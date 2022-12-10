@@ -1,19 +1,21 @@
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 namespace Poker
 {
     public static class EvalExtensions
     {
         public static IEnumerable<KeyValuePair<CardValue, int>> ToKindAndQuantities(this IEnumerable<Card> cards)
         {
-            var dict = new ConcurrentDictionary<CardValue, int>();
+            var dict = new Dictionary<CardValue, int>();
             foreach (var card in cards)
             {
-                dict.AddOrUpdate(card.Value, 1, (cardValue, quantity) => ++quantity);
+                if (!dict.ContainsKey(card.Value))
+                {
+                    dict[card.Value] = 0;
+                }
+                dict[card.Value]++;
             }
             return dict;
         }
+
         // The SelectConsecutive method iterates over two consecutive items in a collection.
         // This is done using the yield keyword
         // Each call to the iterator function proceeds to the next execution of the yield return statement
