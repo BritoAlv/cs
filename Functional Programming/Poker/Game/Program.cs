@@ -1,37 +1,74 @@
 ﻿using Poker;
 
-public class Test
+public class Program
 {
     public static void Main()
     {
-        Hand A = new Hand();
-        A.Draw(new Card(CardValue.Reina, CardSuit.Diamante));
-        A.Draw(new Card(CardValue.Reina, CardSuit.Diamante));
-        A.Draw(new Card(CardValue.As, CardSuit.Diamante));
-        A.Draw(new Card(CardValue.Reina, CardSuit.Diamante));
-        A.Draw(new Card(CardValue.As, CardSuit.Diamante));
-        Hand B = new Hand();
-        B.Draw(new Card(CardValue.Príncipe, CardSuit.Pica));
-        B.Draw(new Card(CardValue.Príncipe, CardSuit.Diamante));
-        B.Draw(new Card(CardValue.Príncipe, CardSuit.CorazónRojo));
-        B.Draw(new Card(CardValue.As, CardSuit.Diamante));
-        B.Draw(new Card(CardValue.As, CardSuit.Diamante));
-
-        Console.WriteLine(A.ToStringWithRank());
-        Console.WriteLine(B.ToStringWithRank());
-        int result = A.CompareTo(B);
-        switch (result)
+        while (true)
         {
-            case 1:
-                Console.WriteLine("A le gana a B");
-                break;
-            case -1:
-                Console.WriteLine("B le gana a A");
-                break;
-            default:
-                Console.WriteLine("=> Están empatados");
-                break;
+            Hand A = generate_random_hand();
+            Hand B = generate_random_hand();
+            Console.WriteLine(A.ToStringWithRank());
+            Console.WriteLine(B.ToStringWithRank());
+            int result = A.CompareTo(B);
+            switch (result)
+            {
+                case 1:
+                    if (A.rank == B.rank)
+                    {
+                        Console.WriteLine($"Poseen el mismo rango {A.rank}, still A wins.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"A le gana a B porque {A.rank} es mejor que {B.rank}");
+                    }
+
+                    break;
+                case -1:
+                    if (A.rank == B.rank)
+                    {
+                        Console.WriteLine($"Poseen el mismo rango {A.rank}, still B wins.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"B le gana a A porque {B.rank} es mejor que {A.rank}");
+                    }
+                    break;
+                default:
+                    Console.WriteLine("=> Están empatados");
+                    break;
+            }
+            Console.WriteLine();
+            Console.ReadLine();
         }
 
+
+    }
+
+    public static Hand generate_random_hand()
+    {
+        Hand A = new Hand();
+        for (int i = 0; i < 5; i++)
+        {
+            A.Draw(generate_random_card());
+        }
+        return A;
+    }
+
+    public static Card generate_random_card()
+    {
+        return new Card(generate_random_value(), generate_random_suit());
+    }
+
+    private static CardSuit generate_random_suit()
+    {
+        var rnd = new Random();
+        return rnd.NextEnum<CardSuit>();
+    }
+
+    private static CardValue generate_random_value()
+    {
+        var rnd = new Random();
+        return rnd.NextEnum<CardValue>();
     }
 }

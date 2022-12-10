@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Poker
 {
     /*
@@ -21,7 +17,17 @@ namespace Poker
         private static bool HasTwoPair(IEnumerable<Card> cards) => CountOfAKind(cards, 2) == 2;
         private static bool HasThreeOfAKind(IEnumerable<Card> cards) => HasOfAKind(cards, 3);
         private static bool HasFourOfAKind(IEnumerable<Card> cards) => HasOfAKind(cards, 4);
-        private static bool HasFullHouse(IEnumerable<Card> cards) => HasThreeOfAKind(cards) && HasPair(cards);
+        private static bool HasFullHouse(IEnumerable<Card> cards)
+        {
+            if (HasThreeOfAKind(cards))
+            {
+                return cards
+                .GroupBy(x => x.Value)
+                .Where(x => x.Count() == 2).Count() == 1;
+            }
+            return false;
+        }  
+
         private static bool HasStraight(IEnumerable<Card> cards) => cards.OrderBy(card => card.Value).SelectConsecutive((n, next) => n.Value + 1 == next.Value).All(value => value);
         private static bool HasStraightFlush(IEnumerable<Card> cards) => HasStraight(cards) && HasFlush(cards);
 

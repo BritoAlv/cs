@@ -15,5 +15,5 @@ public enum CardValue
     Príncipe = 11,
     Reina = 12,
     Rey = 13,
-    As = 1,
+    As = 14,
 }
