@@ -6,8 +6,8 @@ public class Program
     {
         while (true)
         {
-            Hand A = generate_random_hand();
-            Hand B = generate_random_hand();
+            Hand A = random.generate_random_hand();
+            Hand B = random.generate_random_hand();
             Console.WriteLine(A.ToStringWithRank());
             Console.WriteLine(B.ToStringWithRank());
             int result = A.CompareTo(B);
@@ -41,34 +41,5 @@ public class Program
             Console.WriteLine();
             Console.ReadLine();
         }
-
-
-    }
-
-    public static Hand generate_random_hand()
-    {
-        Hand A = new Hand();
-        for (int i = 0; i < 5; i++)
-        {
-            A.Draw(generate_random_card());
-        }
-        return A;
-    }
-
-    public static Card generate_random_card()
-    {
-        return new Card(generate_random_value(), generate_random_suit());
-    }
-
-    private static CardSuit generate_random_suit()
-    {
-        var rnd = new Random();
-        return rnd.NextEnum<CardSuit>();
-    }
-
-    private static CardValue generate_random_value()
-    {
-        var rnd = new Random();
-        return rnd.NextEnum<CardValue>();
     }
 }
