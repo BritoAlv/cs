@@ -35,7 +35,11 @@ public static class Common_Hand_Rank
 
     private static int RankByFourEquals(IEnumerable<Card> A, IEnumerable<Card> B)
     {
-        var result = A.GroupBy(x => x.Value).Where(x => x.Count() == 4).First().First().Value.CompareTo(B.GroupBy(x => x.Value).Where(x => x.Count() == 4).First().First().Value);
+        CardValue Transform(IEnumerable<Card> C)
+        {
+            return C.GroupBy(x => x.Value).Where(x => x.Count() == 4).First().First().Value;
+        }
+        var result = Transform(A).CompareTo(Transform(B));
         if (result == 0)
         {
             return RankByHighCard(A, B);
@@ -45,7 +49,7 @@ public static class Common_Hand_Rank
 
     private static int RankByEscalera(IEnumerable<Card> A, IEnumerable<Card> B)
     {
-        return A.OrderByDescending(x => x.Value).First().Value.CompareTo(B.OrderByDescending(x => x.Value).First().Value);
+        return RankByHighCard(A, B);
     }
 
     private static int RankByColor(IEnumerable<Card> A, IEnumerable<Card> B)
@@ -55,7 +59,11 @@ public static class Common_Hand_Rank
 
     private static int RankByTrio(IEnumerable<Card> A, IEnumerable<Card> B)
     {
-        var result = A.GroupBy(x => x.Value).Where(x => x.Count() == 3).First().First().Value.CompareTo(B.GroupBy(x => x.Value).Where(x => x.Count() == 3).First().First().Value);
+        CardValue Transform(IEnumerable<Card> C)
+        {
+            return C.GroupBy(x => x.Value).Where(x => x.Count() == 3).First().First().Value;
+        }
+        var result = Transform(A).CompareTo(Transform(B));
         if (result == 0)
         {
             return RankByPareja(A, B);
@@ -65,7 +73,11 @@ public static class Common_Hand_Rank
 
     private static int RankByTwoParejas(IEnumerable<Card> A, IEnumerable<Card> B)
     {
-        var zipped = A.GroupBy(x => x.Value).Where(x => x.Count() == 2).Select(x => x.First().Value).OrderDescending().Zip(B.GroupBy(x => x.Value).Where(x => x.Count() == 2).Select(x => x.First().Value).OrderDescending());
+        IEnumerable<CardValue> Transform(IEnumerable<Card> C)
+        {
+            return C.GroupBy(x => x.Value).Where(x => x.Count() == 2).Select(x => x.First().Value).OrderDescending();
+        }
+        var zipped = Transform(A).Zip(Transform(B));
         foreach (var tuple in zipped)
         {
             if (tuple.First > tuple.Second)
@@ -86,7 +98,11 @@ public static class Common_Hand_Rank
 
     private static int RankByPareja(IEnumerable<Card> A, IEnumerable<Card> B)
     {
-        var result = A.GroupBy(x => x.Value).Where(x => x.Count() == 2).First().First().Value.CompareTo(B.GroupBy(x => x.Value).Where(x => x.Count() == 2).First().First().Value);
+        CardValue Transform(IEnumerable<Card> C)
+        {
+            return C.GroupBy(x => x.Value).Where(x => x.Count() == 2).First().First().Value;
+        }
+        var result = Transform(A).CompareTo(Transform(B));
         if (result == 0)
         {
             return RankByHighCard(A, B);
@@ -96,7 +112,11 @@ public static class Common_Hand_Rank
 
     private static int RankByHighCard(IEnumerable<Card> A, IEnumerable<Card> B)
     {
-        var zipped = A.OrderByDescending(x => x.Value).Zip(B.OrderByDescending(x => x.Value));
+        IEnumerable<Card> Transform(IEnumerable<Card> C)
+        {
+            return C.OrderByDescending(x => x.Value);
+        }
+        var zipped = Transform(A).Zip(Transform(B));
         foreach (var tuple in zipped)
         {
             if (tuple.First.Value > tuple.Second.Value)
