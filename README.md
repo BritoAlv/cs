@@ -4,33 +4,33 @@
 
 ```bash
 ├── Arrays
-│   ├── Array_Suma_Maxima
-│   ├── Estabilizar_Genes
-│   ├── IntSet
-│   ├── InvierteBot
-│   ├── Parchi_Raro
-│   └── Zuma
+│   ├── Array_Suma_Maxima
+│   ├── Estabilizar_Genes
+│   ├── IntSet
+│   ├── InvierteBot
+│   ├── Parchi_Raro
+│   └── Zuma
 ├── Backtracking
-│   ├── Combinatoria
-│   ├── PlaceQueensBoard
-│   ├── ranas
-│   ├── sudoku
-│   └── tuenvio
+│   ├── Combinatoria
+│   ├── PlaceQueensBoard
+│   ├── ranas
+│   ├── sudoku
+│   └── tuenvio
 ├── Divide & Conquer
-│   └── peak
+│   └── peak
 ├── Functional Programming
-│   ├── Learning_Examples
-│   └── Poker
+│   ├── Learning_Examples
+│   
 ├── NP
-│   ├── frecuencias
-│   ├── interruptores
-│   └── subset_sum
+│   ├── frecuencias
+│   ├── interruptores
+│   └── subset_sum
 ├── Solid
-│   ├── D-Dependency_Inversion
-│   ├── I-Interface_Segregation
-│   ├── L-Liskov_Substitution
-│   ├── O-Open-Closed
-│   └── S-Single_Responsability
+│   ├── D-Dependency_Inversion
+│   ├── I-Interface_Segregation
+│   ├── L-Liskov_Substitution
+│   ├── O-Open-Closed
+│   └── S-Single_Responsability
 └── Variado
  ├── Fechas
  └── Lee
