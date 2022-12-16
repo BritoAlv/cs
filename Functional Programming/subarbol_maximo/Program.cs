@@ -3,11 +3,15 @@
     public static void Main()
     {
         Random random = new Random();
-        
-        RandomLazyTree<int> arbol_lazy = new RandomLazyTree<int>(random, x => TestValueGenerators.APrimeWithProb(x, 0.8f), 5, 2);
+        RandomInfiniteTree<int> arbol_infinito = new RandomInfiniteTree<int>(random, x => 2*x.Next(0,10), 4, 2);   
+        foreach (var submaximal_tree in Exam.MaximalSubtreesWhere(arbol_infinito, x => TestPredicates.IsEven(x)))
+        {
+            Console.WriteLine("Found_SubMaximal");
+        }
+
+/*         RandomLazyTree<int> arbol_lazy = new RandomLazyTree<int>(random, x => TestValueGenerators.APrimeWithProb(x, 0.8f), 5, 2);
         arbol_lazy.print(arbol_lazy, Exam.MaximalSubtreesWhere(arbol_lazy, x => TestPredicates.IsPrime(x)));
 
-        RandomInfiniteTree<int> arbol_infinito = new RandomInfiniteTree<int>(random, x => TestValueGenerators.AnEvenWithProb(x, 0.5f), 4, 2);   
-        arbol_infinito.print_infinite_tree(arbol_infinito, x => x%2 == 0);
+        arbol_infinito.print_infinite_tree(arbol_infinito, x => x%2 == 0); */
     }
 }
