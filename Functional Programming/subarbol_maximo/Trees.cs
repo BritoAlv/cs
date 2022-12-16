@@ -1,4 +1,4 @@
-﻿public interface ITree<T> : IPrintable
+﻿public interface ITree<T>
 {
     T Value { get; }
     IEnumerable<ITree<T>> Children { get; }

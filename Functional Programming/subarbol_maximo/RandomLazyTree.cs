@@ -37,7 +37,6 @@ public class RandomLazyTree<T> : ITree<T>
             return _children;
         }
     }
-    public string valor => Value.ToString();
     public RandomLazyTree(Random random, Func<Random, T> valueGenerator, int height, int width)
     {
         _random = random;
@@ -46,13 +45,6 @@ public class RandomLazyTree<T> : ITree<T>
         Height = height;
         Width = width;
         _children = null;
-    }
-    public IEnumerable<IPrintable> GetChildrenIprintables()
-    {
-        foreach (var child in Children)
-        {
-            yield return child;
-        }
     }
     public virtual void print(RandomLazyTree<T> node, IEnumerable<ITree<T>> SubMaximalTrees, string indent = "", bool isLast = true, bool isMaximal = false)
     {
@@ -72,7 +64,7 @@ public class RandomLazyTree<T> : ITree<T>
         // print the marker.
         Console.Write(marker);
         // print what represents that node.
-        Console.Write(node.valor);
+        Console.Write(node.Value.ToString());
         Console.ResetColor();
         // pass to the children nodes recursively.
         Console.WriteLine();
@@ -80,8 +72,8 @@ public class RandomLazyTree<T> : ITree<T>
         indent += isLast ? "    " : "│   ";
         // call the method recursively.
         // LastOrDefault will fail if sequence is infinite.
-        var lastChild = node.GetChildrenIprintables().LastOrDefault();
-        foreach (var child in node.GetChildrenIprintables())
+        var lastChild = node.Children.LastOrDefault();
+        foreach (var child in node.Children)
         {
             print((RandomLazyTree<T>)child, SubMaximalTrees, indent, child == lastChild, isMaximal); // false for infinite cases);
         }        

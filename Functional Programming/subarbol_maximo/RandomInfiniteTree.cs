@@ -28,7 +28,7 @@ public class RandomInfiniteTree<T> : RandomLazyTree<T>
     {
         _children = new List<RandomLazyTree<T>>();
     }
-    public virtual void print_infinite_tree(RandomLazyTree<T> node, string indent = "", bool isLast = true)
+    public virtual void print_infinite_tree(RandomLazyTree<T> node, Predicate<T> predicate, string indent = "", bool isLast = true)
     {
         // determine which shape use in dependence of it is the last or there are more children in its level.
         var marker = isLast ? "└───" : "├───";
@@ -37,27 +37,17 @@ public class RandomInfiniteTree<T> : RandomLazyTree<T>
         // print the marker.
         Console.Write(marker);
         // print what represents that node.
-        Console.Write(node.valor);
+        Console.Write(node.Value.ToString());
         // pass to the children nodes recursively.
         Console.WriteLine();
         // compute indent for children.
         indent += isLast ? "    " : "│   ";
         // call the method recursively.
         // LastOrDefault will fail if sequence is infinite.
-        if (node is RandomInfiniteTree<T> infinite)
+        foreach (var child in this.Children)
         {
-            foreach (var child in infinite.Children)
-            {
-                print_infinite_tree((RandomLazyTree<T>)child, indent, false); // false for infinite cases
-            }
-        }
-        else
-        {
-            var lastChild = node.GetChildrenIprintables().LastOrDefault(); // don't do this in infinite cases.
-            foreach (var child in node.GetChildrenIprintables())
-            {
-                print_infinite_tree((RandomLazyTree<T>)child, indent, child == lastChild); 
-            }
+            var aslazy = (RandomLazyTree<T>)child;
+            print(aslazy, Exam.MaximalSubtreesWhere(aslazy, predicate), indent, false);
         }
     }
 }
