@@ -18,20 +18,14 @@
 │   └── tuenvio
 ├── Divide & Conquer
 │   └── peak
-├── Functional Programming
-│   ├── Learning_Examples
-│   
+├── Enumerable Trees
+│   ├── inventory
+│   └── subarbol_maximo
 ├── NP
 │   ├── frecuencias
 │   ├── interruptores
 │   └── subset_sum
-├── Solid
-│   ├── D-Dependency_Inversion
-│   ├── I-Interface_Segregation
-│   ├── L-Liskov_Substitution
-│   ├── O-Open-Closed
-│   └── S-Single_Responsability
 └── Variado
- ├── Fechas
- └── Lee
+    ├── Fechas
+    └── Lee
 ```
