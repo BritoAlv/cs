@@ -26,9 +26,7 @@
         IFolder GetFolder(string path);
         IFile GetFile(string path);
         IFileSystem GetRoot(string path);
-
         IEnumerable<IFile> Find(FileFilter filter);
-
         void Copy(string origin, string destination);
         void Move(string origin, string destination);
         void Delete(string path);
