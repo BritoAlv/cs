@@ -1,4 +1,4 @@
-# Problemas Propuestos en curso de Ciencias de la Computación.
+# Colección de ejercicios y mini-proyectos teóricos y prácticos relacionados con CC
 
 ## Tree :
 
