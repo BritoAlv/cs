@@ -9,7 +9,7 @@ section .text
     
 CMAIN:
     mov rbp, rsp; for correct debugging
-    PRINT_STRING "Pon un nÃºmero: "     
+    PRINT_STRING "Pon un número: "     
     
     GET_UDEC 4, number ; 4 bytes are 32 bits => int32.
     PRINT_UDEC 4, number
@@ -31,11 +31,11 @@ _exit:
     syscall
     
 esPar:
-    PRINT_STRING " It's Even"
+    PRINT_STRING " It's Even."
     ret
     
 esImpar:
-    PRINT_STRING " It's Odd"
+    PRINT_STRING " It's Odd."
     ret    
     
         

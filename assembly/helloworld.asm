@@ -7,7 +7,7 @@ section .data
     ;Thus the expression $ - myString produces the difference between that next location
     ;and the label.  Since that label occurs earlier, 
     ;this difference is a positive value, and in fact it is 
-    ;the total length of the preceding db.
+    ;the total length of the preceding db.message
 
     ;The equ says to define lengthofString as a compile time constant, 
     ;which doesn't consuming any runtime storage.

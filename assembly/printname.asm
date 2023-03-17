@@ -16,7 +16,9 @@ CMAIN:
     ; setting welcome message
     mov rsi, hola
     mov rdx, len_hola
-    call print_string 
+    push rip+4
+    jmp print_string
+    pop  rip 
 
     ; setting read input
     mov rsi, name
