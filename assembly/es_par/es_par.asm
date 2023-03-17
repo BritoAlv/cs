@@ -9,7 +9,7 @@ section .text
     
 CMAIN:
     mov rbp, rsp; for correct debugging
-    PRINT_STRING "Pon un número: "     
+    PRINT_STRING "Put a Number: "     
     
     GET_UDEC 4, number ; 4 bytes are 32 bits => int32.
     PRINT_UDEC 4, number

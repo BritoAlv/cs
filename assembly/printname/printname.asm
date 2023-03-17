@@ -16,9 +16,7 @@ CMAIN:
     ; setting welcome message
     mov rsi, hola
     mov rdx, len_hola
-    push rip+4
-    jmp print_string
-    pop  rip 
+    call print_string
 
     ; setting read input
     mov rsi, name
@@ -30,6 +28,7 @@ CMAIN:
     ; setting welcome message    
     mov rsi, bienvenido
     mov rdx, len_bienvenido
+    
     call print_string
     
     call exit_program
@@ -38,6 +37,7 @@ read_input:
     mov rax, 0
     mov rdi,0
     syscall
+    ret
 
 exit_program:   
     mov rax, 60
@@ -48,4 +48,5 @@ print_string: ; assuming you already put in the
               ; registers the len of the string and the address of its start
     mov rax, 1
     mov rdi, 1
-    syscall    
+    syscall
+    ret    
