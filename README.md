@@ -15,6 +15,15 @@ tree -d -L 2
 │   ├── InvierteBot
 │   ├── Parchi_Raro
 │   └── Zuma
+├── assembly
+│   ├── es_par
+│   ├── factorial
+│   ├── fibonacci
+│   ├── helloworld
+│   ├── merge_sort
+│   ├── palindrome
+│   ├── printname
+│   └── script_c_to_nasm
 ├── Backtracking
 │   ├── Combinatoria
 │   ├── PlaceQueensBoard
@@ -23,6 +32,10 @@ tree -d -L 2
 │   └── tuenvio
 ├── Divide & Conquer
 │   └── peak
+├── dmoj
+│   └── Alchemy2
+├── edo
+│   └── direction_field
 ├── Enumerable Trees
 │   ├── filesystem
 │   ├── inventory
@@ -31,8 +44,9 @@ tree -d -L 2
 │   ├── frecuencias
 │   ├── interruptores
 │   └── subset_sum
+├── numerica
+│   └── taylor-approximations
 └── Variado
-    ├── Coloring-Matching-Brackets-Latex
     ├── Fechas
     ├── Lee
     └── TagMusic

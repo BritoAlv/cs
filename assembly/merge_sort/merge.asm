@@ -5,7 +5,7 @@
 %include "io64.inc"
 
 section .data
-    source dq 1,2,3,4,2,1
+    source dq 6,5,4,3,2,1
     helper dq 0,0,0,0,0,0
 
 
