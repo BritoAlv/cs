@@ -5,20 +5,52 @@
 %include "io64.inc"
 
 section .data
-    source dq 6,5,4,3,2,1
-    helper dq 0,0,0,0,0,0
-
+    source times 1000 dq 0
+    helper times 1000 dq 0
 
 section .text
 global CMAIN
 CMAIN:
+    push rbp
     mov rbp, rsp; for correct debugging
+    sub rsp, 8
+    PRINT_STRING "Hola, len(array): "
+    GET_UDEC 8, rax
+    mov [rsp+0x8], rax
+    NEWLINE
+    mov rbx, 0
+    .loop:
+        cmp rax, 0
+        je .fend
+        GET_UDEC 8, rcx
+        mov [source + rbx*8], rcx 
+        add  rbx, 1
+        sub  rax, 1
+        jmp .loop
+        NEWLINE
+    .fend:     
     mov rdi, source
     mov rsi, 0 ; beginning at 0
-    mov rbx, 5 ; len(array)-1
+    dec rbx
+    ; i think that in rbx is len(array)-1
     call merge_sort
+    
+    mov rbx, 0
+    mov rcx, [rsp+0x8]
+    dec rcx
+    NEWLINE
+    .lloop:
+        cmp rbx, rcx 
+        jg .end
+        PRINT_UDEC 8, [source + rbx*8]
+        NEWLINE
+        inc rbx
+        jmp .lloop
+    .end:
     xor rax, rax
-    ret
+    add rsp, 8
+    pop rbp
+    ret 
 
 ; takes index of array in rsi, and return in rax => source[rsi]    
 source_access:
