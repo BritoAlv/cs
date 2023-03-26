@@ -1,7 +1,4 @@
-; this program performs merge-sort to use it, declare an array in source,
-; fill helper with zeroes using the same length, and finally pass to :
-; rbi = start = 0
-; rbx = len(array)-1
+; this program performs merge-sort :
 %include "io64.inc"
 
 section .data

@@ -46,7 +46,7 @@ fibonacci:
     mov  [rsp+0x8], rdi
     sub  qword [rsp+0x8],  2
     
-    mov rdi,  [rsp + 0x10] ; 0x10 = 16 in hex = 2 slots for 8 bytes = int 64
+    mov rdi, [rsp + 0x10] ; 0x10 = 16 in hex = 2 slots for 8 bytes = int 64
     call fibonacci
     mov [rsp + 0x10], rax     
     

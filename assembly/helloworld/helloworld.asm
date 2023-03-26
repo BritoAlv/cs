@@ -20,12 +20,14 @@ section .data
 section .text
 global CMAIN
 CMAIN:
+    push rbp
     mov rbp, rsp        ; for correct debugging
     mov rax, 1          ; code for calling sys_rax
     mov rsi, message    ; pointer to address in memory where is the message
     mov rdx, len        ; longitud en memoria del carácter 
     syscall
-
+    pop rbp
     mov rax, 60         ; code for calling sys_exit
     mov rdi, 0          ; 0 because it worked fine
     syscall
+    

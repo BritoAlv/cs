@@ -10,21 +10,22 @@ CMAIN:
     NEWLINE
     xor rax, rax
     ret
-    
+
+; return in rax, and argument taken from rdi.    
 factorial:
     cmp rdi, 1
     je .end
     push rbp
     mov rbp, rsp
-    push rdi
-    ;sub rsp, 8
-    ;mov [rsp + 0x8], rdi
+    ;push rdi
+    sub rsp, 8
+    mov [rsp + 0x8], rdi
     sub rdi,1
     call factorial
-    pop rdi
-    mul rdi
-    ;mul qword [rsp+0x8]
-    ;add rsp,8
+    ;pop rdi
+    ;mul rdi
+    mul qword [rsp+0x8]
+    add rsp,8
     pop rbp
     ret      
     .end:
