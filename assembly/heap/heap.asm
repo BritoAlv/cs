@@ -1,52 +1,47 @@
 ; this will simulate a heap with an source
-; of at most 100 elements.
+; of at most 1000 elements.
 
 %include "io64.inc"
 
 section .data
-    source  dq 10, 11, 12, 13, 14, 15, 9, 8
-    helper  times 1000 dq 0
-    len dq  8 
+    source  times 1000 dq 0
+    output  times 1000 dq 0
+    len dq  0 ; stores actual length of the heap.
 
 section .text
 global CMAIN
+
 CMAIN:
-    mov rbp, rsp; for correct debugging
-    sub rsp, 8
+    push rbp
+    mov rbp, rsp          ; for correct debugging
     PRINT_STRING "Hola, len(array): "
-    GET_UDEC 8, rax
+    GET_UDEC 8, rax       ; store in rax len of string.
+    mov [len], rax        ; save in len the len of the string.
     NEWLINE
-    mov rbx, 0
-    .loop:
-        cmp rax, 0
-        je .fend
+    mov rax, 0            ; rax will be pointer to access array.
+    .input_loop:          ; accept len values and save them in source array.
+        cmp rax, [len]
+        je .take_input_end
         GET_UDEC 8, rcx
-        mov [source + rbx*8], rcx 
-        add  rbx, 1
-        sub  rax, 1
-        jmp .loop
+        mov [source + rax*8], rcx 
+        inc rax
+        jmp .input_loop
         NEWLINE
-    .fend:     
-    mov rdi, source
-    mov rsi, 0 ; beginning at 0
-    dec rbx
-    ; i think that in rbx is len(array)-1
-    call merge_sort
-    
-    mov rbx, 0
-    mov rcx, [rsp+0x8]
-    dec rcx
+    .take_input_end:     
+    mov  rsi, [len]
+    push rsi
+    call heap_sort
+    pop rsi
+    mov rax, 0
     NEWLINE
-    .lloop:
-        cmp rbx, rcx 
-        jg .end
-        PRINT_UDEC 8, [source + rbx*8]
+    .output_loop:
+        cmp rax, rsi 
+        je .end
+        PRINT_UDEC 8, [output + rax*8]
         NEWLINE
-        inc rbx
-        jmp .lloop
+        inc rax
+        jmp .output_loop
     .end:
-    xor rax, rax
-    add rsp, 8
     pop rbp
     ret 
     
@@ -57,202 +52,174 @@ get_min:
     mov rax, [source]
     ret    
 
-; take index in rsi.
+; takes index in rsi, return in rax <- source[rsi]
 access_source:
     mov rax, [source + 8*rsi]
     ret 
 
-; take index in rsi.
-; return in rax index of father.
+; takes index in rsi, return in rax <- (rsi-1)/2
 index_father:
     mov rax, rsi
     dec rax
     shr rax, 1
     ret 
 
+; takes index in rsi, return in rax <- 2*rsi+1
 index_lchild:
     mov rax, rsi
-    shl rax,1
+    shl rax, 1
     inc rax
     ret
-    
+
+; takes index in rsi, return in rax <- 2*rsi+2        
 index_rchild:
-    mov rax, rsi
-    shl rax,1
-    inc rax
+    call index_lchild
     inc rax
     ret    
 
-; take index in rsi, rdi, swap those two values.
+; takes two index i, j at rsi, rdi: swap {source[i], source[j]}, swap {rsi, rdi}.
 swap:
-    call access_source           ; rax <= source[rsi]
-    push rax                    ; we save it
-    push rsi
-    mov  rsi, rdi               ; setup to compute source[rdi]
-    call access_source           ; rax <= source[rdi]
-    pop  rsi
-    mov  [source + 8*rsi], rax   
-    pop  rax
-    mov  [source + 8*rdi], rax
+    call access_source           ; rax <- source[i]
+    push rax                     ; save source[i]
+    xchg rsi, rdi                ; swap index to call access_source
+    call access_source           ; rax <- source[j]
+    mov [source + rdi*8], rax
+    pop rax 
+    mov [source + rsi*8], rax
     ret
-    
-; take index in rsi.        
-fix_father:
-    call index_father    ; rax contains index of father.
-    cmp  rax, 0          ; index of father is valid so we compare it
-    jl   end             ; with the actual index.
-    
-    push rsi ; push actual index
-    push rax ; push index of father
-    call access_source ; get source[index]
-    mov rbx, rax ; move it to rbx
-    pop rsi ; restore index of father.
-    call access_source ; get source[father]
-    cmp rbx, rax
-    jge end
-    pop rdi   ; get actual index in rdi.
-    push rsi
-    call swap
-    pop  rsi
-    call fix_father    
-    end:
-        ret
 
-; take index in rsi.
-; 
-fix_child:
-    call index_rchild
-    mov rbx, rax
-    call index_lchild
-    
-    cmp rbx, [len]
-    jge no_two_childs  
-    ; we have at rsi actual index,
-    ; need to move to rdi, index
-    ; of smallest two children, after
-    ; compare to decide if swap an continue the process.
-    
-    ; rax <= 2*index+1
-    ; rbx <= 2*index+2
-    mov r14, qword [source + 8*rbx]
-    mov r15, qword [source + 8*rax]
-    cmp r14, r15
-    jg there_is_swap
-    
-    mov rdi, rbx
-    jmp already_done  
-    
-    there_is_swap:    
-        mov rdi, rax
-           
-    already_done: ; rdi contains index of smallest child
-        push rsi
-        call access_source ; rbx contains A[index]
-        mov rbx, rax 
-        mov rsi, rdi 
-        call access_source ; rax contains A[child]
-        pop rsi
-        cmp rax, rbx
-        jge end
-        
-        call swap
-        mov rsi, rdi
-        call fix_child
-        
-    jmp end
-    no_two_childs:
-        cmp rbx, [len]
-        jne .end
-        
-        ; in this part there is only one child.    
-        
-        mov rdi, rax
-        call access_source 
-        mov rbx, rax ; rbx contains source[index]
-        push rsi
-        mov rsi, rdi
-        call access_source
-        pop rsi
-        cmp rax, rbx
-        jge end
-        
-        call swap
-        mov rsi, rdi
-        call fix_child
+; takes two index i,j located at rsi, rdi, and compare source[i] with source[j]
+compare_two:
+    call access_source ; rax <- source[i].
+    push rax           ; save it.
+    xchg rsi, rdi     
+    call access_source ; rax <- source[j].
+    xchg rsi, rdi
+    pop rdx            ; rbx <- source[i].
+    cmp rdx, rax       ; compare.
+    ret     
+            
+; take index in rsi , it does not return anything.        
+fix_father:
+    call index_father     ; rax contains index of father.
+    cmp  rax, 0           ; check if index of father is valid.
+    jl   .end               
+    mov rdi, rsi          ; rsi <- index_father, rdi <- actual_index.
+    mov rsi, rax 
+    call compare_two      ; active flags. 
+    jl .end               ; we should swap and call function at index_father.                                    
+    call swap             ; this relies also in the fact that swap also swap rsi, rdi.
+    call fix_father       ; rsi <- index_father.
     .end:
         ret
 
-; value to insert in rsi
+; take index in rsi , it does not return anything.  
+fix_child:
+    call index_rchild
+    mov  rbx, rax       ; rbx <- rchild_index.
+    dec  rax            ; rax <- lchild_index.
+    cmp  rbx, [len]     ; check if node has two childs.
+    jge  no_two_childs   
+    ; two childs, so we need to move index of smaller node to rdi,
+    ; compare to decide if swap and continue the process.
+    push rsi           ; save index.
+    mov  rdi, rax      ; rdi <- lchild_index.
+    mov  rsi, rbx      ; rsi <- rchild_index.
+    
+    call compare_two   ; compare its source[values]
+    jg already_done   ; if left child is greater then move to rdi its index.   
+    mov rdi, rbx
+           
+    already_done:      ; at this point rdi contains index of smallest child.
+        pop rsi        ; rsi <- index, rdi <- index of smallest child.
+        call compare_two
+        jle the_end        
+        call swap      ; after swap rsi <- index of smallest child.
+        call fix_child
+        jmp the_end
+            
+    no_two_childs:
+        cmp rax, [len]
+        jge the_end        
+        ; in this part there is only one child.    
+        mov rdi, rax           ; rsi <- actual_index, rdi <- lchild_index.  
+        call compare_two       ; does not have aside effects.
+        jle the_end
+        call swap              ; rsi <- lchild_index.
+        call fix_child
+    the_end:
+        ret
+
+; value to insert in rsi, it does not return anything.
 insert:
     mov rax, [len]
     mov [source + 8*rax], rsi
+    inc qword [len]
     mov rsi, rax
-    call fix_father
-    mov rax, [len]
-    inc rax
-    mov [len], rax    
+    call fix_father    
     ret
 
 ; extracted min in rax.
 extract_min:
-    mov rax, [len]
-    cmp rax, 1
+    cmp qword [len], 0
+    je .end
+
+    cmp qword [len], 1
     jne .else
     
-    mov rax, [source]
-    mov qword [source], 0
-    
-    mov rcx, [len]
-    dec rcx    
-    mov [len], rcx
-    
+    ; heap contains only one element.
+    mov rax, [source]          ; move element to rax.
+    mov qword [source], 0      ; set source[0] = 0.
+    dec qword [len]            ; set [len] = 0.
     jmp .end    
     
     .else:
-        mov rcx, [len]
-        dec rcx
-        mov rbx, [source + 8*rcx]
-        mov qword [source+8*rcx], 0
-        mov rax, [source]
-        mov [source], rbx
-        mov [len], rcx
-        mov rsi, 0
+        mov  rax, [source]      ; move rax <- min          
         push rax
+        mov  rdi, 0             ; rsi <- 0
+        dec  qword [len]
+        mov  rsi, [len]         ; rdi <- len - 1 
+        call swap               ; swap those values, so that rsi <- 0
         call fix_child
-        pop rax
-                      
+        pop  rax                   
     .end:
         ret
+        
+        
 ; takes in rsi, len of the source.    
 build_heap:
-    mov rax, rsi
-    shr rax,1
-    dec rax
+    shr rsi, 1
+    dec rsi        ; rax <- len/2-1
     .loop:
-        cmp rax, 0
-        jl .end
-        mov rsi, rax
-        push rax
+        cmp  rsi, 0 
+        jl   .end
+        push rsi
         call fix_child
-        pop  rax
-        dec rax
-        jmp .loop    
+        pop  rsi
+        dec  rsi
+        jmp  .loop    
     .end:
         ret
 
 
-; takes len of source in rsi.
+; takes in rsi, len of the source.
 heap_sort:
-    push rsi
+    push rbp
+    mov  rbp, rsp
+    sub  rsp, 8
+    mov  [rsp+0x8], rsi
     call build_heap
-    pop  r13
-    mov  r12, 0
+    mov  rbx, 0
     .loop:
-        cmp r12, r13
-        jge .end
-        call extract_min
-        mov [helper + 8*r12], rax
-        inc r12
-        jmp .loop
+        cmp   rbx, [rsp+0x8]  
+        je    .end
+        push  rbx
+        call  extract_min
+        pop   rbx
+        mov   [output + rbx*8], rax
+        inc   rbx
+        jmp   .loop
     .end:
-        ret
+        add rsp, 8
+        pop rbp
+        ret       
