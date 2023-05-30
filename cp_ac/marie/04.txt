@@ -1,0 +1,38 @@
+Aka intentaré explicar todas las features añadidas:
+
+- Implementé las instrucciones de acceso indirecto:
+
+Storel X, guarda lo que está en AC en la dirección que se encuentra guardada en X.
+
+sería:
+
+MAR <- X
+MBR <- M[MAR]
+MAR <- MBR 
+M[MAR] <- AC
+
+AddI X, añade a AC, lo que está guardado en la dirección que está guardada en X.
+
+la diferencia a el Add normal es que el Add añade a AC lo que está guardado en la dirección que representa X, ahora interpretamos lo que está guardado en X en vez de como un dato como una dirección.
+
+MAR <- X
+MBR <- M[MAR]
+MAR <- MBR
+MBR <- M[MAR]
+AC  <- MBR + AC   
+
+- Añadí un instruction decoder, o sea un circuito combinatorio que dado lo que hay en el instruction register da como salidas las instrucciones posibles, este es necesario porque la implementación de las instrucciones de tipo Indirect Addressing son muy parecidas, entonces para no repetir componentes uso el mismo flujo del Control Unit, finalmente en el momento de decidir que instrucción es, es necesario tener un tunel que nos diga que instrucción es, solamente fue necesario por ahora hacerlo con Addi, JumpI, LoadI, StoreI. Y de paso añadí las salidas de la instrucción SkipCondition 000, 400, 800.
+
+- Para leer la entrada del Programa en vez de usar el keyboard ahora uso una ROM, con un counter para aumentar la dirección.
+
+- La implementación de Jns fue la siguiente:
+
+MAR <- X
+MBR <- PC
+M[MAR] <- MBR
+PC <- MAR
+PC <- PC+1
+
+- El circuito acabó teniendo 4 subcircuitos RAM_ASM, BRANCH_CONTROL, ALU, INSTRUCTION_DECODER, puse un branch control pero en realidad no lo estoy usando, o sea las instrucciones que modifican al ProgramCounter, como el es un registro como cualquier otro lo hacen a través del bus compartido.
+
+- Finalmente lo testee con los programas de multiplicar, quick-sort y subrutinas que están en la página https://marie.js.org/

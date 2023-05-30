@@ -1,0 +1,15 @@
+La idea del CPU es: ( si no se especifica el paso que sigue después del paso i va el paso i+1 mod cantidad de pasos )
+
+Componentes:
+
+- RAM, dirección de 12 bits, data width de 16 bits.
+- instruction register (16 bits)
+- Program Counter Register (12 bits)
+
+1 - chequear si está encendido el flag de stop, en caso afirmativo se acaba.
+
+** el flag de stop queda definido a partir de que lo que haya en el instruction register, sus primeros 4 bits sean 1111.
+
+2 - poner en el cable de datos, lo que hay en la RAM, en la dirección guardada en el program counter. ( implicitamente esto significa que el program counter solamente guarda direcciones). Notar que hay que hacer un request de lectura a la RAM.
+
+3 - poner en el instruction register lo que hay en el cable de datos ( lo que se acaba de leer de la RAM ) y aumentar en 1 el program counter.

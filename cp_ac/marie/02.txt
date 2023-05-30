@@ -1,0 +1,41 @@
+Componentes:
+
+- RAM, dirección de 12 bits, data width de 16 bits. Una máquina de estado algorítmica que simule el proceso de leer de la RAM, y que realizar una lectura a esta necesite una cantidad fija de ciclos del reloj. 
+
+Nota: Toda request de lectura a la RAM usará a el memory address register para guardar la dirección que se va a leer de la RAM. (no directamente el program counter porque se pueden hacer lecturas a la RAM que no sean para instrucciones).
+
+Notar que como el data bus tiene distintos usos hace falta decidir en todo momento quien proporciona el valor que contiene ( write control bus) y quien va a leer el valor que contiene (read control bus), de esta forma mediante un encoding, todos los registros se conectan al data bus y por ejemplo el proceso de mover la dirección del program counter al memory access register, es activar correctamente esos dos buses.
+
+
+- instruction register     (16 bits), guarda la instrucción que se ejecuta en el momento actual.
+- program counter Register (12 bits), guarda la dirección en memoria de la próxima dirección a ejecutar.
+- memory address register  (12 bits), si se va a hacer un request de lectura a la RAM, la address la proporciona él.
+- memory buffer register   (16 bits), si se va a escribir o leer algo de la RAM, un dato el funciona como intermediario, ???
+
+- read_control_bus
+- data_control_bus
+
+Tres subcircuitos que serían:  
+- el de el manejo con la RAM, implementar lo de que hay que esperar que la memoria esté lista para avanzar, debe ser una interfaz para en el futuro cambiar el subcircuito por alguno que contenga una cache.
+
+- el del priority encoder ( solamente halt ^ load )
+
+
+
+FLOW CONTROL UNIT:
+
+Después de un relojazo con el start activado el control unit sale del estado idle y comienzan a ejecutars los siguientes pasos.
+
+(si no se especifica el paso que sigue después del paso i va el paso i+1 mod cantidad de pasos) 
+
+1 - chequear si está encendido el flag de stop, en caso afirmativo se acaba.
+
+** el flag de stop queda definido a partir de que lo que haya en el instruction register, sus primeros 4 bits sean 0111.
+
+2 - Mover al memory address register lo que hay en el program counter (a través del Data Bus, esto requiere configurar el read_control_bus y el data_control_bus), hacer una request de lectura a la RAM y poner lo leido en el cable de datos (análogamente esto requiere configurar los bus de control de lectura y escritura. 
+
+3 - poner en el instruction register lo que hay en el cable de datos (lo que se acaba de leer de la RAM) y aumentar en 1 el program counter ( esto ha de hacerse a través del data bus).
+
+4 - (implementar load instruction para testear los buses) si lo que está en el instruction register empieza con 0001 entonces mover al MAR los 12 primeros bits (derecha a izquierda) de lo que está en el instruction register, hacer una request de lectura a la RAM y guardar en el memory buffer register el dato obtenido (a través del data bus).
+
+ 

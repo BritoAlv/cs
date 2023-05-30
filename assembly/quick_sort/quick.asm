@@ -1,9 +1,8 @@
-; this program performs quick-sort to use it,
+; this program performs quick-sort.
 %include "io64.inc"
 
 section .data
     source times 1000 dq 0
-    
 
 section .text
 global CMAIN
@@ -20,10 +19,10 @@ CMAIN:
         cmp rax, 0
         je .fend
         GET_UDEC 8, rcx
-        mov [source + rbx*8], rcx 
+        mov  [source + rbx*8], rcx 
         add  rbx, 1
         sub  rax, 1
-        jmp .loop
+        jmp  .loop
         NEWLINE
     .fend:     
     mov rdi, source
@@ -48,6 +47,8 @@ CMAIN:
     add rsp, 8
     pop rbp
     ret 
+
+
 
 
 ; at rsi, should be start:
@@ -79,6 +80,7 @@ quick_sort:
     pop rbp
     .end:
     ret
+    
 ; at rsi, should be i:
 ; at rcx, should be j;
 swap:
@@ -98,7 +100,7 @@ swap:
 ; => return in rax, final_position
 ; [rsp+0x8] pivot
 partition:
-    push r9 ; i will use r9 in the for.
+    push r9 ; i will use r9 for the for.
     mov  r9, rsi
     mov  rax, rsi ; final position will be in rax.
     .for:

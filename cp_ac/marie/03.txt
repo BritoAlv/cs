@@ -1,0 +1,16 @@
+Paso 1: Añadir al registro AC para poder completar la implementación de la instrucción Load X.
+
+Paso 2: Habilitar las cosas necesarias para escribir en memoria, e implementar la instrucción Store X.
+
+Implementar instrucciones I/O:
+
+Para hacer I/O se usan dos registros, llamados In, Out, estos contendrán los valores que funcionarán como Input en nuestro programa, solo que el load de el registro In, estará conectado a un keyboard input, y el OutPut estará conectado a un TTY.
+
+Implementar instrucciones aritméticas:
+
+Ahora voy a implementar las instrucciones de Branch, empezaré por SkipCond (C), hace falta añadirle un comparador a AC, para poder hacer flags con su valor, notar que el valor puede ser negativo !?, entonces lo leido en AC hace con un dmux, tres estados a tomar, y en cada uno hay una opción en dependencia de lo que haya en AC.
+
+Implementar instrucciones de branch:
+
+
+
