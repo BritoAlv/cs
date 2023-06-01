@@ -19,21 +19,31 @@ tree -d -L 2
 │   ├── es_par
 │   ├── factorial
 │   ├── fibonacci
+│   ├── heap
 │   ├── helloworld
 │   ├── merge_sort
 │   ├── palindrome
 │   ├── printname
-│   └── script_c_to_nasm
+│   └── quick_sort
 ├── Backtracking
 │   ├── Combinatoria
 │   ├── PlaceQueensBoard
 │   ├── ranas
 │   ├── sudoku
 │   └── tuenvio
+├── competitive_programming
+│   ├── Alchemy2
+│   ├── alomst_identical
+│   ├── counting_factorizations
+│   ├── largest_rectangle_histogram
+│   └── musical_puzzle
+├── cp_ac
+│   ├── cp_asm
+│   ├── cp_fsm
+│   ├── cp_sequential_circuits
+│   └── marie
 ├── Divide & Conquer
 │   └── peak
-├── dmoj
-│   └── Alchemy2
 ├── edo
 │   └── direction_field
 ├── Enumerable Trees
@@ -50,4 +60,5 @@ tree -d -L 2
     ├── Fechas
     ├── Lee
     └── TagMusic
+
 ```
