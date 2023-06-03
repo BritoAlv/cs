@@ -1,0 +1,9 @@
+Aka intentaré explicar todas las features añadidas:
+
+- Primero los circuitos de leer de la memoria y escribir en la memoria están separados de forma que parecen subrutinas, pero fue necesario introducir flip-flops en dos casos para saber en que estados se encontraba, o sea cuando se necesita leer de la RAM, se llama ese subcircuito pero es necesario saber en que parte se debe empatar después, o sea return flujo to the caller, por such motivo están los flip-flops: "phase" que es debido a que hay una instrucción que lee dos veces de la memoria por tanto no basta con el resultado combinatorio del priority encoder, y el otro es el caso en que se lee de la memoria para leer una instrucción. ( se supone que esto reduzca la cantidad de flip-flops del control unit).
+
+- Agrupé lo más posible las partes comunes de las instrucciones usando multiplexers, la ventaja es que ahora hay menos túneles.
+
+- El instruction decoder ahora posee como salidas todas las instrucciones posibles. 
+
+
