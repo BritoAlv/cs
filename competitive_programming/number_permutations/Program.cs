@@ -14,13 +14,16 @@
             second_sequence[n - counter] = int.Parse(pair[1]);
             counter--;
         }
-        long answera = algone(first_sequence, mod) % mod;
-        long answerb = algone(second_sequence, mod) % mod;
+        long answera = algone(n, first_sequence, mod) % mod;
+        long answerb = algone(n, second_sequence, mod) % mod;
         long intersection = algtwo(n, first_sequence, second_sequence, mod) % mod;
-
         long answer = (answera + answerb) % mod;
         answer = (answer - intersection) % mod;
-        answer = (( n_factorial_mod(n, mod) - answer)) % mod;
+        if (answer < 0)
+        {
+            answer = answer + mod;
+        }
+        answer = ((n_factorial_mod(n, mod) - answer)) % mod;
         if (answer < 0)
         {
             answer = answer + mod;
@@ -28,50 +31,17 @@
         Console.WriteLine(answer);
     }
 
-    public static long algone(int[] arry, long mod)
+    public static long algone(int n, int[] arry, long mod)
     {
         long answer = 1;
-        Dictionary<int, int> multiset = new Dictionary<int, int>();
+        int[] bucket = new int[n];
         for (int i = 0; i < arry.Length; i++)
         {
-            if (!multiset.ContainsKey(arry[i]))
-            {
-                multiset[arry[i]] = 0;
-            }
-            multiset[arry[i]]++;
+            bucket[arry[i] - 1]++;
         }
-        int[] copy = new int[arry.Length];
-        for (int i = 0; i < arry.Length; i++)
+        foreach (var item in bucket)
         {
-            copy[i] = arry[i];
-        }
-        Array.Sort(copy);
-        long count = 0;
-        int last_visited_first = copy[0];
-        for (int i = 0; i < copy.Length; i++)
-        {
-            if (multiset.ContainsKey(copy[i]))
-            {
-                multiset[copy[i]]--;
-                if (multiset[copy[i]] == 0)
-                {
-                    multiset.Remove(copy[i]);
-                }
-                if (last_visited_first == copy[i])
-                {
-                    count++;
-                    answer = (answer * count) % mod;
-                }
-                else
-                {
-                    last_visited_first = copy[i];
-                    count = 1;
-                }
-            }
-            else
-            {
-                return 0;
-            }
+            answer = (n_factorial_mod(item, mod) * answer) % mod;
         }
         return answer;
     }

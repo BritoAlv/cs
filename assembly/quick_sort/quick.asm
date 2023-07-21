@@ -1,4 +1,4 @@
-; this program performs quick-sort.
+; this program performs quick-sort. ( implementation have bugs)
 %include "io64.inc"
 
 section .data

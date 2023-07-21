@@ -2,7 +2,30 @@
 <project source="2.7.1" version="1.0">
   This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
 
-  <lib desc="#Wiring" name="0"/>
+  <lib desc="#Wiring" name="0">
+    <tool name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="appear" val="center"/>
+    </tool>
+    <tool name="Pin">
+      <a name="facing" val="west"/>
+    </tool>
+    <tool name="Probe">
+      <a name="facing" val="west"/>
+    </tool>
+    <tool name="Tunnel">
+      <a name="facing" val="east"/>
+    </tool>
+    <tool name="Pull Resistor">
+      <a name="facing" val="north"/>
+    </tool>
+    <tool name="Clock">
+      <a name="facing" val="north"/>
+    </tool>
+    <tool name="Constant">
+      <a name="facing" val="south"/>
+    </tool>
+  </lib>
   <lib desc="#Gates" name="1"/>
   <lib desc="#Plexers" name="2"/>
   <lib desc="#Arithmetic" name="3"/>
@@ -54,103 +77,109 @@
     <a name="clabel" val=""/>
     <a name="clabelup" val="east"/>
     <a name="clabelfont" val="SansSerif plain 12"/>
-    <wire from="(300,60)" to="(330,60)"/>
-    <wire from="(370,270)" to="(400,270)"/>
-    <wire from="(280,290)" to="(300,290)"/>
-    <wire from="(370,160)" to="(390,160)"/>
-    <wire from="(400,320)" to="(420,320)"/>
-    <wire from="(390,210)" to="(410,210)"/>
-    <wire from="(170,270)" to="(170,310)"/>
-    <wire from="(230,80)" to="(250,80)"/>
+    <wire from="(330,180)" to="(390,180)"/>
     <wire from="(120,270)" to="(170,270)"/>
-    <wire from="(120,230)" to="(170,230)"/>
     <wire from="(120,310)" to="(170,310)"/>
+    <wire from="(380,250)" to="(380,270)"/>
+    <wire from="(370,140)" to="(370,160)"/>
     <wire from="(420,300)" to="(420,320)"/>
     <wire from="(410,190)" to="(410,210)"/>
-    <wire from="(430,160)" to="(510,160)"/>
     <wire from="(430,300)" to="(430,330)"/>
     <wire from="(420,190)" to="(420,220)"/>
     <wire from="(200,40)" to="(240,40)"/>
-    <wire from="(440,270)" to="(510,270)"/>
-    <wire from="(320,180)" to="(390,180)"/>
-    <wire from="(330,290)" to="(400,290)"/>
-    <comp lib="0" loc="(230,80)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="s0"/>
+    <wire from="(120,230)" to="(150,230)"/>
+    <wire from="(430,160)" to="(460,160)"/>
+    <wire from="(300,60)" to="(330,60)"/>
+    <wire from="(320,290)" to="(350,290)"/>
+    <wire from="(310,370)" to="(330,370)"/>
+    <wire from="(310,410)" to="(330,410)"/>
+    <wire from="(370,160)" to="(390,160)"/>
+    <wire from="(380,270)" to="(400,270)"/>
+    <wire from="(380,290)" to="(400,290)"/>
+    <wire from="(400,320)" to="(420,320)"/>
+    <wire from="(390,210)" to="(410,210)"/>
+    <wire from="(170,270)" to="(170,310)"/>
+    <wire from="(440,270)" to="(460,270)"/>
+    <wire from="(230,80)" to="(250,80)"/>
+    <wire from="(370,250)" to="(380,250)"/>
+    <wire from="(360,140)" to="(370,140)"/>
+    <comp lib="0" loc="(330,370)" name="Tunnel">
+      <a name="label" val="clock"/>
     </comp>
-    <comp lib="0" loc="(330,370)" name="Clock"/>
+    <comp lib="0" loc="(200,40)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="s1"/>
+    </comp>
     <comp lib="0" loc="(430,330)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="reset"/>
     </comp>
-    <comp lib="0" loc="(330,410)" name="Pin">
-      <a name="tristate" val="false"/>
-      <a name="label" val="reset"/>
-    </comp>
-    <comp lib="4" loc="(440,270)" name="D Flip-Flop"/>
-    <comp lib="1" loc="(300,60)" name="AND Gate">
-      <a name="inputs" val="2"/>
-      <a name="negate0" val="true"/>
-    </comp>
-    <comp lib="0" loc="(370,270)" name="Tunnel">
+    <comp lib="0" loc="(360,140)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="clock"/>
     </comp>
-    <comp lib="0" loc="(170,230)" name="Tunnel">
-      <a name="label" val="s1"/>
+    <comp lib="0" loc="(400,320)" name="Constant"/>
+    <comp lib="0" loc="(330,410)" name="Tunnel">
+      <a name="label" val="reset"/>
+    </comp>
+    <comp lib="1" loc="(300,60)" name="AND Gate">
+      <a name="inputs" val="2"/>
+      <a name="negate0" val="true"/>
     </comp>
     <comp lib="0" loc="(330,60)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="output"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="1" loc="(330,290)" name="NOT Gate"/>
-    <comp lib="0" loc="(390,210)" name="Constant"/>
-    <comp lib="0" loc="(420,220)" name="Tunnel">
-      <a name="facing" val="north"/>
-      <a name="label" val="reset"/>
-    </comp>
-    <comp lib="1" loc="(50,250)" name="XNOR Gate">
-      <a name="facing" val="west"/>
-      <a name="inputs" val="2"/>
-    </comp>
-    <comp lib="0" loc="(320,180)" name="Tunnel">
+    <comp lib="0" loc="(330,180)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="s1'"/>
-    </comp>
-    <comp lib="0" loc="(280,290)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="s0"/>
-    </comp>
-    <comp lib="0" loc="(330,370)" name="Tunnel">
-      <a name="label" val="clock"/>
-    </comp>
-    <comp lib="4" loc="(430,160)" name="D Flip-Flop"/>
-    <comp lib="0" loc="(510,270)" name="Tunnel">
-      <a name="label" val="s0"/>
-    </comp>
-    <comp lib="0" loc="(400,320)" name="Constant"/>
-    <comp lib="0" loc="(120,310)" name="Pin">
-      <a name="tristate" val="false"/>
-      <a name="label" val="input"/>
     </comp>
     <comp lib="0" loc="(50,250)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="s1'"/>
     </comp>
-    <comp lib="0" loc="(200,40)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="s1"/>
-    </comp>
-    <comp lib="0" loc="(370,160)" name="Tunnel">
-      <a name="facing" val="east"/>
-      <a name="label" val="clock"/>
-    </comp>
-    <comp lib="0" loc="(330,410)" name="Tunnel">
+    <comp lib="0" loc="(310,410)" name="Pin">
+      <a name="tristate" val="false"/>
       <a name="label" val="reset"/>
     </comp>
-    <comp lib="0" loc="(510,160)" name="Tunnel">
+    <comp lib="0" loc="(320,290)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="s0"/>
+    </comp>
+    <comp lib="0" loc="(390,210)" name="Constant"/>
+    <comp lib="1" loc="(50,250)" name="XNOR Gate">
+      <a name="facing" val="west"/>
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="0" loc="(120,310)" name="Pin">
+      <a name="tristate" val="false"/>
+      <a name="label" val="input"/>
+    </comp>
+    <comp lib="0" loc="(150,230)" name="Tunnel">
       <a name="label" val="s1"/>
+    </comp>
+    <comp lib="0" loc="(230,80)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="s0"/>
+    </comp>
+    <comp lib="0" loc="(310,370)" name="Clock"/>
+    <comp lib="1" loc="(380,290)" name="NOT Gate"/>
+    <comp lib="4" loc="(430,160)" name="D Flip-Flop"/>
+    <comp lib="0" loc="(460,270)" name="Tunnel">
+      <a name="label" val="s0"/>
+    </comp>
+    <comp lib="0" loc="(460,160)" name="Tunnel">
+      <a name="label" val="s1"/>
+    </comp>
+    <comp lib="4" loc="(440,270)" name="D Flip-Flop"/>
+    <comp lib="0" loc="(420,220)" name="Tunnel">
+      <a name="facing" val="north"/>
+      <a name="label" val="reset"/>
+    </comp>
+    <comp lib="0" loc="(370,250)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clock"/>
     </comp>
   </circuit>
 </project>

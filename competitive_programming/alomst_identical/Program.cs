@@ -10,12 +10,12 @@
         Int64 answer = 1;
         for (int i = 1; i <= k; i++)
         {
-            answer += combinations(n, i) * exactly_bad_posicions(exactly_bad_positiions, i);
+            answer += Combinations(n, i) * Exactly_bad_posicions(exactly_bad_positiions, i);
         }
 
         Console.WriteLine(answer);
     }
-    private static Int64 exactly_bad_posicions(Int64[] array, int i)
+    private static Int64 Exactly_bad_posicions(Int64[] array, int i)
     {
         if (array[i - 1] > 0)
         {
@@ -35,13 +35,13 @@
             }
             else
             {
-                Int64 answer = (i - 1)*(exactly_bad_posicions(array, i - 1) + exactly_bad_posicions(array, i - 2));
+                Int64 answer = (i - 1) * (exactly_bad_posicions(array, i - 1) + exactly_bad_posicions(array, i - 2));
                 array[i - 1] = answer;
                 return answer;
             }
         }
     }
-    private static Int64 combinations(int n, int i)
+    private static Int64 Combinations(int n, int i)
     {
         Int64 answer = 1;
         for (int j = 0; j < i; j++)

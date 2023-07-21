@@ -2,14 +2,14 @@
 {
     public static void Main()
     {
-        long mod = (10 * 10 * 10) * (10 * 10 * 10) * 10 * 10 * 10 + 7;
-        List<long> answers = new List<long>();
+        long mod = 10 * 10 * 10 * 10 * 10 * 10 * 10 * 10 * 10 + 7;
+        List<long> answers = new();
         int test_cases = int.Parse(Console.ReadLine());
         while (test_cases > 0)
         {
             string[] line = Console.ReadLine().Split();
             answers.Add(
-                algorithm
+                Algorithm
                 (
                     int.Parse(line[0]),
                     int.Parse(line[1]),
@@ -28,7 +28,7 @@
 
     }
 
-    private static long algorithm(int n, int i, int j, int x, int y, long mod)
+    private static long Algorithm(int n, int i, int j, int x, int y, long mod)
     {
         /*
         case 1: x == n.
@@ -40,7 +40,7 @@
             this means that we have n at the left of a fixed position y. 
             */
             answer = combinations(y - 1, n - j) * combinations(n - (y + 1), j - (i + 1));
-            answer = answer % mod;
+            answer %= mod;
         }
         else if (y == n && j != n && j != 1)
         {
@@ -48,7 +48,7 @@
             this means that we have n at the right of a fixed position 
             */
             answer = combinations(x - 1, i - 1) * combinations(n - (x + 1), j - (i + 1));
-            answer = answer % mod;
+            answer %= mod;
         }
         else
         {
@@ -146,7 +146,7 @@
         {
             return 1; // this works ? but doesn't make sense. 
         }
-        var ans = solve_diop(mod, n).Item2;
+        var ans = Solve_diop(mod, n).Item2;
         while (ans < 0)
         {
             ans += mod;
@@ -154,23 +154,23 @@
         return ans;
     }
 
-    public static (long, long) solve_diop(long a, long b)
+    public static (long, long) Solve_diop(long a, long b)
     {
         if (a < 0)
         {
-            var temp = solve_diop(-a, b);
+            var temp = Solve_diop(-a, b);
             temp.Item1 = -temp.Item1;
             return temp;
         }
         if (b < 0)
         {
-            var temp = solve_diop(a, -b);
+            var temp = Solve_diop(a, -b);
             temp.Item2 = -temp.Item2;
             return temp;
         }
         if (a < b)
         {
-            var ans = solve_diop(b, a);
+            var ans = Solve_diop(b, a);
             long temp = ans.Item1;
             ans.Item1 = ans.Item2;
             ans.Item2 = temp;
@@ -180,7 +180,7 @@
         {
             return (-1, a + 1);
         }
-        var anss = solve_diop(a - (a / b) * b, b);
+        var anss = Solve_diop(a - (a / b) * b, b);
         return (anss.Item1, anss.Item2 - (a / b) * anss.Item1);
     }
 }
