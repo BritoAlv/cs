@@ -34,9 +34,24 @@ tree -d -L 2
 ├── competitive_programming
 │   ├── Alchemy2
 │   ├── alomst_identical
+│   ├── bitonic_permutations
+│   ├── copic_draws_trees
 │   ├── counting_factorizations
+│   ├── key-storage
 │   ├── largest_rectangle_histogram
-│   └── musical_puzzle
+│   ├── mahmoud_dict
+│   ├── maximum_weights
+│   ├── maxim_xor_list
+│   ├── maxim_xor_range
+│   ├── musical_puzzle
+│   ├── number_permutations
+│   ├── painting_subarrays
+│   ├── password
+│   ├── path_queries
+│   ├── restore_weather
+│   ├── roads_berland
+│   ├── where_pizza
+│   └── z-function
 ├── cp_ac
 │   ├── cp_asm
 │   ├── cp_fsm
@@ -44,8 +59,9 @@ tree -d -L 2
 │   └── marie
 ├── Divide & Conquer
 │   └── peak
-├── edo
-│   └── direction_field
+├── edo_final_project
+│   ├── manim_animation
+│   └── manim_phase_plane
 ├── Enumerable Trees
 │   ├── filesystem
 │   ├── inventory
