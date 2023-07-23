@@ -24,7 +24,7 @@ tree -d -L 2
 │   ├── merge_sort
 │   ├── palindrome
 │   ├── printname
-│   └── quick_sort
+│   
 ├── Backtracking
 │   ├── Combinatoria
 │   ├── PlaceQueensBoard
