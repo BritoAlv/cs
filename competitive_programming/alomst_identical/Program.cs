@@ -5,9 +5,8 @@
         string[] nk = Console.ReadLine().Split(" ");
         int n = int.Parse(nk[0]);
         int k = int.Parse(nk[1]);
-
-        Int64[] exactly_bad_positiions = new Int64[k];
-        Int64 answer = 1;
+        long[] exactly_bad_positiions = new long[k];
+        long answer = 1;
         for (int i = 1; i <= k; i++)
         {
             answer += Combinations(n, i) * Exactly_bad_posicions(exactly_bad_positiions, i);
@@ -35,7 +34,7 @@
             }
             else
             {
-                Int64 answer = (i - 1) * (exactly_bad_posicions(array, i - 1) + exactly_bad_posicions(array, i - 2));
+                Int64 answer = (i - 1) * (Exactly_bad_posicions(array, i - 1) + Exactly_bad_posicions(array, i - 2));
                 array[i - 1] = answer;
                 return answer;
             }

@@ -3,6 +3,45 @@ using namespace std;
 
 int kmp_password(string &s)
 {
+    vector<int> indexes(s.size(), 0);
+    vector<int> pi(s.size(), 0);
+    pi[0] = 0;
+    for (int i = 1; i < s.size(); i++)
+    {
+        int k = pi[i - 1];
+        while (k > 0)
+        {
+            if (s[i] == s[k])
+            {
+                break;
+            }
+            else
+            {
+                k = pi[k - 1];
+            }
+        }
+        if (s[i] == s[k])
+        {
+            pi[i] = k + 1;
+        }
+        if (i != s.size() - 1)
+        {
+            indexes[pi[i]] = i;
+        }
+    }
+    if (s.size() > 2)
+    {
+        int start = pi[s.size() - 1];
+        while (start > 0)
+        {
+            if (indexes[start] > 0)
+            {
+                return start;
+            }
+            start = pi[start - 1];
+        }
+    }
+    return -1;
 }
 
 int z_password(string &s)
@@ -33,7 +72,8 @@ int z_password(string &s)
 
 int main()
 {
-    string input = "abcdabc";
+    string input;
+    cin >> input;
     int result = kmp_password(input);
     if (result == -1)
     {
