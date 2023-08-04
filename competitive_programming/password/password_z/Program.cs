@@ -12,10 +12,7 @@
             }
             else
             {
-                for (int i = 0; i < result; i++)
-                {
-                    Console.WriteLine(s[i]);
-                }
+                Console.WriteLine(s[..result])      
             }
         }
 

@@ -1,5 +1,28 @@
 ﻿namespace imbalanced_arrays
 {
+    public class Simulator
+    {
+        int Next_positive { get; set; }
+        int Next_negative { get; set; }
+        public Simulator(int n)
+        {
+            Next_positive = n;
+            Next_negative = -n;
+        }
+        public int Extract(bool positive)
+        {
+            Next_positive--;
+            Next_negative++;
+            if (positive)
+            {
+                return Next_positive + 1;
+            }
+            else
+            {
+                return Next_negative - 1;
+            }
+        }
+    }
     public class Test
     {
         public static void Main()
@@ -14,103 +37,70 @@
                                              .OrderByDescending(z => z.Item2)
                                              .ToArray();
                 int[] answer = new int[n];
-                bool works = false;
+
+                int cant_positive = 0; // for now let's assume this is the number of positives.
+                int pointer = n - 1;
+                while (pointer >= 0 && values[pointer].Item2 < cant_positive + 1)
+                {
+                    pointer--;
+                }
+                while (cant_positive < n)
+                {
+                    if (values[cant_positive].Item2 <= cant_positive || values[cant_positive].Item2 != (pointer + 1))
+                    {
+                        break;
+                    }
+                    cant_positive++;
+                    while (pointer >= 0 && values[pointer].Item2 < cant_positive + 1)
+                    {
+                        pointer--;
+                    }
+                }
+                bool finished = true;
                 if (values[0].Item2 == 0)
                 {
-                    works = true;
                     Array.Fill(answer, -n);
                 }
                 else if (values[n - 1].Item2 == n)
                 {
-                    works = true;
                     Array.Fill(answer, n);
                 }
-                else
+                else if (cant_positive >= values[cant_positive].Item2 && values[cant_positive - 1].Item2 >= cant_positive)
                 {
-                    for (int cant_positive = 1; cant_positive < n; cant_positive++)
+                    Simulator A = new(n);
+                    int next_to_use = 0;
+                    for (int i = n - 1; i >= cant_positive; i--)
                     {
-                        if (cant_positive < values[cant_positive].Item2)
+                        for (int j = next_to_use; j < values[i].Item2; j++)
                         {
-                            continue;
-                        }
-                        if (values[cant_positive-1].Item2 < cant_positive)
-                        {
-                            continue;
-                        }
-                        int[] degree = new int[n];
-                        HashSet<int> used = new();
-                        for (int i = n - 1; i >= cant_positive; i--)
-                        {
-                            for (int j = 0; j < values[i].Item2; j++)
+                            if (answer[values[j].Item1] == 0)
                             {
-                                degree[j]++;
-                                if (answer[j] == 0)
-                                {
-                                    int offset = 0;
-                                    if (j == 0)
-                                    {
-                                        while (used.Contains(-(n - j - offset)))
-                                        {
-                                            offset++;
-                                        }
-                                        answer[j] = n - j - offset;
-                                        used.Add(n - j - offset);
-                                    }
-                                    else
-                                    {
-                                        while (used.Contains(-(answer[j-1]-1 - offset)))
-                                        {
-                                            offset++;
-                                        }
-                                        answer[j] = answer[j-1]-1 - offset;
-                                        used.Add(answer[j - 1] - 1 - offset);
-                                    }
-                                }
-                            }
-                            if (values[i].Item2 == 0)
-                            {
-                                answer[i] = -n;
-                                used.Add(-n);
-                            }
-                            else
-                            {
-                                answer[i] = -answer[values[i].Item2 - 1] + 1;
-                                used.Add(answer[i]);
+                                answer[values[j].Item1] = A.Extract(true);
                             }
                         }
-                        bool finished = true;
-                        for (int i = 0; i < cant_positive; i++)
+                        next_to_use = Math.Max(next_to_use, values[i].Item2);
+                        answer[values[i].Item1] = A.Extract(false);
+                    }
+                    for (int i = cant_positive - 1; i >= 0; i--)
+                    {
+                        if (answer[values[i].Item1] == 0)
                         {
-                            if (answer[i] == 0)
-                            {
-                                answer[i]++;
-                            }
-                            if (degree[i] != values[i].Item2 - cant_positive)
-                            {
-                                finished = false;
-                                break;
-                            }
+                            answer[values[i].Item1] = A.Extract(true);
                         }
-                        if (finished)
+                        else
                         {
-                            works = true;
                             break;
                         }
                     }
                 }
-                if (works)
+                else
+                {
+                    finished = false;
+                }
+                if (finished)
                 {
                     Console.WriteLine("YES");
-                    int[] real_ans = new int[n];
-                    for (int i = 0; i < n; i++)
-                    {
-                        real_ans[values[i].Item1] = answer[i];
-                    }
-                    for (int i = 0; i < n; i++)
-                    {
-                        Console.Write(real_ans[i] + " ");
-                    }
-                    Console.WriteLine();
+                    Console.WriteLine(string.Join(" ", answer));
                 }
                 else
                 {

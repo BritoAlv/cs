@@ -12,7 +12,7 @@
             int pi = Prefix_function(S);
             if (pi == -1)
             {
-                Console.WriteLine("Just a Legend");
+                Console.WriteLine("Just a legend");
             }
             else
             {
