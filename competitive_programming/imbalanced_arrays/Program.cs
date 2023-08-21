@@ -34,12 +34,30 @@
                 (int, int)[] values = Console.ReadLine()
                                              .Split()
                                              .Select((x, y) => (y, int.Parse(x)))
-                                             .OrderByDescending(z => z.Item2)
+                                             .OrderByDescending(z => z.Item2) // makes the solution O(nlogn)
                                              .ToArray();
                 int[] answer = new int[n];
 
+                /*
+                loop over possible values of cant_positive numbers until we get to a valid one, starting from 0, 
+                */
+
                 int cant_positive = 0; // for now let's assume this is the number of positives.
                 int pointer = n - 1;
+
+                /*
+                pointer will set to the greatest valid position of the array so that to its right all the degrees are >= 
+                cant_positive +  1, becuase will test if the cant of positive can be incremented.
+
+                Claim unlock: 
+
+                the degree of the greatest positive vertex = cant_positive + cant_negative with degree >= 1.
+                the degree of the second   positive vertex = cant_positive + cant_negative with degree >= 2. 
+                ......
+
+                so we loop until we get to a cant_positive that breaks this condition and use the last answer.
+                */ 
+
                 while (pointer >= 0 && values[pointer].Item2 < cant_positive + 1)
                 {
                     pointer--;
@@ -56,6 +74,11 @@
                         pointer--;
                     }
                 }
+
+                /*
+                at this point the cant_positive is set.
+                */
+
                 bool finished = true;
                 if (values[0].Item2 == 0)
                 {

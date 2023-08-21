@@ -7,11 +7,11 @@
             string S = Console.ReadLine();
             var pi = Prefix_function(S);
             int number_queries = int.Parse(Console.ReadLine());
-            TrieNode root = new('@', -1);
-            int[] answer = new int[10];
+            TrieNode root = new(-1);
             while (number_queries > 0)
             {
                 string q = Console.ReadLine();
+                int[] answer = new int[q.Length];
                 TrieNode actual = root;
                 int count = 0;
                 while (count < q!.Length)
@@ -41,7 +41,6 @@
                                 }
                             }
                             answer[i] = q[i] == ((k >= S.Length) ? q[k - S.Length] : S[k]) ? k + 1 : 0;
-                            Console.Write(answer[i] + " ");
                             actual = actual.Add(q[i], answer[i]);
                         }
                         break;
@@ -49,11 +48,11 @@
                     else
                     {
                         answer[count] = next.Value;
-                        Console.Write(answer[count] + " ");
                         count++;
                         actual = next;
                     }
                 }
+                Console.WriteLine(string.Join(" ", answer));
                 number_queries--;
             }
         }
@@ -84,12 +83,10 @@
         }
         public class TrieNode
         {
-            public TrieNode(char letter, int value)
+            public TrieNode(int value)
             {
-                Letter = letter;
                 Value = value;
             }
-            public char Letter { get; }
             public int Value { get; }
             public Dictionary<char, TrieNode> childs = new();
             internal TrieNode? Find(char v)
@@ -102,7 +99,7 @@
             }
             internal TrieNode Add(char v, int index)
             {
-                var trieNode = new TrieNode(v, index);
+                var trieNode = new TrieNode(index);
                 childs[v] = trieNode;
                 return trieNode;
             }

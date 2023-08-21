@@ -1,0 +1,57 @@
+si entre [t, t+i]
+
+t+j es el máximo: 
+
+- si j < i hay t+j+1, t+j+2, ...., t+i inversiones - las que conozco entre el j actual y los i esos, si j = i, 0 
+- si j > 0 a lo más inversiones entre t, t+1, ..., t+(j-1) - las que se que no están, si j = 0, 0 
+- si j < i a lo más inversiones entre t+j+1, ..., t+i, - las que se que no están, si j = i, 0
+
+[1, 4], t = 1, i = 3
+
+un algoritmo que decida cual es el máximo debe tener guardados todos los números de 1 a n, y en cada step tratar de desechar algunos números hasta que se quede con uno solo, 
+
+la cosa es inventar una lógica que eliga en cada step, (t, i) y que además sepa desechar los que no sirven.
+
+como de [3, 4] hay 0 eso significa que 3 < 4
+como de [2, 4] hay 2 eso significa que si 3 fuera el máximo habría exactamente una inversión, por tanto 2 es el máximo, y 3 no lo es.
+como de [1,4] hay 5, la posible choice es el candidato anterior y 1 que fue el nuevo número añadido pero las inversiones de ahora son las del nuevo número con los números del arreglo + las anteriores, por tanto puedo determinar si el nuevo número es el mayor 
+
+10
+9 10
+0 => 9
+
+1+4+9+16+...+(n-1)^2 = n(n+1)(2n+1)/6
+
+por lo que ese brute-force algorithm will not work, so they are trying to told me that there is something better for it. 
+
+en un intervalo de tamaño 3, puedo for sure saber la respuesta 
+
+otra cosa este problema tiene de intersante que me dan un arreglo de tamaño n, tengo que resolverlo con un costo de 5n^2, pero por ejemplo si yo lo divido en subintervalos de tamaño 5, tendría n/5 intervalos, poniendo que el costo sea m, tendría   
+
+x x+1, x+2, x+3
+
+como yo determino entre dos números a los extremos cual es que si ambos son mayores que los números de por medio, sería preguntar por la longitud del intervalo entero si es igual a la cant
+
+maybe resolver el problema para los de tamaño 3, porque así la diferencia entre los que siguen es a lo más 5, entonces para resolver el problema donde la diferencia es al menos 5, usar otro método, que sea 
+
+de esa forma solamente me quedarían 1/3*n candidatos, y el costo fue 2/3*n,
+
+supon que tengo un algoritmo que tine complejidad k*n^2, k > 5, si lo corro en el array de tamaño n, se parte pero si lo hago en el de tamaño 1/3*n, tendría costo 
+
+5*k*(1/9)n^2 
+
+que funcionaría as long as k < 9,
+
+supón que tengo un algoritmo cuyo costo es 6n^2 ( no lo tengo), si la idea de lo recursivo funcionara entonces tendría que tener uno cuadrático, que no sea recursivo, 
+
+la gracia del problema es que se te ocurra uno cuadrático, porque el brute-force es cúbico, o sea, a pesar de que divida entre 3 la entrada el precio es el mismo.
+
+
+como hacer un algoritmo cuadrático para resolver este problema, ponte en el caso de que el mayor número es o el primero o el último, que se podría hacer, porque 
+
+maybe no se trata de tamaños fijos, si no de divi
+
+A a b c d e B
+
+
+    
