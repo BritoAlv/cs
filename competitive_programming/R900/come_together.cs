@@ -37,7 +37,7 @@ namespace come_together
                 Console.WriteLine(
                     (valid_distances_x.Count == 0 ? 0 : valid_distances_x.Min()) +
                     (valid_distances_y.Count == 0 ? 0 : valid_distances_y.Min()) +
-                    + 1);
+                    +1);
 
 
                 test_cases--;
