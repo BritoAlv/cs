@@ -12,29 +12,35 @@ using namespace std;
 
 int test_cases;
 
-void Solve() {
-  int n;
-  cin >> n;
-  if (n == 1) {
-    cout << 1 << '\n';
-  } else if (n % 2 == 1) {
-    cout << -1 << '\n';
-  }
-
-  else {
-    for (int i = 1; i <= n; i += 2) {
-      cout << i + 1 << ' ' << i << ' ';
+void Solve()
+{
+    int n;
+    cin >> n;
+    if (n == 1)
+    {
+        cout << 1 << '\n';
     }
-    cout << '\n';
-  }
-
-  return;
+    else if (n % 2 == 1)
+    {
+        cout << -1 << '\n';
+    }
+    else
+    {
+        for (int i = 1; i <= n; i += 2)
+        {
+            cout << i + 1 << ' ' << i << ' ';
+        }
+        cout << '\n';
+    }
+    return;
 }
 
-int main() {
-  cin >> test_cases;
-  while (test_cases > 0) {
-    Solve();
-    test_cases--;
-  }
+int main()
+{
+    cin >> test_cases;
+    while (test_cases > 0)
+    {
+        Solve();
+        test_cases--;
+    }
 }
