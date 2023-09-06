@@ -3,8 +3,7 @@
 // URL: https://codeforces.com/problemset/problem/1806/B
 // Memory Limit: 1024 MB
 // Time Limit: 1000 ms
-// Math Proof:
-
+// Math Proof: the answer is at most 2
 #include <bits/stdc++.h>
 
 using namespace std;

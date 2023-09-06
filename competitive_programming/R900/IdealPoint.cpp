@@ -3,7 +3,7 @@
 // URL: https://codeforces.com/problemset/problem/1795/B
 // Memory Limit: 256 MB
 // Time Limit: 2000 ms
-// Math Proof:
+// Math Proof: remove segments that don't contain k, and to k be ideal should hold that the biggest left border that contains k is k, and likewise to the right
 
 #include <bits/stdc++.h>
 

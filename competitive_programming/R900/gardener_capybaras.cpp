@@ -3,7 +3,7 @@
 // URL: https://codeforces.com/problemset/problem/1775/A2
 // Memory Limit: 256 MB
 // Time Limit: 1000 ms
-// Math Proof:
+// Math Proof: if match end and start it can be done, so assume they don't
 
 #include <bits/stdc++.h>
 

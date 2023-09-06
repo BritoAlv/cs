@@ -3,7 +3,7 @@
 // URL: https://codeforces.com/problemset/problem/1779/B
 // Memory Limit: 256 MB
 // Time Limit: 1000 ms
-// Math Proof:
+// Math Proof: did a stupid thing in this one, use wrong test_cases to spoil answer, that's not good
 
 #include <bits/stdc++.h>
 
