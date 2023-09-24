@@ -8,7 +8,7 @@
             while (test_cases > 0)
             {
                 int n = int.Parse(Console.ReadLine());
-                int[] values = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+                int[] values = Console.ReadLine().Split().Select(int.Parse).ToArray();
                 Console.WriteLine(Mex(values));
                 while (true)
                 {
