@@ -15,16 +15,6 @@ using namespace std;
 
 int test_cases;
 
-int is_sub(string &sub, string &big)
-{
-    unordered_set<string> A;
-    for (int i = 0; i <= big.size() - sub.size(); i++)
-    {
-        A.insert(big.substr(i, sub.size()));
-    }
-    return A.find(sub) != A.end();
-}
-
 void Solve()
 {
     int n, m;
