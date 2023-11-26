@@ -3,7 +3,7 @@
 // URL: https://codeforces.com/contest/1895/problem/C
 // Memory Limit: 512 MB
 // Time Limit: 2000 ms
-// Math Proof:
+// Math Proof: fix the half as a substring, then notice that the ones that used all the string as half are counted twice
 //
 // Powered by CP Editor (https://cpeditor.org)
 
