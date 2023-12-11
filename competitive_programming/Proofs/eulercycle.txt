@@ -1,0 +1,35 @@
+Demostrar que un grafo posee un ciclo euleriano si y solo si todos los vértices tienen grado par.
+
+Demostración: LLevar el grado de los vértices a medida que el camino avanza, inicialmente el del nodo donde parte es 1, después a cualquier nodo que llega entra y sale por lo que aumenta en 2 ( se mantiene par) y finalmente acaba donde partió aumenta en 1. Todos los vértices poseen grado par.
+
+Lema: Si un grafo posee un camino que empieza en v1, acaba en v1 y no repite aristas entonces se puede empezar desde cualquier vértice de él.
+
+Demostración: Supongamos que empezamos desde v0, si la cadena se mueve a v1, podemos empezarla a ahí, y como shiftear el camino, como va a pasar por todos los vértices de el camino, podemos empezar desde cualquiera.
+
+Lema: Si en un grafo todos los vértices poseen grado >= 2, entonces posee un ciclo.
+
+Demostración: Considerar los extremos de el camino más largo del grafo.
+
+Si todos los vértices poseen grado par posee un ciclo euleriano:
+
+Inducción fuerte en la cantidad de aristas del grafo:
+
+Caso Base: m = 3 el triángulo, es el único que cumple.
+
+Por el lema anterior el grafo posee al menos un ciclo, lo que significa que existe al menos un camino que empieza en un vértice v1, acaba en v1 y no repite aristas. Si existe una arista que no está en ese camino conectada a un vértice del camino, voy a demostrar que es posible añadirla al camino. De ser esto posible como el grafo es conexo, aplicando esto repetidamente obtendría el ciclo euleriano.
+
+Por tanto voy a encontrar una forma de añadir esa arista al camino que tengo:
+
+Considerar el grafo resultante al quitar las aristas del camino que ya tengo, en él todos los vértices poseen grado par, pero puede no ser conexo. 
+
+Luckily en la componente conexa en que está la arista que deseamos añadir puedo aplicar la hipótesis de inducción ya que:
+
+- es conexo
+- como los vértices de ahí solamente están conectados entre ellos, poseen grado par ( el mismo del grafo resultante )
+- posee menos aristas ( quité las del camino que ya tenía )
+
+Por hipótesis de inducción existe un ciclo euleriano para esa componente conexa y por tanto que incluye a esa arista. 
+
+Ahora puedo unir el camino que tenía con este camino usando el vértice en común que poseen por la arista, ya que puedo rootear el camino donde desee.
+
+El resultado es un camino más grande, como el grafo es conexo, puedo eventualmente añadir todas las aristas a el camino.
