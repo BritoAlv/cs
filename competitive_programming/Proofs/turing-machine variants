@@ -1,0 +1,113 @@
+Las máquinas de Turing puede ser equivalentes entre ellas:
+
+Equivalencias entre variantes de el modelo de Turing Machine:
+
+- multi tape Turing Machine.
+- non-deterministic Turing Machine.
+- enumerators.
+
+A Turing Machine tiene un finitw control, con una tape y una head, la tape es infinita a ambos lados.
+
+A Turing Machine tiene 3 posibles outcomes para cada input w:
+
+- aceptar w.
+- reject w by halting.
+- reject w by looping ( running forever )
+
+Un lenguaje L es decidible si hay una TM M con las propiedades:
+	para cada string w in L, M accepts w.
+	para cada string w not in L, M rejects w by halting.
+	
+Un lenguaje L es reconocible si hay una TM M con las propiedades:
+	para cada string w in L, M accepts w.
+	para cada string w not in L, M no accepta w either by halting or by looping.
+	
+Por la definición anterior un lenguage decidible es reconocible, notar que la implicación contraria no se cumple por que: ??
+
+Variants of TuringMachines.
+
+multi-tape Turing Machines: input tape, work tapes, las work tapes inicialmente en blanco.
+
+Teorema: A es T-reconocible ssi some multi-tape TM recognizes A.
+
+Sería demostrar que hay una forma de simular una multi-tape con una de single tape. Una forma de hacerlo es la siguiente:
+
+Dividir la single tape en k bloques, usando un carácter #, entonces los bloques son finitos, pero pueden ser extendidos tanto como se necesita by shifting todo una posición a la izquierda o a la derecha tanto como se necesite. Entonces es necesario en la single tape saber en que posición están cada una de las heads de las tapes, para esto para carácter del input-alfabet de la multitape se introduce un nuevo carácter que sería ese carácter + algo que indique que la head está ahí. 
+
+para simular cada uno de los M's steps:
+	scan entire tape to find dotted symbols.
+	scan again to update according to M's transition function.
+	
+si se queda sin espacio tiene que hacer una rutina para shift a la izquierda o a la derecha lo que hay.
+
+Nondeterministic Turing Machines:
+
+Una nodeterminista TM es similar a una deterministic TM excepto porque su transition function es:
+	delta: Q x G => P( Q x G x {L, R})
+	
+sería ver como convertir una NTM recognizes, que se reduce a simular un tree con una TM. 
+
+M simulates N by storing each theread's tape in a separate block on its tape, análogamente todo es posible porque es posible extender las secciones tanto como se necesite by shifting. store the head location. also notice que a diferencia del anterior no sabemos en que estado está cada simulación, por lo que es necesario que cada bloque sepa en que estado está, añadiendo ese símbolo después del separator de cada thread, en el caso de la multi-tape había un global state en el que la máquina estaba en un paso.
+
+entonces si un thread forks, entonces M copia el bloque. ( otra subrutina how many ?). si un thread accepts entonces M acepta.
+
+Turing Enumerators: deterministic TM con un printer, empieza en una blank tape, y puede imprimir strings w1, w2, ..., posiblemente going forever. es el lenguaje de el conjunto de todos los strings que imprime. es un generator no un recognizer. para el enumerator E decimos que 
+
+L(E) = {w | E prints w}
+
+A es T-recognizble iff  = L(E) para algún T-enumerator E.
+
+M = for input w:
+	Simulate E ( on blank input )
+	Whenever E prints x, test x = w.
+	Accepts if = and continue otherwise.
+	
+E = Simulate M on each wi in E* = {epsilon, 0, 1, 00, 01, 10, ...}
+
+Problem: Que si M on wi loops:
+
+for i in 1, 2, ....
+	Simular M en w1, w2, ..., una cantidad i de pasos.
+		Print those wi que son aceptados.
+		
+el printer puede imaginarse como una segunda tapa en la que son guardados los string acceptados.
+
+A turing recognizable language puede ser enumerado por un enumerador:
+
+Esto es una consecuencia de que la kleene clousure de sigma es un conjunto contable, entoces se puede hacer lo siguiente:
+
+for i = 1, 2, 3, ...
+	run M con input strings s1, s2, ..., si i steps.
+si agún string es aceptado imprimirlo.
+
+lo de la cantidad de steps fija es porque es posible que se quede looping la simulación. a single string puede ser imprimido varias veces.
+
+Un lenguaje enumerable es Turing Recognizable.
+
+Creamos dos tapes, en una corremos el enumerator para que imprima there todos los string que posee, cada vez que un string es imprimido en la segunda tape lo comparamos que el input en la primera tape. Si es un match lo aceptamos else, es rejected.
+
+Sea D = {p | polynomial p(x1, x2, ..., xk) = 0 tiene solución en los enteros}
+
+D es T-recognizable: una máquina de turing que simula todos los valores que se le puedan dar a las variables y si da 0 en algún momento aceptar, else keep going, 
+
+D no es decidible !.
+
+Si O es algún objeto entonces <O> denota el encoding de ese objeto como string.
+
+TM M recognizing B = {a^kb^kc^k | k >= 0}
+
+M = "On input w"
+	1: check if w in a*b*c* reject if not.
+	2: counter the number of a's b's, c's.
+	3: accept if all counts are equal.
+	
+El lenguaje B = {a^k b^k c^k} es la intersección de dos lengueajes: o sea a*b*c*, y el lenguaje de los string over the alfabet a,b,c que poseen #a = #b = #c.
+
+Demostrar que C es T-recognizable si y solo si hay un decider D donde:
+	C = { x | existe y tal que <x,y> in D} x,y in sigma*
+	
+<x, y> es un encoding de el par de strings x, y en un single string.
+
+dado un string x, como saber si es aceptado por x ? iterar por todos los y in sigma *, y pasarle el par <x,y> al decider.
+
+supón que hay una máquina de turing que reconoce a el lenguaje.

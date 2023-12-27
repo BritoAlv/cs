@@ -1,0 +1,86 @@
+HALT_TM = {<M, w> | M halts on input w}
+
+Este problema no es decidible: Asumir que fuera decidible, entonces posee un decider H, entonces se puede crear una máquina de Turing que reciba <M, w> y use a H para decidir si para o no, si para simular M con entrada w, y devolver el resultado de eso. En particular esto es un decider para A_{TM} que se demostró por diagonalización que no es decidible.
+
+If we have two languages ( or problems) A and B, then A is reducible to B if we can use B to solve A.
+
+Example 1: Measuring the area of the rectanles is reducible to measuring the length of its sides.
+
+Si A es reducible a B entonces resolver B da solución a A.
+
+B is easy => A is easy.
+A is hard => B is hard.
+
+reducing A_TM to Halt_TM, porque estamos dando una forma de demostrar que si se resuelve Halt_TM se resuelve A_TM.
+
+Sea E_{TM} = {<M> | M is a TM and L(M) = vacío}, entonces E_{TM} is undecidable.
+
+Asumir que E_TM es decidible y demostrar que A_{TM} es reducible to E_{TM}
+
+Asumir que TM R decide E_{TM}
+
+S = On input <M, w>
+		crea una máquina M' que:
+			con entrada w simula M con w y devuelve lo que haría M
+			con otra entrada reject.
+		usar el decider para el empty lenaguage con la nueva máquina. 
+		Si da acept esto means que la nueva máquina reconoce w, so works, else entonces w no es aceptado por M.
+		
+L(M') = 
+{
+	{w} si M acepta w.
+	{} si M rejects w.
+}
+
+notar que M' no se va a correr, lo que se le va a pasar como descripción al decider que asumimos que existe.
+
+decidable by showing a tm that decides it.
+not decidable => reducing it to some else that is not reducible.
+
+Sea Regular_{tm} = { <M> | M es una TM y L(M) es un lenguaje regular }
+
+Claim: Regular_TM es no decidible.
+
+O sea demostrar que no puede haber una máquina de Turing que puede decidir si el lenguaje que reconoce otra máquina de Turing es regular:
+
+Asumir que existe esa máquina H, entonces construir otra S tal que:
+
+S on input <M, w>:
+	crear una máquina de Turing T tal que M acepta w, si y solo si el lenguage de T es regular. 
+	T on input x:
+		si x es de la forma {0^n 1^n} accept
+		else si x no es de esa forma aceptarlo si simular M con w da ac, aceptarlo.
+		
+de esta forma si <M, w> da ac, entonces lo que reconoce T es sigma* que es regular, else solamente {0^n1^n} que no es regular. esto se puede generalizar no solamente para esa propiedad.
+
+esta idea es para las propiedades, porque una propiedad la cumplen elementos específicos de un universo, por tanto podemos forzar a que si simular w con M da ac, entonces cumpla todo el universo, else se restringa a los que cumplan la propiedad.
+
+notar que T nunca es ejecutado para eso está el oráculo, para no tener que ejecutarlo y saber el resultado.
+
+Sea EQ_{TM} = {<M1, M2> : L(M1) = L(M2)} o sea hay una máquina de Turing que pueda decidir si:
+	dadas dos máquinas de Turing el lenguage que reconocen el mismo.
+	
+Bueno resulta que ese lenguaje no es decidible:
+	but why ?
+	usar que el problema de decidir si el lenguaje que reconoce una máquina es vacío.
+	entonces voy a demostrar que EmptyTM es reducible de este,
+	
+S on input M
+	crear una máquina D que rechaze todo,
+	usar el decider para saber si M, D poseen el mismo lenguaje.
+	y bueno esto me permite decir si lo que reconoce M es el vacío.
+
+Sea Chill el lenguaje que reconoce las Máquinas de Turing tales que, para cualquier entrada, se pasa por
+todos los índices de la pista una cantidad finita de veces. El lenguaje Chill es decidible.
+
+Es decidible el problema de saber si una TM cumple que:
+	para cualquier entrada:
+		se pasa por todos los índices de la pista una cantidad finita de veces.
+
+let's try to create Halt based on that:
+
+S on input M:
+	// crear una máquina D tal que M con una entrada w para si y solo si D para cualquier entrada pasa por todos los índices de la pista una cantidad finita de veces.
+	la máquina D sería:
+		si x != w no hace nada
+		si x == w entonces alternar entr -1, 1 as long as la simulación de M on w hace iteraciones, de esta forma se garantiza que D para cualquier entrada pasa por todos los índices una cantidad finita de veces si M con entrada w para. 

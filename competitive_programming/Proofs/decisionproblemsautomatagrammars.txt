@@ -1,0 +1,102 @@
+A TM has 3 possible outcomes for each input w:
+	- accept w ( enter q_{acc})
+	- reject w by halting ( enter q_{rej})
+	- reject w by looping ( running forever )
+	
+A es T-recognizable if A = L(M) for some TM M.
+A es T-decidable if A = L(M) for some TM that halts on all inputs.
+
+<O1, O2, ..., Ok> encodes objects O1, O2, ..., Ok en un string que sería entrada para la TM.
+
+no se puede saber si la máquina está looping o es que realmente le toma mucho tiempo. 
+
+Sea A_DFA = {<B, w> | B es un DFA y B accepts w}
+
+O sea el lenguaje formado por las tuplas <B, w> tales que w es un string aceptado por el automata finito determinista B.
+
+D_{A-DFA} = on input s check that s has the form <B,w> donde B es un DFA y w es un string, reject if not. Simular la computation de B con w, devolver en lo que acaba B.
+
+Un ejemplo de como simularlo es una TM con dos tapes, en una está la descripción del automata conjunto con su entrada, y en la otra se lleva el input-head location on w y el estado en que está el autómata en la simulación.
+
+Sea A = {<B,w> | B es un NFA and B accepts w}, entonces A es decidable.
+
+Convert NFA B to equivalent  DFA B', y sería el ejercicio anterior. ( use conversion construction as a subroutine).
+
+Recognizable languages are closed under union and intersection but they are not closed under complement.
+
+Decidable languages are closed under union, intersection and complement.
+
+Sea E_{DFA} = {<B> | B es un DFA y L(B) = vacío}
+
+habrá un decider para saber si el lenguaje de un autómata es el vacío ?
+
+On input <B> check if there is a path from start state from an accept state, if so, then a string can be constructed in such a way that goes there. (BFS).
+
+1 - mark start state
+2 - repeat until no new state is marked:
+	mark every state that has an incoming arrow from a previously marked state.
+3 - accept if no accept state is marked.
+	reject if some accpet state is marked.
+	
+otra alternativa es feed a el dfa todos los string de tamaño <= cant estados del autómata, si ninguno de esos da ac entonces ninguno lo hará.
+
+Sea EQ_{DFA} = {<A, B> | A and B are DFAs and L(A) = L(B)}
+
+Idea: Hacer un DFA que acepta los w donde A, B no agregan. o sea la diferencia simétrica. 
+
+entonces como la unión, intersección, complemento es cerrado con respecto a los dfa, se puede hacer el automata de la diferencia simétrica, a través de lógica:
+
+L(C) = (L(A) int L(B)^C) U ( L(A)^C int L(B))
+
+usar el ejercicio anterior.
+
+Acceptance Problem for CFGs.
+
+Sea A_{CFG} = {<G, w> | G es un CFG and w in L(G)}
+
+la pregunta es capaz este grammar de generar est string ?
+
+Recll Chomsky Normal Form solamente permite rules del tipo:
+
+A => BC
+B => b
+
+Lemma 1: cualquier CFG puede ser convertido a CNF.
+Lemma 2: Si H está en CNF y w in L(H) entonces cada derivación de w tiene 2|w| - 1 pasos.
+
+Teniendo esos bombazos, convertir G en CNF, y después intentar todas las derivaciones de tamaño 2|w|-1.
+
+As a corollary cada Context free language is decidable. 
+
+Sea E_CFG = {<G> | G es un CFG and L(G) = empty}
+	mark all ocurrences of terminals on G.
+	repeat until no new variables are marked:
+		mark all ocurrences of variable A if
+			A => B1B2...BK is a rule and all Bi were already marked.
+	reject if the start variable is marked.
+	accept if not.
+	
+Sea EQ_CFG = {<G, H> | G, H are CFGS and L(G) = L(H)}
+
+No hay forma de verificar si esos dos grammars general el mismo lenguaje.
+
+Otro problema es saber si dado un grammar, ese grammar es ambiguo. ( tampoco es decidible ).
+
+genera algún string de 2 o más formas diferentes?eso también es no decidible.
+
+Acceptance Problem for TMS:
+
+Sea A_TM = {<M, w> M es una TM y M acepta w}, ese lenguaje no es decidible. but at least is recognizable.
+
+Lo siguiente está mal:
+	U = on input <M, w>
+		simular M con input w
+		aceptar si M halts and accepts
+		reject if M halts and rejects
+	wa  reject if M never halts. wa
+	
+U no tiene como saber si M never halts ( at least by now )
+
+Esa máquina es la universal computing machine. given a description and an input simulate the input, btw the description is another TM.
+
+Poner solamente cosas que se pueden implementar, entonces la máquina U puede indentificar si M está en un estado de ac, o de wa, y por tanto halts en esos estados, pero ya de ahí no puede hacer más nada.
