@@ -1,0 +1,17 @@
+Las aristas tienen que poseer peso >= 1, por lo que corro dikstra con peso 1 en esas aristas, 
+	si d[b] > L no hay solución.
+	si d[b] == L hay solución.
+	si d[b] < L hay esperanza.
+		mi idea fue hallar un shortest path de a, b, si no contiene aristas especiales no hay solución, si las contiene:
+		primer guess: ponerle a todas peso 1, y a una lo necesario para que el sp ese de L
+		segundo guess: ponerle a todos peso distribuido equiitativamente para que el sp ese de L.
+		
+Ambas ideas tienen el bug de que es posible que se forme un path con algunas de las aristas especiales y no todas y el shortest path se quede corto, no llegue a L.
+
+La observación es que si se da este caso, yo podía haber distribuido los pesos equitativamente pero con un valor más grande, para asegurar que por ese nuevo path de L, en particular, si le pongo el mismo peso a las aristas puedo aumentar el sp sin pasarme de L, esto unlocks hacerle busqueda binaria a el peso que le pongo a las aristas, hasta que encuentre un peso tal que:
+
+todas las especiales con ese peso, dan un sp que no se pasa de L, 
+
+si le pongo ese peso + 1 se pasa.
+
+en este caso la distribución equitativa no va a poseer un camino con un subset propio de las especiales en ese path, porque si no podía haber aumentado aún más el peso equitativo a distribuir.
