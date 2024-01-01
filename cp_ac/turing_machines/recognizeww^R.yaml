@@ -1,0 +1,47 @@
+name: recognizeww^R
+source code: |-
+  input: 'abbba'
+  blank: '*'
+  start state: q0
+  table:
+    q0:
+      a: {write: '*', R : A1}
+      b: {write: '*', R: B1}
+      '*': {R: accept}
+    A1:
+      a:  {write: a, R : A1}
+      b:  {write: b, R: A1}
+      '*':  {L: A2}
+    
+    A2:
+      a: {write: '*', L: A3}
+      
+    A3:
+      a:   {write: a, L : A3}
+      b:   {write: b, L: A3}
+      '*': {R: q0}
+      
+      
+    B1:
+      a:  {write: a, R : B1}
+      b:  {write: b, R: B1}
+      '*':  {L: B2}
+    
+    
+    B2:
+      b: {write: '*', L: B3}
+    
+    B3:
+      a:   {write: a, L : B3}
+      b:   {write: b, L: B3}
+      '*': {R: q0}
+    accept:
+positions:
+  q0: {x: 155.16, y: 269.85}
+  A1: {x: 194.17, y: 141.26}
+  A2: {x: 340.45, y: 93.43, fixed: false}
+  A3: {x: 302.88, y: 228.39, fixed: false}
+  B1: {x: 242.02, y: 425.48}
+  B2: {x: 393.89, y: 428.51, fixed: false}
+  B3: {x: 374.05, y: 290.25}
+  accept: {x: 28.9, y: 273.88}

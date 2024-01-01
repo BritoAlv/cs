@@ -1,0 +1,43 @@
+Un grafo no dirigido con n vértices, k >= 1 tal que:
+	para cualquier par de vértices no adyacentes la suma de sus grados es >= k.
+	
+Demostrar que existe un camino de tamaño al menos k.
+
+Considerar el camino más largo del grafo, digamos que tiene vértices: v1, v2, ..., vm
+
+notar que v1 está conectado solamente a vértices
+	 {v2, ..., vm}
+	  que vm está conectado solamente a vértices
+	 {v1, ..., v_{m-1}}
+
+Claim: si m <= k, existe un vértice vi, con 2 <= i <= m tal que:
+	v1 es adyacente a v_i
+	vm es adyacente a v_{i-1}
+
+Si v1, vm son adyacentes escoger i = m, funciona.
+Si v1, vm no son adyacentes entonces sea deg(v1) = a,  so that los vértices adyacentes a v1 son:
+	{vi1, vi2, ...., via}
+	
+entonces notar que esto implica que v2 no es adyacente a ninguno de los vértices:
+	{v_{i1-1}, v_{i2-1}, ... , v_{ia-1}}
+	
+en particular el grado de vm es a lo más k - a - 1, pero esto es absurdo xq como v1, vm no son adycentes la suma de sus grados es a lo más k.
+
+Claim: puedo formar un ciclo con los vértices: v1, v2, ... , vm:
+
+Sería: 
+	v1 => v2 => .... => v_{i-1} => v_m => v_{m-1} => ... v_{i} =>  v1.	
+
+Claim: Si hay un vértice v duera del camino conectado a uno de los vértices vi, digamos vj, entonces puedo alargar el camino.
+
+Sería: v => vj => darle la vuelta al ciclo y acabar en vj. ese camino posee una arista más. 
+
+Como el camino que escogí es el camino más largo, no debe poder extenderse. esto significa que ese ciclo es una componente conexa del grafo, notar que hay al menos n - k vértices fuera de esa componente conexa, porque el camino contiene a lo más k vértices.
+
+en particular si el grafo es conexo, está demostrado, si no tiene porque ser conexo, se puede construir un contraejemplo.
+
+n = 9, k = 3.
+
+considerar un grafo formado por tres triángulos.
+	la condición se cumple porque todos los vértices tienen grado 2, por tanto si hay un par que no son adyacentes la suma de sus grados es 4 >= 3.
+	por otro lado el camino más largo posee dos aristas, por tanto tamaño 2.

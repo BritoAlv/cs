@@ -84,3 +84,64 @@ S on input M:
 	la máquina D sería:
 		si x != w no hace nada
 		si x == w entonces alternar entr -1, 1 as long as la simulación de M on w hace iteraciones, de esta forma se garantiza que D para cualquier entrada pasa por todos los índices una cantidad finita de veces si M con entrada w para. 
+		
+Sea L = {<M> | M es single-tape y escribe un caŕacter en blanco over a non-character symbol}. Demostrar que no es decidible.
+
+A on input <M, w>:
+	create M' such that includes new alfabhet symbol #, replace every transition on M that involves a blank symbol with this new symbol #, finally add a new state, and for each not-defined transition of an accepted state add one to the new state, replacing that char by a blank symbol.
+	Notice that M' simulates M and writes a blank symbol over a non-blank symbol only if M accepts, and only at that stage.
+	use decider for L to test if M' writes a blank symbol over a non-blank symbol, if so accepts, else simulate M' on w and return that.
+	M' on input x != w: rejects and do nothing. ( becuase the questionis is on some input string )
+
+A useless state in a Turing Machine is one that is never entered on any input string. Considerar el problema de determinar whether a Turing Machine has any useless states. Demostrar que este lenguaje no es decidible.
+
+A on input <M, w>:
+	create machine M' equal to M but with one extra state, and one extra symbol, for each not-defined transition of an accepted state add one to the new state. In particular this means that the state will be useless unless M accepts on w, but there are flaws:
+	- first M' may have any other useless states.
+	- M' is only caring about input x == w.
+	
+The problem boils down to find a way of ensure that a machine do not have useless states. ie there exist a set of inputs {s1, s2, ..., sk} such that every state of the TM is visited at least once on some of those simulations.
+
+A on input <M, w>:
+	enumerate states of M on any order: 
+		{q0, q1, ..., qk}
+	create machine M' with extra input symbol # wrt to M, M' will have same transitions as M, but also a transition of the form: qi => qi+1, #:#:+1.
+	en particular this ensures that there are no useless states in M' becuase the input string ####... k times passes over all of the states. 
+	now add new state q_{k+1}, create a transition from every accepted state of M to q_{k+1}, of the form: A: A: +1, where A is a symbol that stop on such accepted state.
+	in particular M' will do the same as M but notice that q_{k+1} is a useless state unless M accepts with that input.
+	M' on input x:
+		if x == ########## ( ensure there are no additionsal useless states)
+			simulate as normal.
+		if x == w
+			simulate as normal.
+		else:
+			reject.
+			
+	so notice that the only useless state of M' is q_{k+1} in case it do not accept w.  
+
+Demostrar que no son decidibles:
+	
+L = { <M, w> | M is a TM st on input w moves its head left when being on the left-most position of the input}
+
+L = { <M, w> | M is a TM st on input w moves its head left during the computation on w }
+
+si estos problemas fueran decidibles se podría saber los pares <M, w > tales que M con input w solamente usa la parte derecha del input.
+
+el problema se reduce a encontrar un algoritmo que transforme una TM que use las dos infinitas partes de la tape en una sola.
+
+Asumir que existe un algoritmo para hacer eso:
+
+A on input <M, w>:
+	create machine M' that works like M but using only right part of the tape, for each accepted state of M and a not defined transition (ie ensures it's an accepted state), use a procedure to loop to the left pass over left-most cell of the input.
+	use decider to see if M on input passes over left-most cell and if so accept.
+
+Sea {0, 1, *} el tape alphabet de todas las TM de este problema. 
+
+Definir la busy-beaver function BB: N => N como:
+	para cada valor de k, considerar todas las turing machine con k estados que halt cuando su tape is blank. 
+	
+Sea BB(k) la mayor cantidad de unos que remain en la tape among of these machines. 
+
+Demostrar que BB no es una función computable.
+
+
