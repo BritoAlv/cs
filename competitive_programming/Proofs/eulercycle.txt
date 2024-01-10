@@ -1,35 +1,64 @@
 Demostrar que un grafo posee un ciclo euleriano si y solo si todos los vértices tienen grado par.
 
+Intuition: 
+
+Considerar un camino en el grafo que empieza en x0, acaba en x0 y no repite aristas, si considero el grafo formado por esos vértices y esas aristas, entonces cada vértice posee grado par. 
+
+To see why, fijar un vértice x considerar la primera vez que es incluido el vértice x entre una de las aristas, como no se puede continuar el camino usando esa misma arista, either el camino se acaba ahí, o usa otra arista que incluye a x, por tanto a excepción del vértice donde parte el camino todos los vértices deben poseer grado par, pero como el camino acaba donde mismo partió, eso garantiza que el vértice desde donde partió posea grado par.
+
+Ahora la idea supón que elimino del grafo ese camino, como cada vértice poseía grado par en él, el grafo que obtengo mantiene la condición de que todos los vértices poseen grado par, pero puedo perder la propiedad de que el grafo es conexo, pero still en cada componente conexa cada vértice posee grado par, so, en cada componente conexa podría aplicar este mismo razonamiento, lo que me faltaría sería un algoritmo para juntar los caminos de cada componente conexa en uno solo.
+
+como repetir vértices está permitido, empezamos en x0, 
+	recorremos el camino de la componente conexa en la que queda después de quitar el camino que ya tenemos, y nos movemos por el camino a x1, y repetimos lo mismo.
+	
+ahora como se podría programar eso, 
+
+dado un grafo conexo donde todos los vértices poseen grado par encontrar un camino euleriano:
+	debe de ser recursivo, 
+		root = 0.
+		find a cycle that passes through root: v0 v1 v2 .... vk.
+		remove edges in cycle
+		for vertex in cycle:
+			find a cycle rooted at it.
+			remove edges.
+
+
+
+complexity is V*E because each time DFS will have to check edges to obtain the ones that are not used. 
+ 
+
 Demostración: LLevar el grado de los vértices a medida que el camino avanza, inicialmente el del nodo donde parte es 1, después a cualquier nodo que llega entra y sale por lo que aumenta en 2 ( se mantiene par) y finalmente acaba donde partió aumenta en 1. Todos los vértices poseen grado par.
 
-Lema: Si un grafo posee un camino que empieza en v1, acaba en v1 y no repite aristas entonces se puede empezar desde cualquier vértice de él.
+Lema *: Si un grafo posee un camino que empieza en v1, acaba en v1 y no repite aristas (un ciclo) entonces se puede empezar el ciclo desde cualquier vértice de él.
 
 Demostración: Supongamos que empezamos desde v0, si la cadena se mueve a v1, podemos empezarla a ahí, y como shiftear el camino, como va a pasar por todos los vértices de el camino, podemos empezar desde cualquiera.
 
-Lema: Si en un grafo todos los vértices poseen grado >= 2, entonces posee un ciclo.
+Lema **: Si en un grafo todos los vértices poseen grado >= 2, entonces posee un ciclo.
 
 Demostración: Considerar los extremos de el camino más largo del grafo.
 
-Si todos los vértices poseen grado par posee un ciclo euleriano:
-
-Inducción fuerte en la cantidad de aristas del grafo:
+Voy a demostrar por inducción fuerte en la cantidad de aristas del grafo que si todos los vértices poseen grado par posee un ciclo euleriano:
 
 Caso Base: m = 3 el triángulo, es el único que cumple.
 
-Por el lema anterior el grafo posee al menos un ciclo, lo que significa que existe al menos un camino que empieza en un vértice v1, acaba en v1 y no repite aristas. Si existe una arista que no está en ese camino conectada a un vértice del camino, voy a demostrar que es posible añadirla al camino. De ser esto posible como el grafo es conexo, aplicando esto repetidamente obtendría el ciclo euleriano.
+Por el lema **  el grafo posee al menos un ciclo, lo que significa que existe al menos un camino que empieza en un vértice v1, acaba en v1 y no repite aristas. Si existe una arista del grafo que no está incluida en ese camino y está conectada a un vértice del camino, voy a demostrar que es posible añadirla al camino. 
+
+De ser esto posible como el grafo es conexo, aplicando esto repetidamente obtendría el ciclo euleriano.
 
 Por tanto voy a encontrar una forma de añadir esa arista al camino que tengo:
 
-Considerar el grafo resultante al quitar las aristas del camino que ya tengo, en él todos los vértices poseen grado par, pero puede no ser conexo. 
+Considerar el grafo resultante al quitar las aristas del camino que ya tengo, con respecto a el camino todos los vértices poseen grado par, pero puede no ser conexo. 
 
-Luckily en la componente conexa en que está la arista que deseamos añadir puedo aplicar la hipótesis de inducción ya que:
+Al quitar del grafo las aristas del camino el grafo puede perder la propiedad de ser conexo.
+
+En la componente conexa en que está la arista que deseamos añadir puedo aplicar la hipótesis de inducción ya que:
 
 - es conexo
 - como los vértices de ahí solamente están conectados entre ellos, poseen grado par ( el mismo del grafo resultante )
 - posee menos aristas ( quité las del camino que ya tenía )
 
-Por hipótesis de inducción existe un ciclo euleriano para esa componente conexa y por tanto que incluye a esa arista. 
+Por hipótesis de inducción existe un ciclo euleriano en esa componente conexa y por tanto que incluye a esa arista. 
 
-Ahora puedo unir el camino que tenía con este camino usando el vértice en común que poseen por la arista, ya que puedo rootear el camino donde desee.
+Ahora puedo unir el camino que tenía con este ciclo  usando uno de los vértices en común que poseen, ya que puedo rootear el ciclo desde donde desee ( lema *).
 
 El resultado es un camino más grande, como el grafo es conexo, puedo eventualmente añadir todas las aristas a el camino.

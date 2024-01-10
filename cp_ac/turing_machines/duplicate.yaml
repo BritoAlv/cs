@@ -1,0 +1,29 @@
+name: duplicate
+source code: |-
+  input: '111'
+  blank: '*'
+  start state: qx2
+  table:
+    qx2:
+      '1': {write: '*', R: find_f_blank}
+    find_f_blank:
+      '1': {R: find_f_blank}
+      '*': {write: '*', R: find_s_blank}
+    find_s_blank:
+      '1': {R: find_s_blank}
+      '*': {write: '1', R: next_one}  
+    next_one:
+      '*': {write: '1', L: loop_f_back}
+    loop_f_back:
+      '1': {L: loop_f_back}
+      '*': {L: loop_s_back}
+    loop_s_back:
+      '1': {L: loop_s_back}
+      '*': {R: qx2}    
+positions:
+  qx2: {x: 215.44, y: 291.92}
+  find_f_blank: {x: 373.23, y: 164.59}
+  find_s_blank: {x: 569.57, y: 206.56}
+  next_one: {x: 593.84, y: 378.43}
+  loop_f_back: {x: 470.57, y: 391.58}
+  loop_s_back: {x: 334.17, y: 375.37}

@@ -6,7 +6,7 @@ Equivalencias entre variantes de el modelo de Turing Machine:
 - non-deterministic Turing Machine.
 - enumerators.
 
-A Turing Machine tiene un finitw control, con una tape y una head, la tape es infinita a ambos lados.
+A Turing Machine tiene un finite control, con una tape y una head, la tape es infinita a ambos lados.
 
 A Turing Machine tiene 3 posibles outcomes para cada input w:
 
@@ -108,6 +108,4 @@ Demostrar que C es T-recognizable si y solo si hay un decider D donde:
 	
 <x, y> es un encoding de el par de strings x, y en un single string.
 
-dado un string x, como saber si es aceptado por x ? iterar por todos los y in sigma *, y pasarle el par <x,y> al decider.
-
-supón que hay una máquina de turing que reconoce a el lenguaje.
+Una TM que reconozca cualquier lenguaje regular: sus estados son los mismos que los del autómata que la reconoce, y se mueve en una sola dirección hasta que se encuentra un carácter en blanco que significa que ya acabó de procesar el string.

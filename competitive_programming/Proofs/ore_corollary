@@ -1,4 +1,4 @@
-Un grafo no dirigido con n vértices, k >= 1 tal que:
+Un grafo conexo con n vértices, k >= 1 tal que:
 	para cualquier par de vértices no adyacentes la suma de sus grados es >= k.
 	
 Demostrar que existe un camino de tamaño al menos k.

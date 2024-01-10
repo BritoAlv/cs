@@ -61,5 +61,3 @@ Corollary: Some language is not decidable, porque hay más lenguajes ( uncontabl
 Theorem: A_TM is not decidable.
 
 Poner en columna las TM, y en filas las entradas que son strings en sigma*, para las TM. notar que ahí se incluyen las TM escritas como strings. Ponemos en la table si esa TM con esa entrada acepta o no.
-
-

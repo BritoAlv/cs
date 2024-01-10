@@ -1,0 +1,51 @@
+Un grafo es hamiltoniano si existe un ciclo simple ( no repite vértices) que pasa por todos los vértices.
+
+Si hay un par de vértices u, v tales que:
+	1- no son adyacentes.
+	2- deg(u) + deg(v) >= n.
+
+G + (u, v) es hamiltoneano => G es hamiltoneano.
+
+G + (u, v) es hamiltoneano:
+	hay un ciclo que pasa por todos los vértices del grafo.
+		si ese ciclo no usa la arista uv, entonces G es hamiltoneano.
+		si ese ciclo usa esa arista uv entonces el ciclo es de la forma:
+		
+v => u => ..... => v ( sin repetir vértices)
+     [    path     ]
+     
+Notar que eso significa que hay un camino que va de u a v, que pasa por todos los vértices del grafo, y por tanto es el camino simple más largo que va de u a v. (sin incluir la arista uv)
+
+Ahora sería la misma idea del teorema de Ore, en el grafo original:	
+
+camino de u a v: u x0 x1 x2 .... v
+	existe xi tal que:
+		uxi in E(G)
+		vx_{i-1} in E(G)
+se forma el ciclo:
+	u => ... => x_{i-1} => v => ... => xi => u
+
+que es hamiltoneano, porque el camino incluía todos los vértices del grafo.
+
+El teorema anterior permite definir lo siguiente:
+
+Sea Cl(G) un grafo obtenido a través del siguiente algoritmo:
+	Cl(G) = G
+	while( existan en Cl(G): x, y no adyacentes con suma de grados >= n)
+		añadir xy a E( Cl(G))
+		
+Notar que el grafo Cl(G) es un grafo hamiltoneano si y solo si G es hamiltoneano, porque en cada paso se añade una arista <u, v> entre un par de vértices no adyacentes cuyos grados suman al menos n. ( primer teorema )  
+
+Notar que el algoritmo para obtener un Cl(G) termina porque el grafo tiene un límite de aristas que puede tener.
+
+Notar que hay varias formas de obtener un Cl(G): el algoritmo va añadiendo aristas <x, y> al azar mientras que pueda. 
+
+Teorema: Cl(G) está bien definido, o sea como quiera sea el orden en que se escogan las aristas <x, y> se acaba con un mismo grafo. 
+
+Se obtiene Cl1(G) añadiendo paso a paso las aristas:
+	e1, e2, ..., em
+	
+Se obtiene Cl2(G) añadiendo paso a paso las aristas:
+	a1, a2, ..., an
+
+Notar que en Cl1(G) tiene que haberse añadido en algún momento la arista a1, porque se añade inicialmente en Cl2(G), una vez añadida la arista a1, en algúna iteración se añadió la arista a2 en Cl1(G) porque después de añadir la arista a1, se puede añadir porque en Cl2(G) lo hizo and so on, análogamente se puede aplicar el mismo razonamiento en Cl2(G) a partir de Cl1(G), por tanto las aristas añadidas a ambos son las mismas.

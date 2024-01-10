@@ -1,0 +1,52 @@
+Un matching M es máximo si para cualquier otro matching M' se cumple que |M| > |M'|.
+
+Un camino M-alternante es:
+	e1 = v0v1
+	e2 = v1v2
+	....
+	e_{2k+1} = v_{2k}v_{2k+1} 
+
+tal que: 
+	e_{2k} está en el matching.
+	e_{2k+1} no está en el matching.
+	v1, v2, ..., v_{2k} están en el matching.
+
+Claim: Un matching M es máximo ssi no posee caminos M-alternantes:
+	
+	Si hay un camino M-alternante => M no es máximo: 
+		remover del matching a las aristas e_{2k}, añadir las aristas e_{2k+1} y el matching aumentó su tamaño en 1 ( emparejamos un vértice más de la izquierda ) por tanto M no era máximo.
+	
+Asumir que hay un matchings M sin caminos alternantes y otro matching M' tal que:
+		|M| < |M'|
+	
+Considerar el grafo X = xor(M, M'), o sea, coger las aristas que están en M y no en M' y las que están en M' y no en M. 
+
+(aparentemente el xor entre dos estructuras posee propiedades ).
+	Si el vértice v0 está emparejado con dos vértices diferentes
+	tiene grado 2 en X.
+	Si está emparejado con el mismo o con ningún vértice posee grado 0 en X.
+	Si está emparejado en un matching y en el otro no posee grado 1 en X.
+
+	Por tanto todos los vértices en X poseen grado <= 2, en un grafo donde pasa eso todas las componentes conexas son either un ciclo o un path. 
+	un ciclo no puede ser de tamaño impar porque a un vértice le corresponderían dos adyacentes de un mismo matching, por tanto si hay un ciclo ha de ser longitud par.
+	Si hay un ciclo de longitud par entonces contiene la misma cantidad de aristas from M que de M'.
+	Como |M| < |M'| tiene que haber una componente conexa en la que hayan más aristas de M' que de M, consecuentemente no es un ciclo, por tanto es un path, y representa un camino M-alternante para M lo que es absurdo.
+
+Sea S un conjunto de vértices de un grafo, entonces N(S) es el conjunto de vértices y del grafo tales que:
+	existe x in S tal que: xy in E(G) 
+
+Teorema de Hall:
+	Dado un grafo bipartito (X U Y, E) existe un matching con size |X| ssi para todo subconjunto S de X, |N(S)| >= |S|.
+	
+Si para algún subset |N(S)| < |S| como los voy a emparejar si no alcanzan los vecinos.
+
+Supongamos que tenemos suficientes vecinos para cualquier subconjunto entonces la cosa ahora es encontrar un M-alternating path.
+
+Sea x in X un vértice no already matched:
+	Y' el conjunto de los vértices de Y reachable from x, el objetivo es incluir en Y' a un vértice en Y no matched.
+	N(X) in Y', 
+
+Y' = {}
+añadimos N(x) aumentó el size porque N(x) >= 1.
+ahora añadimos a Y' la vecindad de cada uno de los padres de los nuevos elementos, el size de Y' tiene que aumentar, porque si no en el left side tenemos a los vértices:
+	S =  {x, p1, p2, ..., p_{|y'|} }, |S| = |y'|+1, por tanto en el nuevo Y' tiene que haber un elemento nuevo, repetiendo esto eventualmente hay que inlcuir un vértice de Y no matched, lo que crearía un camino M-alternante.

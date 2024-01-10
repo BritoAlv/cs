@@ -1,0 +1,155 @@
+3 - Sea G un grafo such that todo ciclo tiene longitud mayor o igual que 5.
+
+Demuestre que si el menor grado de G es al menos k, entonces G tiene al menos k^2+1 vértices.
+
+Contar los pares (y, z) tales que y, z son vértices del grafo tales que existe un vértice x que es adyacente a ambos.
+
+Notar que como xy, xz son aristas del grafo yz no es arista del grafo, por tanto (y, z) no son adyacentes. 
+
+Notar que no hay dos x1, x2, tales que:
+	yx1, zx1, zx1, zx2 son adyacentes porque si no hubiera un ciclo de tamaño 4. en particular cada par está asociado a exactamente un vértice x.
+	
+Entoncs si el grafo posee m vértices each one genera al menos C(k, 2) pares, habrían al menos
+
+mC(k, 2) pares. 
+
+lo que significa que el grafo posee a lo más:
+
+m*(m-1) / 2 - mC(k, 2) aristas.
+
+La cantidad de aristas en este grafo es al menos k*m/2.
+
+entonces k*m / 2 <= m*(m-1)/2 - mC(k, 2)
+		 k/2 <= (m-1)/2 - k(k-1)/2
+		 k <= (m-1) - k(k-1)
+		 k + k^2 - k + 1 <= m.
+
+m >= k^2 + 1
+
+1 - Demostrar que si un grafo G es conexo y su complemento no tiene ciclos de longitud 3 entonces G posee un camino de Hamilton.
+
+Lo de que el complemento no posea ciclos de longitud 3, means que en el grafo original para cualesquiera tres vértices se cumple que hay al menos una arista entre ellos.
+
+Considerar dos vértices no adyacentes x, y en el grafo:
+	para cualquier otro vértice z, por la condición either
+		xz in E(G)
+		yz in E(G)
+	por tanto para cualesquiera dos vértices no adyacentes del grafo d(x) + d(y) >= n-2.
+
+Lema*:
+
+Un grafo conexo con n vértices, k >= 1 tal que:
+	para cualquier par de vértices no adyacentes la suma de sus grados es >= k.
+	
+Demostrar que existe un camino de tamaño al menos k.
+
+Puedo garantizar que existe un camino de longitud n-2 ( use * ), o sea al menos n-1 vértices.
+
+Asumir que el camino más largo posee n-1 vértices. con extremos v, u. Quiero añadir a el vértice x.
+	Por la condición al menos una de las aristas:
+		vu, vx, ux está presente.
+			worst case is solamente vu.
+				pero entonces como el grafo es conexo, x ha de ser adyacente a uno de los vértices de el ciclo que se forma con el camino más largo, y puedo extender el camino usando esa arista y el ciclo.
+				
+2 -
+	a) todo grafo regular de grado 8 tiene un ciclo de longitud al menos 9:	 ( no entiendo ???)
+	b) si en un grafo conexo cada arista está en un número impar de ciclos entonces el grafo es euleriano ( ejercicio de cp, si )
+	c) para todo grafo se cumple que x(G)*x(G^c) >= n
+
+2 - b) 
+
+Es suficiente con demostrar que el grado de todos los vértices es par.
+
+Considerar el vértice x, 
+	considerar una arista yx, y un ciclo al que yx pertenece entonces hay otra arista zx en ese ciclo. por tanto podemos asociar a los vértices y, z por ese ciclo que pasar por x.
+	
+digamos que el grado de x es impar, entonces hay una cantidad impar de vértices v1, v2, ..., vk adyacentes a x. Puedo hacer un grafo con esos vértices y conectaré a dos vi, vj si la arista vix, vjx pertenecen a un mismo ciclo. Notar que pueden haber múltiples aristas entre vi, vj. Notar que el grado de cada vértice vi en ese grafo es igual a la cantidad de ciclos a los que pertenece la correspondiente arista vix en el grafo original. En particular este grafo posee una cantidad impar de vértices y cada vértice posee un grado impar, entonces es imposible que la suma de los grados de los vértices ( una cantidad impar de números impares)  sea un número par ( 2*cantidad de aristas).
+
+Por tanto el grado de esté vértice x es par, análogamente con todos los vértices.
+
+2 - c)
+
+Sea x(G) = k, entonces los vértices de G están divididos en k clases de equivalencia ni:
+	n1 + n2 + ... + nk = n
+
+ahora en G^c como se ven esas clases de equivalencia:
+	each one es un clique. Por tanto hacen falta al menos max(ni) colores para colorear G^c.
+
+quiero demostrar que:
+	x(G^c) >= n / k
+
+pero se que: x( G^c) >= max(ni) >= n/k, por palomar.
+
+1 - todo grafo G de n vértices y m aristas where n >= 3, m >= C(n-1, 2) + 2 no tiene vértices de corte.
+
+Lema: En un grafo con n vértices y m = C(n-1, 2) + 1 aristas es conexo.
+
+Claim Unlock: si un grafo no es conexo, entonces su complemento es conexo.
+
+Suponer que posee componentes C1, C2, ..., Ck entonces en el complemento para ir del vértice x a el vértice y:
+	si están en diferente cc en G son adyacentes, else escoger un vértice z en otra cc y está el camino xz, zy.
+
+Asumir que el grafo no es conexo, entonces el complemento posee un total de n(n-1)/2 - (n-1)(n-2)/2 - 1 aristas que es:
+			(n-1)/2 ( n - (n-2)) - 1
+		 =  n-2 no es suficiente para ser conexo teniendo n vértices.
+
+
+Es suficiente demostrar la propiedad para m = C(n-1, 2) + 2.
+
+digamos que quito un vértice del grafo, el grafo resultante posee al menos C(n-1, 2) + 2 - (n-1) aristas. Es suficiente con demostrar que esa cantidad es >= que:
+
+C(n-1, 2) + 2 - (n-1) >= C(n-2, 2) + 1
+(n-1)(n-2)/2 + 2 - n + 1 >= (n-2)(n-3)/2 + 1
+     (n-2)/2* ( n-1 - (n-3) ) >= n-2
+      1 >= 1.
+ 
+2 - si 12 personas se sientan en una mesa circular y se sabe que ninguna conoce a más de 5 de las otras es posible acomodarlos de forma tal que toda persona tenga a su lado dos desconocidos.
+
+eso es equivalente a decir si en el grafo formado por las 12 personas, y hay una arista entre a,b si no se conocen, ver si existe un ciclo que pase por todos los vértices.
+
+pero el grado de cada vértice es >= 12 - 1 - 5 = 6, por el toerema de Dirac se puede.
+
+2 - Demuestre que todo grafo G contiene un subgrafo bipartito G' tal que:
+	|E(G')| >= |E(G)|/2
+
+Inducción en la cantidad de vértices de G:
+	asumir que se cumple para n vértices, para n+1, hallar el subgrafo bipartito con n vértices G'(X U Y)
+	hay que añadir a el vértice n+1 a uno de los dos lados: X o Y, lo añadimos en el lado que aporte más aristas, las restantes las quito, ( se quedan más de la mitad )
+	
+4 - Sea G un grafo con n vértices, m = n^2/4, demuestre que en G hay al menos un ciclo de longitud 3.
+
+Si un grafo no posee triángulos, esto significa que para cualesquiera tres vértices hay a lo más dos aristas entre ellos.
+
+so, cada subconjunto {a, b, c} de vértices aporta a lo más 2 aristas, por otro lado cada arista es contada en exactamente n-2 subconjuntos.
+
+C(n, 3) * 2 / (n-2) < n^2/4
+n*(n-1)*(n-2) / 6 * 2 / (n-2) < n^2 / 4
+(n-1) / 6 * 2  < n / 4
+
+(n-1) / 3 < n / 4
+4n - 4 < 3n
+n < 4 false.
+
+5 - Sea G = (V, E) un grafo conexo de n vértices. Demostrar que G es Kn o existen en G tres vértices u, v, w tales que: 
+	vu in E
+	vw in E
+	uw not in E
+	
+Si G no es Kn en G existen dos vértices (x, y) tales que si distancia es > 1, (la distancia entre cualquier par de vértices está bien definida porque es conexo) si esa distancia es 2 listo, ahora asumo que esa distancia es d, so that:
+	xv1v2...v_{d-1}y es uno de los caminos con distancia d, de x a y.
+
+considerar xv1v2, si xv2 no es una arista del grafo entonces xv1v2 cumplen la condición, pero si es una arista del grafo la distancia puede ser reducida, absurdo.
+
+9 - Todo grafo G de 2k vértices donde min-degree(G) >= k posee un emparejamiento perfecto.
+
+inducción no funciona, hall no funciona. Por el teorema de Dirac posee un ciclo hamiltoneano por ende un perfect matching.
+
+10 - Demuestre que un grafo G es bipartito si y solo si todo subgrafo H inducido de G contiene un conjunto independiente de tamaño mayor o igual que |V(H)|/2.
+
+un grafo itself es inducido, por tanto si el contiene un conjunto independiente de size |V(G)|/2 es bipartito.
+
+Quedaría demostrar que si es bipartito todo subgrafo inducido H de G contiene un conjunto independiente de tamaño mayor o igual que |V(H)|/2, pero esto se cumple xq los vértices se dividen en dos grupos, coger el que más posea.
+
+11 - Demostrar que si un grafo es conexo, entonces existe un labeling de los vértices x1x2...xn tal que el grafo [x1...xi] es conexo.
+
+Considerar un spanning tree del grafo, coger a x1 como una raíz del árbol e ir añadiendo a los vértices por la distancia en BFS, primero todos los que están a distancia 2, después a distancia 3, and so on.

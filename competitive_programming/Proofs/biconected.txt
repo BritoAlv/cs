@@ -1,4 +1,17 @@
-Demostrar que si un grafo es biconexo ( remover una arista o un vértice no desconecta el grafo ) entonces entre cualquier par de vértices u, v existen dos caminos simples disjuntos.
+2-vertex-conexo: grafo conexo tal que al remover cualquier vértice se mantiene conexo y existen dos tales que al removerlos el grafo se desconecta.
+
+2-edge-conexo: grafo conexo tal que al remover cualquier arista se mantiene conexo y existen dos tales que al removerlas el grafo se desconecta.
+
+Demostrar que si un grafo es 2-vertex-conexo entonces entre cualquier par de vértices u, v existen dos caminos simples disjuntos.
+
+Claim: 
+	2-vertex-conexo => 2-edge-conexo: 
+
+Asumir que es 2-vertex-conexo y que al remover la arista ab se desconecta el grafo.
+
+Entonces después de remover la arista, hay una cc donde se encuentra el vértice a y otra donde se encuentra el vértice b.
+
+Si yo remuevo a el vértice a, entonces eso no afecta la otra cc, por lo que el grafo no puede ser conexo. análogamente si remuevo a el vértice b.
 
 Como el grafo es conexo, desde el vértice u se puede llegar a el vértice v a través de cierta cantidad de aristas, en particular la distancia entre dos vértices cualesquiera está bien definida.
 
@@ -47,3 +60,5 @@ Ese camino interseca a el ciclo en el vértice a2, pero puede que lo interseque 
 Eso demuestra que existen dos caminos disjuntos por hipótesis de inducción.
 Entonces tengo:
 	u => camino3 => m => uno de los caminos ( el que está m) =>  v => otro camino => a1 => u
+	
+

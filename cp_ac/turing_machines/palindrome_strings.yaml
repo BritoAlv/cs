@@ -1,0 +1,52 @@
+name: palindrome_strings
+source code: |
+  input: 'abbbb'
+  blank: ' '
+  start state: q0
+  table:
+    q0:
+      ' ': {R: accept}
+      'a': {write: a, R: only_one}
+      'b': {write: b, R: only_one}
+    
+    only_one:
+      ' ': {L: accept}
+      'b': {write: b, L: start_check}
+      'a': {write: a, L: start_check}
+    
+    start_check:
+      'a': {write: ' ', R: eat_A}
+      'b': {write: ' ', R: eat_B}
+      
+    eat_A:
+      ' ': {write: ' ', L: eat_AA}
+      'a': {write: a, R: eat_A}
+      'b': {write: b, R: eat_A}
+    
+    eat_AA:
+      'a': {write: ' ', L: loop_back}
+    
+    eat_B:
+      ' ': {write: ' ', L: eat_BB}
+      'a': {write: a, R: eat_B}
+      'b': {write: b, R: eat_B}
+    
+    eat_BB:
+      'b': {write: ' ', L: loop_back}
+      
+    loop_back:
+      ' ': {write: ' ', R: q0}
+      'a': {write: a, L: loop_back}
+      'b': {write: b, L: loop_back}
+    
+    accept:  
+positions:
+  q0: {x: 167.11, y: 72.56}
+  only_one: {x: 194.34, y: 264.05}
+  start_check: {x: 315.85, y: 345.52}
+  eat_A: {x: 411.01, y: 310.41}
+  eat_AA: {x: 567.71, y: 306.41}
+  eat_B: {x: 269.02, y: 231.44}
+  eat_BB: {x: 474.11, y: 186.55}
+  loop_back: {x: 582.33, y: 91.99}
+  accept: {x: 44.72, y: 178.6}
