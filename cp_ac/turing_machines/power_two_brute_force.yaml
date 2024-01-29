@@ -1,0 +1,111 @@
+name: power_two_brute_force
+source code: |
+  input: '1'
+  blank: '*'
+  start state: config
+  table:
+    config:
+      '1': {L: weird}
+      '*': {write: '1', L: finish}
+    weird:
+      '*': {L: weird2}
+    weird2:
+      '*': {write: 0, R: get_back}
+    
+    get_back:
+      '*': {R: get_back}
+      '1': {R: almost4}
+      
+    almost4:
+      '*': {L: config2}
+      '1': {R: config2}
+    
+    config2:
+      '1': {R: find_b}
+    
+    find_b:
+      '1': {R: find_b}
+      '*': {R: write_o}
+    
+    write_o:
+      '*': {write: 1, L: return}
+    
+    return:
+      '*': { L : return}
+      '1': { L : almost}
+    
+    almost:
+      '1': {R : start}
+      '*': {R: start}
+    
+    start:
+      '1': {write: '*', R: skip}
+      
+    skip:
+      '*': {R: skip}
+      '1': {R: almost2}
+      
+    almost2:
+      '*': {L: qx2 }
+      '1': {L: qx2 }
+    
+    qx2:
+      '1': {write: '*', R: find_f_blank}
+      '*': {R: accept_qx2}
+    
+    find_f_blank:
+      '1': {R: find_f_blank}
+      '*': {write: '*', R: find_s_blank}
+    
+    find_s_blank:
+      '1': {R: find_s_blank}
+      '*': {write: '1', R: next_one}  
+    
+    next_one:
+      '*': {write: '1', L: loop_f_back}
+    
+    loop_f_back:
+      '1': {L: loop_f_back}
+      '*': {L: loop_s_back}
+    
+    loop_s_back:
+      '1': {L: loop_s_back}
+      '*': {R: qx2}
+    
+    accept_qx2:
+      '1': {L: ret_p}
+    
+    ret_p:
+      '*': {L: ret_p}
+      '1': {R: almost3}
+      '0': {L: finish}
+    finish:
+      '*': {R: finish}
+      '0': {write: '*', R: finish}
+    almost3:
+      '*': {L: start}
+      '1': {L: start}
+positions:
+  config: {x: 52.1, y: 250.11}
+  weird: {x: 45.34, y: 190.6}
+  weird2: {x: 41.6, y: 103.89}
+  get_back: {x: 42.32, y: 20, fixed: false}
+  almost4: {x: 182.08, y: 39.22}
+  config2: {x: 277.8, y: 41.1}
+  find_b: {x: 273.69, y: 127.07}
+  write_o: {x: 201.51, y: 171.38}
+  return: {x: 137.94, y: 239.63}
+  almost: {x: 195.38, y: 387.82}
+  start: {x: 189.04, y: 472.4}
+  skip: {x: 399.75, y: 478.63}
+  almost2: {x: 487.38, y: 353.29, fixed: false}
+  qx2: {x: 430.05, y: 199.83}
+  find_f_blank: {x: 561.92, y: 280.44}
+  find_s_blank: {x: 703.84, y: 334.38, fixed: false}
+  next_one: {x: 742.34, y: 191.27, fixed: false}
+  loop_f_back: {x: 680.7, y: 55.45, fixed: false}
+  loop_s_back: {x: 532.87, y: 68.4}
+  accept_qx2: {x: 291.62, y: 241.83}
+  ret_p: {x: 340.07, y: 296.47}
+  finish: {x: 250.4, y: 349.6}
+  almost3: {x: 312.81, y: 399.48}

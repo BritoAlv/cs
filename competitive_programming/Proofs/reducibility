@@ -77,7 +77,7 @@ Es decidible el problema de saber si una TM cumple que:
 	para cualquier entrada:
 		se pasa por todos los índices de la pista una cantidad finita de veces.
 
-let's try to create Halt based on that:
+crear Halt basado en un decider de el lenguaje anterior:
 
 S on input M:
 	// crear una máquina D tal que M con una entrada w para si y solo si D para cualquier entrada pasa por todos los índices de la pista una cantidad finita de veces.
