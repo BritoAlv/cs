@@ -16,59 +16,87 @@
 #define ull unsigned long long
 using namespace std;
 
+int a[200000];
+
+int cheker_recursive(int start, int end)
+{
+    if (start == end)
+    {
+        return a[start] == 0;
+    }
+    else
+    {
+        int zero_position = -1;
+        for (int i = start; i <= end; i++)
+        {
+            if (a[i] == 0)
+            {
+                if (zero_position != -1)
+                {
+                    return 0;
+                }
+                else
+                {
+                    zero_position = i;
+                }
+            }
+        }
+        if (zero_position != -1)
+        {
+            for (int i = start; i < end; i++)
+            {
+                // split like this.
+                //[start, i]
+                //[i+1, end]
+                if (zero_position <= i)
+                {
+                    for (int j = i + 1; j <= end; j++)
+                    {
+                        a[j]--;
+                    }
+                    if (cheker_recursive(start, i) && cheker_recursive(i + 1, end))
+                    {
+                        return 1;
+                    }
+                    for (int j = i + 1; j <= end; j++)
+                    {
+                        a[j]++;
+                    }
+                }
+                else
+                {
+                    for (int j = start; j <= i; j++)
+                    {
+                        a[j]--;
+                    }
+                    if (cheker_recursive(start, i) && cheker_recursive(i + 1, end))
+                    {
+                        return 1;
+                    }
+                    for (int j = start; j <= i; j++)
+                    {
+                        a[j]++;
+                    }
+                }
+            }
+            return 0;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+}
+
 void Solve()
 {
     int n;
     cin >> n;
-    int a[n];
     forn
     {
         cin >> a[i];
     }
-    int zero_position = -1;
-    forn
-    {
-        if (a[i] == 0)
-        {
-            if (zero_position == -1)
-            {
-                zero_position = i;
-            }
-            else
-            {
-                cout << "NO" << endl;
-                return;
-            }
-        }
-    }
-    if (zero_position == -1)
-    {
-        cout << "NO" << endl;
-        return;
-    }
-    for (int i = zero_position - 1; i >= 0; i--)
-    {
-        if ((a[i] - a[i + 1] <= 1) && (a[i] - a[i + 1] >= 0))
-        {
-        }
-        else
-        {
-            cout << "NO" << endl;
-            return;
-        }
-    }
-    for (int i = zero_position + 1; i < n; i++)
-    {
-        if ((a[i] - a[i - 1] >= 0) && (a[i] - a[i - 1] <= 1))
-        {
-        }
-        else
-        {
-            cout << "NO" << endl;
-            return;
-        }
-    }
-    cout << "YES" << endl;
+    cout << cheker_recursive(0, n - 1) << endl;
     return;
 }
 
