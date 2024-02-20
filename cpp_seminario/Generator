@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+#define endl '\n'
+#define wp ' '
+#define forn for (int i = 0; i < n; i++)
+#define form for (int j = 0; j < m; j++)
+#define pb push_back
+#define ull unsigned long long
+
+// je m appelle Alvaro j ai 21 ans.
+
+using namespace std;
+
+void Solve()
+{
+    int n = rand() % 200 + 1;
+    cout << n << endl;
+    forn
+    {
+        if (rand() % 2 == 0)
+        {
+            int to_insert = rand() % 100 + 1;
+            cout << 'i' << wp << to_insert << endl;
+        }
+        else
+        {
+            int to_delete = rand() % 200 + 1;
+            cout << 'd' << wp << to_delete << endl;
+        }
+    }
+    return;
+}
+
+int main()
+{
+    int test_cases;
+    cin >> test_cases;
+    cout << test_cases << endl;
+    while (test_cases > 0)
+    {
+        srand(test_cases);
+        Solve();
+        test_cases--;
+    }
+    return 0;
+}
