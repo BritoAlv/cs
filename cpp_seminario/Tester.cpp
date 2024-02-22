@@ -62,11 +62,11 @@ void Solve()
         cin >> a >> t;
         if (a == 'i')
         {
-            my_dll.pb({t});
+            my_dll.pb(t);
         }
         else if (a == 'd')
         {
-            my_dll.rm({t});
+            my_dll.rm(t);
         }
         n--;
     }

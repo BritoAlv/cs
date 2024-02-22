@@ -8,6 +8,7 @@ template <typename T> class DLL
     DLL()
     {
         head = nullptr;
+        tail = nullptr;
     }
     void watch()
     {
@@ -39,16 +40,14 @@ template <typename T> class DLL
         {
             A->prev = nullptr;
             head = A;
+            tail = A;
         }
         else
         {
-            Node *current = head;
-            while (current->next != nullptr)
-            {
-                current = current->next;
-            }
+            Node *current = tail;
             current->next = A;
             A->prev = current;
+            tail = A;
         }
     }
     void rm(T val)
@@ -58,7 +57,6 @@ template <typename T> class DLL
         {
             current = current->next;
         }
-
         if (current != nullptr)
         {
             Node *before = current->prev;
@@ -70,6 +68,12 @@ template <typename T> class DLL
                 {
                     next->prev = nullptr;
                 }
+                else
+                {
+                    // linked list with only one element
+                    // and have to delete precisely it.
+                    tail = nullptr;
+                }
             }
             else
             {
@@ -77,6 +81,10 @@ template <typename T> class DLL
                 if (next != nullptr)
                 {
                     next->prev = before;
+                }
+                else
+                {
+                    tail = before;
                 }
             }
         }
@@ -120,5 +128,6 @@ template <typename T> class DLL
 
   private:
     Node *head;
+    Node *tail;
 };
 } // namespace Seminario
