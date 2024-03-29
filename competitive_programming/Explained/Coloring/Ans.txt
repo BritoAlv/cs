@@ -1,0 +1,14 @@
+en el caso de k = 1, no hay que hacer nada.
+en el caso de k = 2, hay solució ssi el color con más apariciones es <= suma de los demás + 1. 
+
+si hay una solución para un k, entonces notar que quitando todas las apariencias de un color, obtengo una secuencia válida para (k-1).
+
+teniendo la respuesta para k-1 basta que la cantidad de apariencias del nuevo color sea a lo más (los que hay) / (k-1) + 1.
+
+el mejor caso es cuando los elementos están ordenados de mayor a menor porque es cuando le exigo menos al número.
+
+Si hay una solución para k hay una para k-1: to see why, notar que si quito todas las apariciones de algún color, entonces no pueden haber dos seguidos.
+
+por otro lado si hay para (k-1) entonces hay para k si es posible escoger el color que falta e insertarlo entre las que hay eso es ssi cant < hay / (k-1) + 1. 
+
+ahora en el caso base, por ejemplo para k = 1, siempre hay solución, para k = 2, hay solución ssi el que más aparece, cumple la condición.

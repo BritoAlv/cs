@@ -64,17 +64,13 @@ myOr :: Bool -> (Bool -> Bool)
 myOr x y = x || y
 
 myMap2 :: (a -> b) -> [a] -> [b]
-myMap2 f [] = []
-myMap2 f (x : xs) = f x : [f y | y <- xs]
+myMap2 f l = [f y | y <- l]
 
 myFilter2 :: (a -> Bool) -> [a] -> [a]
-myFilter2 f [] = []
-myFilter2 f (x : xs) = ([x | f x]) ++ [y | y <- xs, f y]
+myFilter2 f l = [y | y <- l, f y]
 
 cumplen:: (a -> Bool) -> [a] -> Bool
-cumplen f [] = True
-cumplen f (x : xs) = length (x : xs) == length (myFilter2 f (x: xs))
-
+cumplen f l = length l == length (myFilter2 f l)
 
 myBinarySearch :: (Integral a) => (a -> Bool) -> a -> a -> a
 myBinarySearch f st ed  | ed - st <= 2 = head (myFilter2 f (myReverse [st .. ed]))
@@ -94,10 +90,8 @@ sieve :: Integral a => [a] -> [a]
 sieve [] = []
 sieve (x : xs) = x : sieve [y | y <- xs, mod y x > 0]
 
-producto :: (Integral a) => [a] -> a
-producto [] = 1
-producto (x : xs) = myAggregate (*) 1 (x : xs)
-
+myproducto :: (Integral a) => ([a] -> a)
+myproducto  = foldr (*) 1
 
 collatzSeq :: (Integral a) => a -> [a]
 collatzSeq 1 = [1]
@@ -106,23 +100,45 @@ collatzSeq n
     | otherwise = n : collatzSeq (n*3 + 1)
 
 myLength :: (Integral b) => [a] -> b
-myLength [] = 0
-myLength (x : xs) = foldr (\x y  -> y + 1) 0 (x:xs)
+myLength = foldr (\x y  -> y + 1) 0
 
 collatzSeqLeng :: (Integral a) => a -> a -> [[a]]
 collatzSeqLeng n m = myFilter (\y -> myLength y == m) (map collatzSeq [1 .. n])
 
 myReverse2 :: [b] -> [b]
-myReverse2 [] = []
-myReverse2 (x : xs) = foldr (\x y -> y ++ [x]) [] (x : xs)
+myReverse2 = foldr (\x y -> y ++ [x]) []
 
 myReverse3 :: [b] -> [b]
-myReverse3 [] = []
-myReverse3 (x : xs) = foldl (\x y -> y : x) [] (x : xs)
-
+myReverse3  = foldl (\x y -> y : x) []
 
 isPalyndrome :: (Eq b) => [b] -> Bool
-isPalyndrome [] = True
-isPalyndrome (x : xs) = myReverse3 (x : xs) == (x : xs)
+isPalyndrome l = myReverse3 l == l
 
-main = print ( foldl (+) 1 [1,2,3] )
+factores :: Int -> [Int]
+factores 1 = []
+factores x = ms ++ factores (x `div` myproducto ms)  where ms = [y | y <- [1 .. x], esPrimo y, x `mod`y == 0]
+
+carNum :: Char -> [[Char]] -> Int
+carNum c l = length [y | y <- l, not (null y), head y == c]
+
+myFibonacci :: Num t => t -> t -> [t]
+myFibonacci x y = x : myFibonacci y (x+y)
+
+longPro :: [[t]] -> Int
+longPro l = sum (map length l)  `div` length l
+
+doblePos :: [Int] -> [Int]
+doblePos = map (\x -> 2*x)
+
+adyac :: [a] -> [(a, a)]
+adyac [] = []
+adyac [x] = []
+adyac (x : y : xs) = (x, y) : adyac xs
+
+takeUntil :: (a -> Bool) -> [a] -> [a]
+takeUntil _ []  = []
+takeUntil p (x : xs) | p x = x : takeUntil p xs
+                     | otherwise = [] 
+
+main :: IO ()
+main = print ( take 10 (myFibonacci 1 1 ))
