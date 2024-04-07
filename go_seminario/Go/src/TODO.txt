@@ -1,0 +1,8 @@
+TODO:
+	✅️ 1 - create  website with a query
+	✅️ 2 - read documents from txt, and return documents sorted by the ones that contain the bigger number of ocurrences of the query word.
+	✅️ 3 - split implementation in many files.
+	✅️ 4 - implement tf-idf ranker.
+	✅️ 5 - crying for refactoring.
+	✅️ 6 - make DotProduct depend on number of words in Query and not in number of words in Database.
+	❌️ 7 - make UI looks better.
