@@ -1,8 +1,11 @@
 namespace SeminarioConcurrencia;
 
 /*
-A Semaphor has a maximal number of threads that can pass to the critical code to avoid
-a lot of concurrent queries.
+A semaphor has a name, an initial capacity, and a maximum number of threads that can access the critical section. 
+
+Interface: 
+    WaitOne() : wait for a free capacity.
+    Release() : release capacity.
 */
 
 public class MySemaphore

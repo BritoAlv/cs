@@ -27,7 +27,7 @@ public static partial class Program
                 {
                     semaphore.WaitOne(workers[index].Name);
                     workers[index].Work(printer);
-                    printer.Print("Releasing capacity", workers[index].Name);
+                    printer.Print("Will try to releasing capacity", workers[index].Name);
                     semaphore.Release(1, workers[index].Name);
                 }
             );
