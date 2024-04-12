@@ -46,8 +46,14 @@ tree -d -L 2
 ├── cp_prolo
 ├── cpp_seminario
 │   └── tested_linked_list
-├── simulation_prob
-│   ├── InverseTransformSampling
-│   └── RejectionSampling
+├── dynamic_seminario
+│   ├── ClassLib
+│   └── Main
+├── go_seminario
+│   ├── CPP
+│   └── Go
+├── SeminarioConcurrencia
+│   ├── bin
+│   └── obj
 └── sqlalchemy
 ```

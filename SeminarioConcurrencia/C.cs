@@ -6,6 +6,7 @@ public class CLock
     {
         lock(object1)
         {
+            
         }
     }
     
