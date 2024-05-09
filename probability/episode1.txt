@@ -1,0 +1,60 @@
+Suponer que tengo una variable aleatoria discreta X, y una función que es aplicable a X, como puedo calcular el valor esperado de g(X).
+
+El valor esperado de g(X) vendría siendo por definición la sumatoria de:
+
+## definición
+    sum = 0
+    for valor in g:
+        sum += valor * probabilidad( de que de ese valor )
+
+
+## la probabilidad posee factor común la cantidad total de experimentos.
+    sum = 0
+    for valor in g:
+        for x in (x tales que g(x) = valor)
+            sum += valor
+    
+    sum /= cantidad total de experimentos
+
+## agrupar por la cantidad de veces que aparece x.
+    sum = 0
+    for valor in g:
+        for valor de x:
+            sum += valor * cantidad de veces que aparece x
+
+## usar el frequency count de lo que estaría en el expected value de x.
+    sum = 0
+    for valor in g:
+        sum += g(x) * m(x)
+
+entonces como ese doble for recorre todos los valores de las x's, se puede interpretar como que cada x aporta a la suma su valor correspondiente valor. pero se puede agrupar más porque las x's se pueden repetir.
+
+Ese teorema se puede extender a variables continuas en el sentido de que el expected value de una variable continua x es por definición:
+    integral de -infinito a infinito de x * f(x) * dx
+
+donde f(x) es la probability density function de x, que sería lo análogo a m(x) en el caso discreto.
+
+
+Aplicación:
+Entonces por ejemplo supón que quiero aproximar la integral de una función de [0,1] g(x)
+
+integral de 0 a 1 de g(x) dx
+
+Sea U una variable aleatoria uniforme de [0,1] cual es el valor de 
+E[g(U)]:
+    por definición es la integral de [-inf, inf] g(x) f(x) dx
+
+donde f(x) es la probability density function de la variable aleatoria uniforme U, notar que esta función vale 0 fuera de [0, 1], y uno en este intervalo, por tanto queda la integral de:
+
+integral de [0, 1] g(x) dx
+
+que es lo que se desea calcular, ahora queda la pregunta de como calcular E[g(U)], en esta parte la justificación es un teorema que se llama la strong law of large numbers que dice que:
+    el average de una los resultados obtenidos a partir de un largo número de random samples que pertenecen a una misma distribución (independientes y idénticos ?), converge, y además a su average.
+
+en otras palabras si simulamos la variable aleatoria un número largo de veces, y hallamos su promedio convergerá a su valor esperado, que es lo que se desea.
+
+Quedaría entonces tener un generador de la variable aleatoria uniforme de [0, 1], para esto se puede usar el siguiente pseudorandom-generador dada la correcta elección de los parámetros (a, m, x0), se puede plotear para comprobar que funcionó.
+
+dado x0, definir recursivamente xn = a * x_{n-1} mod m, una vez que se tenga la secuencia anterior escoger los primeros k elementos y dividirlos todos entre m, para que estén entre [0,1]. la randomness de este generador de números aleatorios depende de la elección de a, m, x0.
+
+en particular como se está mod m, eventualmente se van a repetir, (a,m) deben ser coprimos.
