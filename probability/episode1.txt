@@ -58,3 +58,64 @@ Quedaría entonces tener un generador de la variable aleatoria uniforme de [0, 1
 dado x0, definir recursivamente xn = a * x_{n-1} mod m, una vez que se tenga la secuencia anterior escoger los primeros k elementos y dividirlos todos entre m, para que estén entre [0,1]. la randomness de este generador de números aleatorios depende de la elección de a, m, x0.
 
 en particular como se está mod m, eventualmente se van a repetir, (a,m) deben ser coprimos.
+
+lo anterior se usó para [0, 1] pero se puede usar en otros intervalos by scaling, 
+
+Más aún se puede usar para varias variables:
+	theta = int int int g(x1,x2,x3) dx1 dx2 dx3
+	theta = expected [g(U1, U2, U3)]
+	
+y análogamente sería estimar la media.
+
+Es posible estimar pi : suponer que un vector random (X, Y) está uniformemente distribuido en el cuadrado de área 4 centrado en el origen.
+
+la probabilidad de que esté dentro del círculo es de pi/4
+
+entonces si X, Y son independientes y uniformemente distribuidas en (-1, 1) su joint density sería f(x, y) = f(x)f(y)
+					  = 1/2 * 1/2
+					  
+como la función de densidad de (X, Y) es constante en el cuadrado, (X,Y) es uniformemente distrbuida en el cuadrado. 
+
+2*U-1 es uniforme en (-1, 1) entonces se generan random numbers U1, U2, y se calcula pi
+como el expected value de la variable aleatoria definida por:
+
+I = {1, x^2 + y^2 <= 1, 0 else}
+
+esto permite generar pi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
