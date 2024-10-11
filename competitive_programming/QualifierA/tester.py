@@ -1,5 +1,6 @@
 import os
 import subprocess
+import argparse
 
 ok_path = "./ok.cpp"
 test_path = "./test.cpp"
@@ -39,9 +40,9 @@ def test(index : int, input_path : str, ok_path : str, test_path : str):
 dir = './'
 files = os.listdir(dir)
 
-inputs = []
+inputs : list[str] = []
 for file in files:
-    if file.endswith('.txt') and file.startswith("input"):
+    if file.endswith('.txt') and file.startswith('input'):
         inputs.append(file)
 
 
@@ -50,6 +51,33 @@ for file in files:
 subprocess.run(['g++', ok_path, '-o', ok_exec])
 subprocess.run(['g++', test_path, '-o', test_exec])
 
-for i, file in enumerate(inputs):
-    if not test(i, file, "./"+ok_exec, "./"+test_exec):
-        break
+
+parser = argparse.ArgumentParser(description='Run tests on competitive programming solutions.')
+parser.add_argument('-all', action='store_true', help='Run all test cases')
+parser.add_argument('-test', type=str, help='Run a specific test case, it should contain the arg passed in the file name')
+args = parser.parse_args()
+
+if args.all:
+    for i, file in enumerate(inputs):
+        print(f"Running Test {i+1}")
+        test(i, file, "./"+ok_exec, "./"+test_exec)
+        print("-------------------------------")
+
+if args.test:
+    print(f"Running Test with {args.test} in filename")
+    test_expression = args.test
+    for i, file in enumerate(inputs):
+        name = file[:-4][5:]
+        if name.find(test_expression) != -1:
+            print(f"Running Test {i+1}")
+            test(i, file, "./"+ok_exec, "./"+test_exec)
+            print("-------------------------------")
+
+if not args.all and not args.test:
+    print("No arguments passed. Running all tests.")
+    for i, file in enumerate(inputs):
+        print(f"Running Test {i+1}")
+        works = test(i, file, "./" + ok_exec, "./" + test_exec)
+        print("-------------------------------")
+        if not works:
+            break
