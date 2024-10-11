@@ -70,13 +70,14 @@ struct ValueHash
 {
     vector<ll> values;
     HashInfo *hashinfo;
+    int length;
 
-    ValueHash(vector<ll> values, HashInfo *p) : hashinfo(p), values(values)
+    ValueHash(vector<ll> values, int len, HashInfo *p) : hashinfo(p), values(values), length(len)
     {
         mod();
     }
 
-    ValueHash(ll seed, HashInfo *p) : hashinfo(p), values(vector<ll>(p->mods.size(), seed))
+    ValueHash(ll seed, int len, HashInfo *p) : hashinfo(p), values(vector<ll>(p->mods.size(), seed)), length(len)
     {
         mod();
     }
@@ -87,7 +88,7 @@ struct ValueHash
 
     bool operator==(const ValueHash &other) const
     {
-        return values == other.values;
+        return values == other.values && length == other.length;
     }
 
     void mod()
@@ -145,7 +146,7 @@ struct HashOp
         {
             result += z;
         }
-        return hash<long long>()(result);
+        return hash<long long>()( x.length + result);
     }
 };
 
@@ -154,7 +155,7 @@ vector<vector<ValueHash>> s;
 unordered_map<ValueHash, int, HashOp> P;
 unordered_map<ValueHash, int, HashOp> S;
 unordered_map<ValueHash, int, HashOp> F;
-vector<pair<ll, ll>> info = {{ 23423 , 998244353}, {21342, 998244353}};
+vector<pair<ll, ll>> info = {{31, 1e9 + 7}};
 HashInfo h = HashInfo(info);
 
 void init(vector<string> &R)
@@ -166,7 +167,7 @@ void init(vector<string> &R)
         vector<ValueHash> ss(n);
         forn
         {
-            pp[i] = ValueHash((long long)(st[i] - 'a' + 1), &h);
+            pp[i] = ValueHash((long long)(st[i] - 'a' + 1), i + 1, &h);
             pp[i].pow(i + 1);
             if (i > 0)
             {
@@ -180,7 +181,7 @@ void init(vector<string> &R)
         }
         forn
         {
-            ss[i] = ValueHash(pp[n - 1].values, &h);
+            ss[i] = ValueHash(pp[n - 1].values, n - i , &h);
             if (i > 0)
             {
                 ss[i].minus(pp[i - 1]);

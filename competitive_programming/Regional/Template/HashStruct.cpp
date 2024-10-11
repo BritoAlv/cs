@@ -70,13 +70,14 @@ struct ValueHash
 {
     vector<ll> values;
     HashInfo *hashinfo;
+    int length;
 
-    ValueHash(vector<ll> values, HashInfo *p) : hashinfo(p), values(values)
+    ValueHash(vector<ll> values, int len, HashInfo *p) : hashinfo(p), values(values), length(len)
     {
         mod();
     }
 
-    ValueHash(ll seed, HashInfo *p) : hashinfo(p), values(vector<ll>(p->mods.size(), seed))
+    ValueHash(ll seed, int len, HashInfo *p) : hashinfo(p), values(vector<ll>(p->mods.size(), seed)), length(len)
     {
         mod();
     }
@@ -87,7 +88,7 @@ struct ValueHash
 
     bool operator==(const ValueHash &other) const
     {
-        return values == other.values;
+        return values == other.values && length == other.length;
     }
 
     void mod()
@@ -145,10 +146,10 @@ struct HashOp
         {
             result += z;
         }
-        return hash<long long>()(result);
+        return hash<long long>()( x.length + result);
     }
 };
 
-
-vector<pair<ll, ll>> info = {{ 23423 , 998244353}, {21342, 998244353}};
+vector<pair<ll, ll>> info = {{12427, 1e9 + 7}};
 HashInfo h = HashInfo(info);
+
