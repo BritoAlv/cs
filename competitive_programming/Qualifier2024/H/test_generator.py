@@ -1,4 +1,4 @@
-max = 1
+max = 100
 
 def generate_random_string():
     import random
@@ -19,7 +19,7 @@ def generate_test() -> str:
 
 def generate_graph() -> str:
     import random
-    N_Test_Cases = 10000
+    N_Test_Cases = 1
     test = ""
     test += str(N_Test_Cases) + "\n"
     for _ in range(N_Test_Cases):
