@@ -11,17 +11,17 @@ test_exec = 'test_solution'
 def test(index : int, input_path : str, ok_path : str, test_path : str):
     with open(input_path, 'r') as inp:
         input_text = inp.read()
-
+        file_name = "_" + input_path[:-4]
         # Run the correct solution with the input and save the output
-        with open('ok_output' + str(index) + '.txt', 'w') as ok_out:
+        with open('ok_output' + file_name + '.txt', 'w') as ok_out:
             subprocess.run([ok_path], input=input_text, text=True, stdout=ok_out)
 
             # compile test_path, run and save ouput,
-            with open('test_output' + str(index) + '.txt', 'w') as test_out:
+            with open('test_output' + file_name + '.txt', 'w') as test_out:
                 subprocess.run([test_path], input=input_text, text=True, stdout=test_out)
 
-        with open('ok_output' + str(index) + '.txt', 'r') as ok_out:
-            with open('test_output' + str(index) + '.txt', 'r') as test_out:
+        with open('ok_output' + file_name + '.txt', 'r') as ok_out:
+            with open('test_output' + file_name + '.txt', 'r') as test_out:
                 result_ok = ok_out.read()
                 result_test = test_out.read()
                 if result_ok == result_test:
