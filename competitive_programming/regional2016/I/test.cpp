@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 
-#pragma GCC optimize("O3,unroll-loops")
-#pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 
 #define forn for (int i = 0; i < n; i++)
 #define endl '\n'
