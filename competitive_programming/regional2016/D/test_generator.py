@@ -39,6 +39,6 @@ def generate_graph() -> str:
 iter = 0
 while iter <= max:
     iter += 1
-    test_content = generate_test()
+    test_content = generate_graph()
     with open(f'input{iter}.txt', 'w') as inp:
         inp.write(test_content)

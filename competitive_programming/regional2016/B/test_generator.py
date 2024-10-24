@@ -1,4 +1,4 @@
-max = 1
+max = 100
 
 def generate_random_string():
     import random
@@ -19,19 +19,19 @@ def generate_test() -> str:
 
 def generate_graph() -> str:
     import random
-    N_Test_Cases = 10000
+    N_Test_Cases = 1
     test = ""
-    test += str(N_Test_Cases) + "\n"
     for _ in range(N_Test_Cases):
-        n = random.randint(2, 5)
-        g = random.randint(1, n)
+        n = random.randint(2, 100)
+        a = random.randint(0, n-1)
+        b = random.randint(0, n-1)
         edges = set()
         for _ in range(n*(n-1)//2):
             one = random.randint(1, n-1)
             two = random.randint(one+1, n)
             edges.add( (one, two) )
 
-        test += str(n) + " " + str(g) + " " + str(len(edges))  + "\n" 
+        test += str(n) + " " + str(len(edges)) + " " + str(a) + " " + str(b) +"\n" 
         for pair in edges:
             test += str(pair[0]) + " " + str(pair[1]) + "\n"
     return test
@@ -39,6 +39,6 @@ def generate_graph() -> str:
 iter = 0
 while iter <= max:
     iter += 1
-    test_content = generate_test()
+    test_content = generate_graph()
     with open(f'input{iter}.txt', 'w') as inp:
         inp.write(test_content)

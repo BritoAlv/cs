@@ -1,4 +1,4 @@
-max = 1
+max = 100
 
 def generate_random_string():
     import random
@@ -9,12 +9,12 @@ def generate_random_string():
 def generate_test() -> str:
     import random
     n = random.randint(1, 10)
+    k = random.randint(1, 20)
     test = ""
-    test += str(1) + "\n"
-    test += str(n) + " " + str(n) + " " + str((n*(n-1))//2)  + "\n" 
+    test += str(n) + " " + str(k) + "\n" 
     for i in range(1, n+1):
-        for j in range(i+1, n+1):
-            test += str(i) + " " + str(j) + "\n"
+        test += str(random.randint(1, 20)) +  " "
+    test += "\n"
     return test
 
 def generate_graph() -> str:

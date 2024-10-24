@@ -1,10 +1,15 @@
-max = 1
+max = 100
 
 def generate_random_string():
     import random
     import string
     n = 1000
-    return ''.join(random.choices(string.ascii_lowercase, k=n))
+    t = ''.join(random.choices(string.ascii_lowercase, k=n)) + "\n"
+    p = random.randint(1, n)
+    t += str(p) + "\n"
+    for _ in range(p):
+        t += str(random.randint(1, 26)) + " "
+    return t
 
 def generate_test() -> str:
     import random
@@ -39,6 +44,6 @@ def generate_graph() -> str:
 iter = 0
 while iter <= max:
     iter += 1
-    test_content = generate_test()
+    test_content = generate_random_string()
     with open(f'input{iter}.txt', 'w') as inp:
         inp.write(test_content)
