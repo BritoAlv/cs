@@ -72,6 +72,7 @@ if args.test:
             print(f"Running Test at file {file}")
             test(i, file, "./"+ok_exec, "./"+test_exec)
             print("-------------------------------")
+            break
 
 if not args.all and not args.test:
     print("No arguments passed. Running all tests by default until one breaks.")

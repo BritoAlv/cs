@@ -1,17 +1,18 @@
-const int INF = 1E9 + 5;
-
+const ll INF = LONG_LONG_MAX;
+// remember init n_v and adj vector.
 struct Edge
 {
     int v;
-    int cap, flow;
+    ll cap, flow;
     int rid;
 };
 
 int n_v;
 vector<vector<Edge>> adj;
 vector<int> dist, ptr;
-void addEdge(int u, int v, int cap)
+void addEdge(int u, int v, ll cap)
 {
+    cout << "Adding Edge from " << u << " to " << v << " with apacity " << cap << endl;
     int id = adj[u].size(), rid = adj[v].size();
     adj[u].pb({v, cap, 0, rid});
     adj[v].pb({u, 0, 0, id});
@@ -47,7 +48,7 @@ bool bfs(int s, int t)
     return dist[t] != -1;
 }
 
-int dfs(int u, int t, int flow)
+int dfs(int u, int t, ll flow)
 {
     if (u == t)
         return flow;
@@ -70,18 +71,18 @@ int dfs(int u, int t, int flow)
     return 0;
 }
 
-int flow(int s, int t)
+ll flow(int s, int t)
 {
     ptr = vector<int>(n_v, 0);
     dist = vector<int>(n_v, 0);
-    int res = 0;
+    ll res = 0;
     while (bfs(s, t))
     {
         for (int i = 0; i < n_v; i++)
         {
             ptr[i] = 0;
         }
-        int cflow = dfs(s, t, INF);
+        ll cflow = dfs(s, t, INF);
         while (cflow > 0)
         {
             res += cflow;
