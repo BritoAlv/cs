@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 #Python3 Code @BritoAlv
 result = ""
@@ -72,9 +73,10 @@ result += "\\documentclass{article}\n\
 \\begin{multicols}{2}\n"
 
 for file in os.listdir('./Codes'):
-    with open(f'./Codes/{file}', 'r') as f:
-        name = file.split('.')[0]
-        result += "\\subsection{" + name + "}" + "\n\
+    if file.endswith(".cpp"):
+        with open(f'./Codes/{file}', 'r') as f:
+            name = file.split('.')[0]
+            result += "\\subsection{" + name + "}" + "\n\
 \\vspace{0.2cm}\n\
 \\hrule\n\
 \\lstinputlisting[language=C++]{Codes/" + file + "}\n"
@@ -85,3 +87,5 @@ result += "\\end{multicols}\n\
 
 with open('references.tex', 'w') as new_ref_file:
     new_ref_file.write(result)
+
+subprocess.run(['pdflatex', 'references.tex', '-shell-escape'])
