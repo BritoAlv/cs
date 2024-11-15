@@ -1,4 +1,4 @@
-test_files_to_write = 10
+max = 100
 
 def generate_random_string():
     import random
@@ -8,21 +8,20 @@ def generate_random_string():
 
 def generate_test() -> str:
     import random
-    n = random.randint(1, 10)
-    test = ""
-    test += str(1) + "\n"
-    test += str(n) + " " + str(n) + " " + str((n*(n-1))//2)  + "\n" 
-    for i in range(1, n+1):
-        for j in range(i+1, n+1):
-            test += str(i) + " " + str(j) + "\n"
+    test = str(100) + "\n"
+    for _ in range(100):
+        a = random.randint(1, 100)
+        b = random.randint(1, 100)
+        c = random.randint(0, 2*(a+b) - 1)
+        test += str(a) + " " + str(b) + " " + str(c) + "\n"
     return test
 
 def generate_graph() -> str:
     import random
-    n_test_cases = 10000
+    N_Test_Cases = 10000
     test = ""
-    test += str(n_test_cases) + "\n"
-    for _ in range(n_test_cases):
+    test += str(N_Test_Cases) + "\n"
+    for _ in range(N_Test_Cases):
         n = random.randint(2, 5)
         g = random.randint(1, n)
         edges = set()
@@ -36,7 +35,9 @@ def generate_graph() -> str:
             test += str(pair[0]) + " " + str(pair[1]) + "\n"
     return test
 
-for i in range(1, test_files_to_write+1):
+iter = 0
+while iter <= max:
+    iter += 1
     test_content = generate_test()
-    with open(f'{i}.in', 'w') as inp:
+    with open(f'input{iter}.txt', 'w') as inp:
         inp.write(test_content)
