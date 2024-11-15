@@ -5,6 +5,9 @@
 #define wp ' '
 #define ll long long
 #define pb push_back
+#define vi vector<int>
+#define pi pair<int, int>
+
 using namespace std;
 
 int main()
