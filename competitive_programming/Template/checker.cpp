@@ -10,7 +10,12 @@
 
 using namespace std;
 
+const int maxn = 200010;
+ll a[maxn];
+
 int main()
 {
-    cout << "OK" << endl;
+	int n;
+	cin >> n;
+	forn cin >> a[i];
 }
