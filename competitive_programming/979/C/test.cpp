@@ -15,15 +15,29 @@ using namespace std;
 const int maxn = 200010;
 ll a[maxn];
 
-void solve()
-{
-	int n;
-	cin >> n;
-	forn cin >> a[i];
+void ans(int x) {
+	if (x) cout << "YES" << endl;
+	else cout << "NO" << endl;
 }
 
-int main()
-{
+void solve() {
+	int n;
+	cin >> n;
+	forn {
+		char x;
+		cin >> x;
+		a[i] = x == '1';
+	}
+	int fl = a[0] == 1 || a[n - 1] == 1;
+	for (int i = 1; i < n; i++) {
+		fl |= a[i] && a[i - 1];
+	}
+	ans(fl);
+}
+
+
+int main() {
 	int t = 1;
-	while(t--) solve();	
+	cin >> t;
+	while (t--) solve();
 }

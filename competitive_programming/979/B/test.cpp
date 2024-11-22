@@ -17,13 +17,20 @@ ll a[maxn];
 
 void solve()
 {
+	/*
+	 * f(t) non empty subsequences that only contain 0,
+	 * g(t) non empty subsequences that contain at least one 1.
+	 * dado t, hallar un string binario tal que |f(t) - g(t)| sea minimo.
+	*/
 	int n;
 	cin >> n;
-	forn cin >> a[i];
+	fori(0, n-2) cout << 0;
+	cout << 1 << endl;
 }
 
 int main()
 {
 	int t = 1;
+	cin >> t;
 	while(t--) solve();	
 }
