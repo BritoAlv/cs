@@ -13,9 +13,6 @@
 
 using namespace std;
 
-const int maxn = 600010;
-ll a[maxn];
-
 void solve()
 {
 	int n;
