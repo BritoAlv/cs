@@ -3,7 +3,6 @@
 #define doo(a) for(int i_i = 0; i_i < a; i_i++) 
 #define fori(a,b) for (int i = a; i <= b; i++)
 #define forj(a,b) for (int j = a; j <= b; j++)
-#define forn  for (int i = 0; i < n; i++)
 #define endl '\n'
 #define wp ' '
 #define ll long long
@@ -17,7 +16,8 @@ void solve()
 {
 	int n;
 	cin >> n;
-	forn cin >> a[i];
+	vi a(n);
+	fori(0, n-1) cin >> a[i];
 }
 
 int main()
