@@ -1,0 +1,401 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+% \inputminted[breaklines, breakafter=]{python}{./.py}
+
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=0.5cm , right = 0.5cm, top=0.5cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[H]
+%  \centering
+%  \includesvg[width=\textwidth]{plot.svg}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+% f(n) = \begin{cases}
+%    n/2  & n \text{ is even} \\
+%    3n+1 & n \text{ is odd}
+%  \end{cases}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+\subsection*{Oficiales}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Oficiales]
+    Kevin y $N$ oficiales de policía están parados en posiciones distintas en una cuadrícula unidimensional. Se mueven por turnos: primero, cada oficial se mueve un paso a la izquierda o a la derecha hacia un cuadrado desocupado, luego Kevin se mueve a la izquierda o a la derecha hacia un cuadrado desocupado. Un oficial que no puede moverse es eliminado, y si Kevin no puede moverse, es capturado. Encuentra el número máximo de oficiales que pueden ser eliminados. 
+
+    La cuadrícula posee un tamaño fijo dado en la entrada, los oficiales deciden cuál mover primero, y se mueven de uno en uno. Los oficiales constituyen un jugador y Kevin es el otro.
+
+\end{tcolorbox}
+
+\textbf{Solución}:
+
+    Sea $d(P)$ la cantidad de casillas que hay de por medio entre el oficial $P$ y Kevin. Notar que la paridad de $d(P)$ para cualquier $P$ no cambia después de una ronda, pues ambos $P$ y $K$ tienen que moverse a una posición adyacente.
+
+    Esto implica que $K$ solamente puede ser capturado a consecuencia de oficiales con $d(P)$ impar, pues en su turno se moverían alrededor de Kevin, y Kevin no tendrá casilla desocupada para moverse.
+        
+    Kevin puede garantizar eliminar a, al menos todos los oficiales a su izquierda mientras que su $d(P)$ sea par (o sea si $I$ fuera el oficial más cercano por la izquierda a Kevin con distancia impar, entonces Kevin puede eliminar a todos los que están entre ambos), análogamente a, al menos los oficiales a su derecha mientras que su $d(P)$ sea par:
+    
+    \textbf{Demostración}: Primero $K$ se mueve a la izquierda mientras que su oficial más cercano cumpla que $d(P)$ sea par, esto siempre va a ser posible, porque como el oficial más cercano cumple que $d(P)$ es par, cuando este se mueva, dejará al menos un espacio de por medio entre él y Kevin. Como este proceso no se puede prolongar indefinidamente, sucede que o se eliminan todos los oficiales a la izquierda de Kevin, o el que queda más a la izquierda cumple que $d(P)$ es impar.
+    
+    Después de haber realizado esto, Kevin se mueve a su derecha, como después de cada ronda los $d(P)$ no cambian, es el mismo razonamiento, que en el caso anterior.
+    
+    Esto demuestra que Kevin siempre puede eliminar a todos los oficiales, hasta que solamente está rodeado por oficiales a distancia impar.
+    
+    Los oficiales pueden garantizar que solamente sean eliminados los que están entre Kevin y el primero con $d(P)$ impar a la izquierda o a la derecha de Kevin:
+    
+    \textbf{Demostración}: Sea $I$ el oficial con $d(P)$ impar más cercano a Kevin por la izquierda, él va a intentar moverse a la derecha (la estrategia sería esta), si no puede es porque hay un oficial ahí, este oficial posee $d(P)$ par, su derecha está vacía (no puede haber otro a distancia impar antes de Kevin, porque $I$ es el más cercano) o es porque está Kevin ahí, en este último caso es eliminado. Lo que garantiza que $I$ se pueda mover un paso a la derecha, los oficiales a la izquierda de $I$ se mueven un paso a la derecha y siempre lo pueden hacer porque $I$ dejó la casilla donde estaba vacía.
+    
+    Este razonamiento se puede aplicar análogo desde la derecha.
+    
+    Como Kevin siempre puede eliminar a algunos oficiales, y los oficiales pueden garantizar que no van a perder más de esa cantidad, esa cantidad es la máxima cantidad que puede ser eliminada.
+        
+\subsection*{Distancia de Árboles}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black, title = Distancia de Árboles]
+
+    Te dan dos enteros $x$ y $y$. Tu tarea es construir un árbol con las siguientes propiedades:
+
+    \begin{enumerate}
+        \item El número de pares de vértices con una distancia par entre ellos es igual a $x$.
+        \item El número de pares de vértices con una distancia impar entre ellos es igual a $y$.    
+    \end{enumerate}
+
+    Por un par de vértices, nos referimos a un par ordenado de dos (posiblemente, el mismo o diferente) vértices.
+
+\end{tcolorbox}
+
+\textbf{Solución}: 
+
+Relativo a un vértice fijado del árbol, dos vértices están a distancia par, si y solo si la paridad de la distancia a este vértice fijado es la misma, o sea ambos a distancia impar o ambos a distancia par.
+
+Para ver por qué: sea $v$ el vértice fijado y $a$, $b$ dos vértices, sea $l = \text{lca}(a, b)$, entonces los caminos de estos vértices a la raíz son:
+
+\begin{align*}
+a &\rightarrow l \rightarrow v \\
+b &\rightarrow l \rightarrow v
+\end{align*}
+
+La distancia entre los vértices es:
+
+\[
+a \rightarrow l \rightarrow b
+\]
+
+que posee la misma paridad que:
+
+\[
+a \rightarrow l \rightarrow v \rightarrow l \rightarrow b
+\]
+
+o sea la suma de las distancias de los vértices al vértice fijado $v$, un número es par si y solo si se puede expresar como la suma de dos enteros de la misma paridad.
+
+No es relevante qué vértice se escoja para determinar los conjuntos, ya que la distancia no es relativa a este.
+
+Asumir que el árbol tiene $n$ nodos.
+
+Fijando un vértice $v$, digamos que hay $a$ vértices a distancia par de él, (lo incluye a él), entonces hay $(n-a)$ vértices a distancia impar de él.
+
+La cantidad de pares ordenados tales que la distancia entre ellos es par es:
+
+\[
+a + 2 \cdot C(a, 2) + (n-a) + 2 \cdot C(n-a, 2)
+\]
+
+La cantidad de vértices a distancia impar entre ellos es:
+
+\[
+a \cdot (n-a)
+\]
+
+Para resolver el problema hay que hallar enteros positivos $n$, $a$ tales que:
+
+\begin{align*}
+x &= a + 2 \cdot C(a, 2) + (n-a) + 2 \cdot C(n-a, 2) \\
+  &= n + 2 \cdot (C(a,2) + C(n-a, 2)) \\
+  &= n + (a \cdot (a-1) + (n-a) \cdot (n-a-1)) \\
+  &= n + a \cdot (a-1) + n \cdot (n - a - 1) - a \cdot (n-a-1) \\
+  &= n \cdot (n - a) + a \cdot ((a-1) - (n-a-1)) \\
+  &= n \cdot (n - a) + a \cdot (2a - n) \\
+  &= n^2 - 2na + 2a^2
+\end{align*}
+
+\[
+y = 2 \cdot a \cdot (n - a)
+\]
+
+De donde $x + y = n^2$, esto sería una condición necesaria.
+
+Esto permite hallar el valor de $n$, quedando como incógnita solamente el valor de $a$, que puede ser obtenido resolviendo una de las dos ecuaciones.
+
+En caso de que exista valor entero positivo de $a$, la construcción sería:
+
+Añadir un vértice como raíz, con $(n-a)$ hijos, y a uno de esos hijos añadirle $(a -1)$ hijos.
+
+\section*{Subsecuencia X}
+
+Te dan un array de $N$ enteros como $A_1, A_2, A_3, \dots, A_N$. Tu tarea es encontrar el número de formas de dividir el array en subarrays contiguos tales que:
+
+\begin{enumerate}
+    \item Cada elemento del array dado $A$ pertenezca exactamente a uno de los subarrays.
+    \item Existe un entero $m$, tal que el $X$ de cada subarray es igual a $m$.
+\end{enumerate}
+
+El $X$ de una secuencia es el menor entero no negativo que no aparece en la secuencia.
+
+
+Si existe una forma de particionar el array en subarrays tales que todos posean el mismo $X$, entonces ese valor $X$ ha de ser el valor $X$ de todo el array.
+
+\textbf{Observación 1:}
+Asumir que hay una forma en la que se obtiene como $X$ común el valor $m$, entonces en el array están presentes los números de $0, 1, \ldots, m-1$, porque cada subarray los contiene, y no está el número $m$ en el array, porque de lo contrario el subarray que lo contiene no puede tener $m$ como $X$.
+
+Sea $m$ el $X$ del array.
+
+\textbf{Observación 2:}
+Para cada posición $i$ del array, (si existe), sea $j$ la menor posición tal que:
+
+\[
+j \geq i, \quad \text{y además} \quad X([i, j]) = m
+\]
+
+entonces se cumple que para cualquier posición $k \geq j$, $X([i, k]) = m$:
+
+Como $m$ es el $X$ del array, el número $m$ no está en el array, y por tanto no está en ningún subarray $[i, k]$, como $X([i, j])$ contiene todos los números $0, 1, \ldots, m-1$, cualquier subarray $[i, k]$ que contenga a este subarray $[i, j]$ tendrá $m$ como $X$.
+
+Teniendo en cuenta las dos observaciones anteriores se puede definir un array de tamaño $n$, tal que:
+
+\[
+\text{dp}[i] \text{ es la cantidad de formas de dividir } [i, n-1] \text{ en subarrays cuyo } X \text{ es } m.
+\]
+
+Por la observación anterior se cumple que:
+
+\[
+\text{dp}[i] = \sum_{k=j}^{n-1} \text{dp}[k + 1]
+\]
+
+Donde $j$ es obtenida a partir de $i$ con las propiedades descritas. Si este $j$ no existe entonces $\text{dp}[i] = 0$.
+
+La idea es que para cada $k$ válido, se crea el subarray de $[i, k]$, y queda contar a partir de $k+1$ en cuántos subarrays se puede particionar con $X = m$, precisamente $\text{dp}[k+1]$.
+
+Para calcular la $\text{dp}$ se hace un for de $n-1$ a $0$. Porque $\text{dp}[i]$ depende solamente de haber calculado lo que está a su derecha.
+
+Asumiendo que sea posible hallar $j$, la suma anterior requeriría un for desde $j$ hasta $n-1$, para evitarlo se puede llevar un array de suma de sufijos, de forma que:
+
+\begin{align*}
+s[n-1] &= \text{dp}[n-1] \\
+s[n-2] &= \text{dp}[n-1] + \text{dp}[n-2] \\
+&\vdots
+\end{align*}
+
+la respuesta ahora sería:
+
+\[
+\text{dp}[i] = s[j + 1]
+\]
+
+Claro, todavía falta, hallar para cada $i$ la posición $j$. La posición $j$ para cada $i$ la guardaré en un array $\text{ar}$, o sea $\text{ar}[i] = j$.
+
+Se puede usar el método de dos punteros, ya que el array $\text{ar}$ cumple la propiedad que es creciente, o sea si $a < b$, entonces $\text{ar}[a] \leq \text{ar}[b]$.
+
+Para ver por qué: 
+
+Es suficiente con demostrar que $\text{ar}[a] \leq \text{ar}[a+1]$. $\text{ar}[a]$ es la menor posición tal que $[i, \text{ar}[a]]$ están los números $0, 1, \ldots, m-1$ al menos una vez. Si $\text{ar}[a+1]$ fuera menor que $\text{ar}[a]$, se pudiera haber escogido para $i = a$, $j = \text{ar}[a+1]$ y es menor.
+
+Para utilizar el método de dos punteros, es necesario tener un segundo array, en el que se lleve la frecuencia de los números $0, 1, \ldots, m-1$.
+
+La idea es calcular $\text{ar}[0]$ si existe, iterando por el array hasta que la frecuencia de cada uno de los números $0, 1, \ldots, m-1$ sea positiva, llevando la cuenta de cada una de estas frecuencias.
+
+Para calcular $\text{ar}[1]$, se le quita uno a la frecuencia del valor en la posición $0$ del array, si se mantiene mayor que $0$, entonces $\text{ar}[1] = \text{ar}[0]$, en otro caso iterar desde la posición $\text{ar}[0] + 1$ hasta el final del array, aumentando las frecuencias, hasta que se aparezca nuevamente el valor que está en la posición $0$ del array, si se aparece nuevamente todos los valores tendrían frecuencia mayor que $0$, y ese valor sería $\text{ar}[1]$, si no se repite, entonces $\text{ar}[1] = \text{ar}[2] = \ldots = -1$, o sea no existen.
+
+Esta idea asume haber hallado previamente $m$, que análogamente se puede hacer en $O(n)$. Guardando la frecuencia de cada uno de los números de $[0, n-1]$, el $X$ sería el menor valor cuya frecuencia es $0$.
+
+\section*{ Sub-secuencia Y}
+
+Dado un array binario $A$, encuentra la secuencia Y más larga $x_1, x_2, \dots, x_k$ tal que satisface:
+
+\begin{align}
+1 \leq x_1 < x_2 < \dots < x_k \leq N + 1
+\end{align}
+
+$A[x_i : x_j - 1]$ contiene un número igual de ceros y unos para cada $i < j$.
+
+\textbf{Observación 1:} Si de $[i, j_1)$ y $[i, j_2)$ hay la misma cantidad de ceros y unos, con $j_1 < j_2$ entonces también la hay de $[j_1, j_2)$.
+
+Con la observación anterior el problema se reduce a para cada posición $i$ hallar la cantidad de posiciones $j \geq i$ tales que el subarray $[i, j)$ posee la misma cantidad de unos que de ceros.
+
+De entre todas las posiciones $i$ devolver la que posea mayor valor.
+
+Sea $dp$ un array de tamaño $n$, en el que calcularé estas cantidades desde $n-1$ a $0$.
+
+Para cada $i$ sea $j$ la primera posición tal que $[i, j)$ posee la misma cantidad de ceros que de unos. Se cumple que $dp[i] = 1 + dp[j]$, esto es una consecuencia de la observación:
+
+Si $t_1$ fue contado en $dp[j]$, entonces hay la misma cantidad de ceros que de unos de $[j, t_1)$, como hay la misma cantidad de ceros y unos de $[i, j)$ también la habrá de $[i, t_1)$, por tanto $t_1$ debe ser contado en $dp[i]$.
+
+Si $t_1 > j$ fue contado en $dp[i]$, hay la misma cantidad de unos y ceros de $[i, t_1)$, pero también de $[i, j)$, por tanto, también la habrá de $[j, t_1)$. Por lo que $t_1$ también es contado en $dp[j]$.
+
+Entonces el problema se reduce a para cada posición $i$ del array hallar la menor posición $j \geq i$ tal que hay la misma cantidad de ceros que de unos de $[i, j)$.
+
+Voy a guardar cada posición $j$ en un array llamado $ar$, de forma que $ar[i] = j$.
+
+El problema de hallar la misma cantidad de unos y de ceros es análogo al de balancear paréntesis y puede ser resuelto en $O(n)$, reemplazar los ceros con $-1$. Ahora sería hallar el $j$ tal que $sum([i, j)) = 0$, esto implica que:
+
+\begin{align}
+sum([0, j)) &= sum([0, i)) + sum([i, j)) \\
+&= sum([0, i))
+\end{align}
+
+Lo que significa que si se crea el array de suma acumulada con los prefijos, $pr$ para cada $i$ se está buscando la menor posición $j$ tal que:
+
+\begin{align}
+pr[i-1] = pr[j-1].
+\end{align}
+
+O sea cuando se vuelve a repetir un valor en este array. Notar que los valores de este array están en el intervalo de $[-2n, 2n]$. 
+
+A partir de aquí queda por resolver lo siguiente:
+
+Dado un array $A$ de tamaño $n$ con valores en el intervalo $[-2n, 2n]$ para cada posición del $i$ array hallar si existe la primera posición $j$ a su derecha tal que $A[i] = j$. 
+
+Para hacerlo crear un array $pos$ de tamaño $2n + 1$, con valores $-1$ inicialmente, iterar de izquierda a derecha, cuando se esté en la posición $j$, su valor sería $pos[X[j]]$, y después de hallado su valor se actualizaría $pos[X[j]] = j$
+
+Teniendo lo anterior resuelto se aplicaría al array de los prefijos, entonces para cada posición $i$ es solamente verificar la siguiente posición en la que se repite el valor de $p[i-1]$, que es lo que se calculó en el array anterior.
+
+\section*{Asignación Equilibrada}
+
+Dado un grafo $G$ no dirigido de $n$ nodos, y tres números enteros $n_1$, $n_2$ y $n_3$ que cumplen:
+
+\begin{align}
+n_1 + n_2 + n_3 = n
+\end{align}
+
+el problema consiste en asignar a cada vértice un número $1$, $2$ o $3$ de forma tal que:
+
+\begin{enumerate}
+    \item La cantidad de nodos etiquetados con $1$, $2$ y $3$ sea exactamente igual a $n_1$, $n_2$ y $n_3$ respectivamente.
+    \item Para toda arista $(u, v) \in G$, si los valores asignados a sus extremos son $a$ y $b$, entonces se cumple que:
+    \begin{align}
+    |a - b| = 1
+    \end{align}
+\end{enumerate}
+
+El objetivo es determinar si existe una asignación válida y, en caso afirmativo, encontrarla.
+
+Notar que es imposible garantizar la condición si el grafo posee ciclos de tamaño impar. Pues la secuencia sería: $(1-3)$, $2$, $(1-3)$, $\ldots$, $(1-3)$, el último con el primero no cumplen la condición.
+
+Si un grafo no posee ciclos de longitud impar es bipartito.
+
+En este punto los nodos coloreados con $1$ representan lo mismo que los coloreados con $3$, por tanto, asumir que los colores son $1$, $2$.
+
+Asumir que el grafo es conexo: Digamos que $G = X \cup Y$, donde si $e = \langle x, y \rangle \in G$, entonces $x \in G$, $y \in G$.
+
+Se puede demostrar que no puede haber nodos coloreados con el mismo color, en ambas partes en $X$ y en $Y$. 
+
+Para ver por qué: asumir que hay un grupo $A_1$ de nodos en el lado izquierdo coloreados con $1$, un grupo $A_2$ en el lado izquierdo con $2$, $B_1$, $B_2$ en el lado derecho con los colores $1$, $2$, respectivamente.
+
+Solamente puede haber aristas de $A_1$ a $B_2$, y de $A_2$ a $B_1$, por la condición del ejercicio. Pero en este caso el grafo no sería conexo como se había asumido (no se puede llegar de $A_1$ a $B_1$). Esto significa que un lado del grafo bipartito solamente puede estar coloreado con un solo color.
+
+Entonces asumir que el grafo original posee $m$ componentes conexas, cada una con $(x_i, y_i)$ nodos en cada parte.
+
+Hay que escoger una de las dos opciones de cada componente y garantizar que suma $n_2$. Se puede demostrar que resolver este problema permite resolver el subset sum.
+
+Considerar una instancia del subset sum en la que se da una lista de valores $a$ de tamaño $n$ y una suma exacta a hallar $s$:
+
+Se crean los pares: $(a[i], 1)$ si se puede resolver el problema anterior tomando como $n_2 = s + n$, entonces se puede resolver el subset sum. Porque de cada uno o aumento $1$, o aumento $a[i]$.
+
+Lo anterior implica que para hallar la solución es necesario probar con todos los subconjuntos de opciones.
+
+Otra alternativa es usar mochila con programación dinámica, para determinar cuáles son las sumas alcanzables.
+
+\section*{Dos permutaciones}
+
+Se te dan dos permutaciones $a$ y $b$, ambas de tamaño $n$. Una permutación de tamaño $n$ es un array de $n$ elementos, donde cada entero de $1$ a $n$ aparece exactamente una vez. Los elementos en cada permutación están indexados de $1$ a $n$.
+
+Puedes realizar la siguiente operación cualquier número de veces:
+
+\begin{enumerate}
+    \item Elige un entero $i$ de $1$ a $n$;
+    \item Sea $x$ el entero tal que $a_x = i$. Intercambia $a_i$ con $a_x$;
+    \item Sea $y$ el entero tal que $b_y = i$. Intercambia $b_i$ con $b_y$.
+\end{enumerate}
+
+Tu objetivo es ordenar ambas permutaciones en orden ascendente (es decir, que se cumplan las condiciones $a_1 < a_2 < \cdots < a_n$ y $b_1 < b_2 < \cdots < b_n$) utilizando el número mínimo de operaciones. Ten en cuenta que ambas permutaciones deben estar ordenadas después de realizar la secuencia de operaciones que hayas elegido.
+
+En una permutación, si se empieza en una posición $i$, nos movemos a la posición $p[i]$, de ahí a la posición $p[p[i]]$ y así eventualmente volveremos a $i$. Para ver por qué, eventualmente se repetirá un valor de los que ya se vieron porque ya son finitos, pero no puede ser uno de los de por medio, o sea:
+
+\begin{align}
+a \rightarrow b \rightarrow c \rightarrow \ldots \rightarrow t \rightarrow c
+\end{align}
+
+No puede pasar, porque esto significa que:
+
+\begin{align}
+p[a] &= b \\
+p[b] &= c \\
+p[t] &= c
+\end{align}
+
+Pero en el array, como es una permutación, no hay dos posiciones repetidas.
+
+La conclusión de esto es que la permutación se puede dividir en ciclos donde cada ciclo posee $c_i$ elementos. En cada ciclo de estos es necesario realizar $c_i - 1$ operaciones para que todos los elementos de ese ciclo estén en su correspondiente posición.
+
+El problema es que una operación en un ciclo de la primera permutación afecta otro ciclo de la segunda permutación.
+
+Para manejar esto: Sean $A_1, \ldots, A_k$ los ciclos de la permutación $A$, $B_1, \ldots, B_t$ los ciclos de la permutación $B$. Considerando cada uno de estos ciclos como un nodo, voy a crear un grafo. Por cada número $i$ de $1$ a $n$, añado una arista entre el ciclo de $A$ que contiene a $i$ y el ciclo de $B$ que contiene a $i$.
+
+Voy a crear una red de flujo con demandas, o lower bounds, garantizando que cada solución de ese flujo es una solución factible para reordenar ambas permutaciones.
+
+Añado un source, de él añado una arista a cada uno de los $A_i$ donde cada arista posee como capacidad infinito y demanda $|A_i| - 1$.
+
+Añado un sink, de él añado una arista a cada uno de los $B_i$ donde cada arista posee como capacidad infinito y demanda $|B_i| - 1$.
+
+Las aristas entre los $A_i$, $B_j$ poseen capacidad $1$, y no tienen demanda.
+
+Un flujo en esa red garantiza que se hagan la cantidad de operaciones requeridas en cada ciclo. Pero que el total de operaciones no sea mínima debido a que las capacidades pueden son infinitas.
+
+Para lidiar con esto se puede hacer una búsqueda binaria en la respuesta: esto requiere hacer que la capacidad del source sea $t$, y hallar el menor $t$ para el cual existe solución.
+
+Se usa como algoritmo Fold Fulkenson dado que su complejidad es $E \cdot f$, pero en este caso $E$ es la cantidad de aristas obtenidas la red modificada para satisfacer las demandas (el algoritmo para satisfacer las demandas transforma la red original en otra, tal que un flujo en la segunda cumple las demandas), en la red modificada asumo que hay una cantidad lineal de aristas (las había antes de modificarla), y el flujo es a lo más $n$. Por lo que la complejidad es $O(n^2 \log n)$.
+
+
+
+\end{document}
