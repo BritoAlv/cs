@@ -1,0 +1,146 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+% \inputminted[breaklines, breakafter=]{python}{./.py}
+
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=0.5cm , right = 0.5cm, top=0.5cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[H]
+%  \centering
+%  \includesvg[width=\textwidth]{plot.svg}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+% f(n) = \begin{cases}
+%    n/2  & n \text{ is even} \\
+%    3n+1 & n \text{ is odd}
+%  \end{cases}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+
+\begin{document}
+
+\tableofcontents
+
+\section{A}
+
+Contar los $1's$  con fuerza bruta, la entrada lo permite, haciendo dos fors.
+
+\section{B}
+
+La idea es que debido a que eventualmente hay que insertar al número $x$, excepto si es $n$, posponer insertarlo lo más posible, porque una vez que este ya ese valor no puede ser candidato al mex del array.
+
+\begin{enumerate}
+    \item $x = 0$: poner $1, 2, \cdots , n-1, 0$.  
+    \item $x = n$: poner $0, 1, \cdots, n-1$.
+    \item En otro caso poner $0, 1, \cdots x-1, x+1, x+2, \cdots, n-1, x$. 
+\end{enumerate}
+
+\section{C}
+
+Si todos los elementos del array $b$ son $-1$, entonces si se fija una suma $x$ válida se ha de satisfacer para todos los elementos del array que $0 \leq x - a[i] \leq k$, pues $x - a[i] = b[i]$. A partir de esto, observando los casos extremos, con esto quiero decir el máximo y el mínimo del array $A$, los valores válidos para la suma han de estar en el intervalo $[\max{A}, k + \min{A}]$.
+
+Si un elemento del array $b$ no es $-1$, ya tengo la suma, por lo que queda verificar que las demás sumas que se tienen sean la misma, y que las posiciones que son $-1$, permitan ser reemplazadas por enteros en el intervalo $[0, k]$.
+
+\section{D}
+
+Insertar una flor es equivalente a ignorar a uno de los elementos del array $b$, por tanto, no se ignora ninguno, o se ignora uno. La respuesta es $0$ en la primera situación, en otro caso es el menor entre todos los que cumplen que si es ignorado, entonces se pueden recoger todas las flores.
+
+Esto anterior provee de una solución por fuerza bruta, comprobar si se puede resolver el problema sin ignorar ningún $b[i]$, y después para cada uno comprobar si se puede resolver el problema si se ignora. Sería $O(mn)$, la idea es que se pueden usar sufijos y prefijos. 
+
+Para cada posición $i$ del array $b$ computo la menor posición $t$ del array $a$ tal que hasta ella se pueden satisfacer las primeras $i+1$ condiciones, esto lo voy a guardar en un array $p$.
+
+Análogamente, para cada posición $i$ del array $b$, del final al principio, calculo la mayor posición tal que desde el final hasta ella se pueden satisfacer las últimas $n - i$ condiciones, lo voy a guardar en un array $s$.
+
+Para hallar estos dos arrays, usar dos punteros, uno para iterar por el array $a$, y otro para iterar por el array $b$.
+
+En ambos casos si no es posible satisfacer la restricción pongo un $-1$, notar que una vez que se pone un $-1$ ya los restantes elementos tanto en los sufijos como en los prefijos han de ser $-1$.
+
+$p[m-1] \neq -1$, me dice si es posible resolverlo sin ignorar ningún elemento.
+
+Si quiero saber si ignorando el $i$ elemento del array $b$ puedo resolver el problema, es comprobar las siguientes condiciones:
+
+\begin{enumerate}
+    \item Si $i > 0$ que $p[i-1] \neq -1$.
+    \item Si $i < m-1$ que $s[i+1] \neq -1$.
+    \item Si $i > 0$ y $i < m-1$ comprobar que $p[i-1] < s[i+1]$.
+\end{enumerate}
+
+\section{E}
+
+Para este problema, como el entero a buscar aparece exactamente una vez, en el subarray, hay una única forma en la que la búsqueda binaria va a llegar a él, en el caso en que éste esté en el intervalo $[l, r]$.
+
+La búsqueda binaria en cada \textit{query} se puede simular porque es $O(\log n)$, la simulo, durante este proceso van a haber valores malposicionados, esto significa:
+
+\begin{itemize}
+    \item valores que deben ser $<$ entero
+    \begin{itemize}
+        \item están bien posicionados. $mb$
+        \item están mal posicionados. $mm$
+    \end{itemize}
+    \item valores que deben ser $>$ entero
+    \begin{itemize}
+        \item están bien posicionados. $Mb$
+        \item están mal posicionados. $Mm$
+    \end{itemize}
+\end{itemize}
+
+Con esta información se puede calcular la respuesta, si $mm < Mm$, entonces se pueden intercambiar $2 \times mm$ índices.
+
+\begin{itemize}
+    \item valores que deben ser $<$ entero
+    \begin{itemize}
+        \item están bien posicionados. $mb$
+        \item están mal posicionados. $0$
+    \end{itemize}
+    \item valores que deben ser $>$ entero
+    \begin{itemize}
+        \item están bien posicionados. $Mb + mm$
+        \item están mal posicionados. $Mm - mm$
+    \end{itemize}
+\end{itemize}
+
+Esto garantiza que todos los que deben ser $<$ que el entero ya están en posición, de los que deben ser mayor hay $Mm - mm$ que faltan por arreglar, del total de $(n-x)$ valores hay $Mb + mm$ que están bien posicionados. Por tanto hay solución si $(n-x) - (Mb+mm) \geq (Mm - mm)$, en cuyo caso la solución sería $2 \times Mm$.
+
+En caso contrario la idea es análoga, la condición es $(x-1) - (mb + Mm) \geq (mm - Mm)$, la respuesta sería $2 \times mm$.
+
+\end{document}
+

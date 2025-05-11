@@ -1,0 +1,66 @@
+Si n es par, no se usa el comodin y la respuesta es el mayor numero del conjunto:
+
+S = { |ai - ai+1| : i % 2 == 0 } 
+
+(indexando en 0)
+
+Si n es impar:
+
+El efecto de insertar el comodin, es que ahora hay una cantidad par de elementos, y eso determina como se emparejan de dos en dos, (0, 1), (2, 3), ... y se reduce al problema de cuando n es par.
+
+En el caso en que n es par, la respuesta es la menor diferencia entre los adyacentes que se emparejan. Por tanto el comodin como tiene determinado con quien se va a emparejar una vez que se escoge su valor, es siempre optimo que se inserte con distancia 1 al numero con el que se va a emparejar.
+
+Solucion 0: O(n^2 log 10^18) = O(n^2)
+
+Busqueda binaria para determinar si un k funciona, lo que queda es explicar la correctitud del metodo que determina si un k funciona.
+
+Para cada posicion donde es valido insertar el comodin, (al principio, al final, o entre dos elementos que no son consecutivos):  O(n)
+	lo inserto con distancia 1, dependiendo de con quien se va a emparejar. Ahora se tiene un array de tamano par, hacer la solucion para el caso en que n es par O(n).
+	
+Por lo que es O(n^2)  
+
+Solucion 1: (n log 10^18) = O(n)
+
+Lo que cambia es la implementacion del metodo dentro de la busqueda binaria.
+
+Voy a ir emparejando de dos, en dos, hasta que eventualmente, en el peor caso encuentre dos posiciones consecutivas l, l+1 que no las pueda emparejar porque su diferencia es mayor que k.
+
+Mi decision es insertar el comodin para emparejar a l, y los restantes emparejarlos dos a dos.
+
+Si no sucede que se pasen de k todo bien, si se pasan de k, no hay solucion posible segun mi algoritmo. Tendria que demostrar que cualquier otro algoritmo no encontrara solucion tampoco. 
+
+La explicacion es la siguiente, suponer que despues hay dos posiciones r, r+1 consecutivas con diferencia al menos k,
+
+x x x x l l+1 y r r+1 y y
+[ 			  ] -> una cantidad impar.			
+
+A la izquierda de r hay una cantidad impar de posiciones, cualquier algoritmo que inserte al comodin antes de r, van a provocar que se emparejan los elementos hasta el anterior a r , y no va a resolver el problema de r, r+1.
+
+El comoding debe insertarse para emparejar a r+1, porque si se empareja a r, queda una cantidad impar a la izquierda de r y no se pueden emparejar. Si no se empareja ni a r, ni a (r+1) con el comoding, entonces no se resuelve el problema entre ellos.
+
+Usar el comodin para emparejar a r+1, no resuelve el problema de l, l+1 por tanto cualquier otro algoritmo tambien falla en estos casos.
+
+Solucion 2: O(n log 10^18) = O(n)
+
+Para cada posicion guardar si: 
+
+prefijos: cuando se empareja con la anterior es posible hasta ahi resolver sin conflictos.
+sufijos: cuando se empareja con la sigue, es posible a toda la derecha resolver sin conflictos.
+
+p[i] = |a[i] - a[i-1]| <= k && p[i-2] 
+s[i] = |a[i] - a[i+1]| <= k && s[i+2]
+
+Iterar por el array, el comodin puede ser en la izquierda del array, en la derecha, o de por medio, de por medio se empareja con el de la izquierda si es par, o con el de la de derecha si es impar. 
+
+En el caso en que esta en el medio, su efecto va a ser ignorar a un elemento del array, y separar a este en dos subarrays, un prefijo y un sufijo. Entonces lo que queda es preguntarle a los arrays de sufijos y prefijos si esos pinchan. 
+
+Solucion 3: O(n)
+
+En la solucion anterior, en vez de en los prefijos y sufijos guardar si funciona o no, guardar la mayor diferencia vista.
+
+p[i] = max(|a[i] - a[i-1]|, p[i-2]) 
+s[i] = max(|a[i] - a[i+1]|, s[i+2])
+
+Pues cada posicion donde se puede poner el comodin, divide el array en dos subarrays de tamanos pares, y se puede saber de cada uno cual es la menor distancia que se necesita, la mayor entre las dos distancias que se necesita es un candidato a solucion.
+
+La respuesta es el menor de los candidatos.
