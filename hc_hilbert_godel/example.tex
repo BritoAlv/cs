@@ -1,0 +1,176 @@
+% add --shell-escape to pdflatex arguments.
+% add following key to have keyboard shortcuts
+%{
+%    "key": "shift+b",
+%    "command": "commandId",
+%    "when": "editorTextFocus"
+%},
+%{
+%"key": "shift+B",
+%"command": "editor.action.insertSnippet",
+%"when": "editorLangId == latex && editorTextFocus",
+%"args": {
+%    "snippet": "\\textbf{${TM_SELECTED_TEXT}$0}"
+%}
+%}
+% \inputminted[breaklines, breakafter=]{python}{./.py}
+
+
+\documentclass[14pt]{extarticle}
+\usepackage[left=0.5cm , right = 0.5cm, top=0.5cm]{geometry}
+\usepackage{helvet}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{abstract}
+\usepackage[spanish]{babel}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox} % above of the svg package
+\usepackage{svg} 
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[numbers]{natbib}
+
+\renewcommand{\sfdefault}{lmss}  % este activa la letra lmss
+\renewcommand{\familydefault}{\sfdefault} % este activa la letra lmss
+\sffamily % este activa la letra lmss
+%\hyperlink{page.2}{Go to page 2}
+%\newpage
+%text on page 2
+%\begin{figure}[H]
+%  \centering
+%  \includesvg[width=\textwidth]{plot.svg}
+%\end{figure}
+
+%\begin{minted}{csharp}
+%    // single comment
+%    \end{minted}
+
+% f(n) = \begin{cases}
+%    n/2  & n \text{ is even} \\
+%    3n+1 & n \text{ is odd}
+%  \end{cases}
+
+%\begin{align}
+%    \frac{d}{dx} \ln x &= \lim_{h\to 0} \frac{\ln(x+h) - \ln x}{h} \\
+%    &= \ln e^{1/x} &&\text{How this follows is left as an exercise.}\\
+%    &= \frac{1}{x} &&\text{Using the definition of ln as inverse function}
+%   \end{align}
+
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+
+\begin{document}
+
+\title{Hilbert y el Desarrollo de los Sistemas Formales}
+\author{Alvaro Luis Gonzalez Brito C-412}
+
+\maketitle
+
+
+\begin{abstract}
+
+Durante el comienzo del siglo \RNum{19} la matemática experimentó un desarrollo que requirió más que la simple manipulación de símbolos; se necesitaba un análisis conceptual de lo que estos símbolos representaban. No todos los matemáticos estaban dispuestos a aceptar esta nueva situación.
+
+Surgió la pregunta de si era posible encontrar un sistema compuesto por axiomas y reglas de inferencia que a través de sus símbolos pudiera demostrar de forma mecánica, sin necesidad de interpretación, si un enunciado es verdadero o falso, y solamente una de las dos opciones.
+
+\end{abstract} \hspace{10pt}
+
+\textbf{Palabras Clave: David Hilbert, Kurt Gödel, Incompletitud, Axiomas, Teoría de las demostraciones, Sistemas Formales, Consistencia, Reducción.} 
+
+\section{Introducción}
+
+David Hilbert fue un matemático alemán que vivió entre $1862$ y $1943$. Hilbert defendía que: a través de la lógica, los teoremas debían ser demostrados sin que el análisis se corrompiera por lo que se observa a través de un diagrama.  \cite{hilbert-program}
+
+Como ejemplo, Hilbert presentó un conjunto de axiomas como base, con el objetivo de, a partir de estos establecer los teoremas de la geometría. Demostró que estos axiomas son consistentes si la aritmética de los números reales es consistente. \cite{hilbert_g}
+
+Ser consistentes significa que no es posible derivar a través de ellos una contradicción: no se puede, usando estos axiomas, llegar a que se cumple $P$ y también $\urcorner {P}$ donde $P$ es una proposición.
+
+Esto es un ejemplo de uso de la técnica de reducción de un problema a otro, técnica comúnmente usada en la demostración de que cierto problema es $NP-$Completo: la idea es probar que si cierto problema puede resolverse, entonces su solución puede ser usada para resolver otro problema, ya demostrado ser $NP-$Completo. 
+
+En $1900$, Hilbert publicó una lista de $23$ problemas matemáticos sin respuesta en ese momento. El segundo problema era demostrar la consistencia de la aritmética de los números reales.
+
+\section{Los enunciados contradictorios}
+
+En $1902$, Betrand Russell publicó una paradoja que surgió al considerar: 
+
+La existencia de un conjunto \( S \), cuyos miembros poseen la propiedad de que no son miembros de sí mismos. 
+
+Este predicado da lugar a una contradicción, y posee la característica de que se referencia a sí mismo, ¿es posible que haya predicados de este tipo?
+
+Otro ejemplo es el siguiente: ``este enunciado es falso''. Este tipo de enunciados dan lugar, aparentemente, a una contradicción. 
+
+Responder la pregunta anterior sugirió que era necesario revisar los axiomas sobre los que se fundamentaban las matemáticas para entender mejor qué daba lugar a estas paradojas.
+
+Bertrand Arthur William Russell ($1872$ - $1970$) fue un filósofo británico, matemático y lógico. A lo largo de su vida, Russell hizo contribuciones en otros campos como la ética, política, teoría educacional y estudios religiosos. Le fue concedido el premio nobel de Literatura en $1950$. \cite{russell}
+
+\section{Sistemas Formales como la solución}
+
+Una de las ramas en las que trabajó Hilbert fue en la teoría de las demostraciones. Esta rama, que forma parte de la lógica matemática y la ciencia de la computación teórica, consiste en desarrollar demostraciones matemáticas a partir de la aplicación de reglas de inferencia sobre unos axiomas establecidos, para determinar si un enunciado es verdadero o falso.
+
+Un sistema formal estaría compuesto por un conjunto de axiomas y unas reglas de inferencia. Funciona como un mecanismo deductivo que permite la derivación de nuevos teoremas a partir de los axiomas. 
+
+Ejemplos de estos sistemas formales son la aritmética de Peano y los axiomas de la teoría de conjuntos.
+
+Entre las propiedades que pueden poseer estos sistemas están la completitud, la consistencia y la existencia de una axiomatización efectiva. \cite{enderton2001mathematical}
+
+\begin{itemize}
+    \item \textbf{Consistencia}: Un conjunto de axiomas es consistente si no se puede encontrar un enunciado en el lenguaje formal de los axiomas tal que: el enunciado y su negación es posible demostrarlos como verdaderos usando los axiomas. Un sistema formal consistente es libre de contradicciones. Para la aritmética de Peano, no es posible demostrar que es consistente usando solo sus propios axiomas.
+
+    \item \textbf{Completitud}: Un sistema formal es completo si para cualquier enunciado en el lenguaje formal de los axiomas, su negación o él puede ser demostrados como verdadero o falso a partir de los axiomas. 
+
+    \item \textbf{Axiomatización Efectiva}: Un sistema formal posee esta propiedad si el conjunto de sus teoremas es recursivamente enumerable, lo que significa que existe un algoritmo que puede enumerar todos los teoremas del sistema sin incluir enunciados que no son teoremas.
+\end{itemize}
+
+Hilbert pretendía que existiera un sistema formal con estas tres propiedades. Lo que implicaría que las demostraciones matemáticas se convirtieran en una aplicación mecánica de las reglas de inferencia junto a los axiomas, sin necesidad de una interpretación intuitiva de lo que los símbolos matemáticos están expresando. Sería una manipulación de símbolos en un lenguaje formal hasta demostrar que un enunciado es verdadero o falso.
+
+\section{Limitaciones de los sistemas Formales}
+
+Kurt Friedrich Gödel fue un matemático nacido en la actual República Checa que vivió entre $1906$ y $1978$. Enfatizó la importancia de largos cardinales en la teoria de conjuntos antes que su importancia quedara clara.  \cite{goedel}
+
+Su rol en el proceso de responder las preguntas anteriores fue esencial. Pues enfocó su análisis desde un punto de vista diferente. 
+
+En respuesta al problema de los enunciados autorreferenciales, Gödel publicó un artículo en el que demostró que cualquier sistema formal no puede poseer simultáneamente las tres propiedades anteriores.  Entre estos sistemas formales estaban los ideados por Hilbert: siempre contendrán enunciados que no podrán ser demostrados usando exclusivamente las herramientas de ese sistema.
+
+Gödel empleó un método que consistía en codificar los enunciados de un sistema como números naturales y aplicar la técnica de diagonalización introducida por Cantor. 
+
+La idea de codificar la entrada de un problema para expresarla en otro lenguaje y demostrar que no es resoluble en ese lenguaje es una de las ideas que luego se usarían en problemas de reducción. Gödel fue uno de los primeros en resolver un problema usando la idea de codificar la entrada en términos de otro lenguaje y resolverlo en ese lenguaje.
+
+Los teoremas publicados por Gödel demostraron que: 
+
+\begin{enumerate}
+    \item Siempre que un sistema formal fuera lo suficientemente complejo como para incluir la aritmética de los números naturales, entonces este no puede ser perfecto, ya que siempre existirán enunciados que no podrán ser demostrados dentro de ese sistema.
+    \item No es posible demostrar que un sistema formal es consistente a través de reglas y axiomas propias de este.  
+\end{enumerate}
+
+Este dejó claro que las ideas de Hilbert eran imposibles. \cite{godel}
+
+Aunque los teoremas de Gödel demuestran que no es posible demostrar todos los enunciados a través de un sistema formal en específico, abre la puerta a la pregunta de determinar qué enunciados pueden, al menos, ser demostrados como verdaderos o falsos usando este sistema formal. Esto es análogo al problema de la parada (Halting Problem), que consiste en determinar si, dada una entrada, una máquina de Turing eventualmente se detendrá.
+
+
+\section{Consecuencias de los teoremas de Gödel}
+
+Gödel publicó, en su artículo, dos teoremas sobre la incompletitud, a consecuencias de estos se concluyó que:
+
+$1$: Mediante los axiomas establecidos en la teoría de conjuntos no era posible demostrar otro de los problemas propuestos por Hilbert en su lista: 
+
+¿Sí existe una cardinalidad mayor que la de los números naturales pero menor que la de los números reales?
+    
+Georg Cantor ($1845$ - $1918$) fue un matemático nacido en Rusia, dedicó sus esfuerzos a establecer la teoría de conjuntos, a fin de entender los posibles tamaños que puede poseer un conjunto, observó que la cardinalidad de los números racionales era la misma que la de los enteros, pero no que la de los números reales. Tratando de dar una explicación a las diferentes cardinalidades dio con la pregunta anterior. Sus ideas no fueron bien concebidas en su momento, pues no todos los matemáticos estaban dispuestos a aceptar las consecuencias de las cantidades infinitas. \cite{cantor}
+
+$2$: El axioma de elección. Este plantea que si se tiene un conjunto $S$ formado por conjuntos no vacíos. Es posible definir una función, tal que a cada conjunto de $S$ le asigne uno de sus elementos. \cite{choice}
+
+Esto no es algo tan sencillo, pues ¿como, sin ambiguedad, escoger un elemento de un conjunto formado por una cantidad infinita no contable de elementos?.
+
+$3$: No era posible demostrar si eran verdaderos o falsos los enunciados que se referencian a sí mismos, como los vistos previamente.
+
+Los teoremas de incompletitud se aplican a sistemas formales que son lo suficientemente complejos como para expresar la aritmética básica de los números naturales. 
+
+Estos teoremas fueron de los primeros, que aclararon la limitación de los sistemas formales, demostrando formalmente, que hay sentencias que no son decidibles en estos sistemas.
+
+\bibliographystyle{plainnat}
+\bibliography{Referencias}
+
+
+
+\end{document}
