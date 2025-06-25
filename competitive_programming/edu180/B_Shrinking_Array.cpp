@@ -1,9 +1,9 @@
 // je m appelle Alvaro Brito. J ai 22 ans.
 #include <bits/stdc++.h>
-#define wp(x, y) (x == y ? '\n' : ' ')
+
 #define fori(a, b) for (int i = a; i <= b; i++)
 #define forj(a, b) for (int j = a; j <= b; j++)
-
+#define wp " "
 #define pb push_back
 #define ull unsigned long long
 #define pi pair<int, int>
@@ -37,38 +37,34 @@ void Solve()
     int n;
     cin >> n;
     vl a(n);
+    vl b(n);
     fori(0, n - 1) cin >> a[i];
-    sort(a.begin(), a.end());
-    int first_o = -1;
-    int first_e = -1;
-    int last_o = -1;
-    int last_e = -1;
-    fori(0, n - 1)
+    fori(0, n - 1) b[i] = a[i];
+    reverse(b.begin(), b.end());
+    if (n == 2)
     {
-        if (a[i] % 2 && first_o == -1)
-            first_o = i;
-        if (a[i] % 2 == 0 && first_e == -1)
-            first_e = i;
-    }
-    for (int i = n - 1; i >= 0; i--)
-    {
-        if (a[i] % 2 && last_o == -1)
-            last_o = i;
-        if (a[i] % 2 == 0 && last_e == -1)
-            last_e = i;
-    }
-    if (first_o == -1 || first_e == -1)
-    {
-        cout << 0 << endl;
+        if (abs(a[0] - a[1]) > 1)
+            cout << -1 << endl;
+        else
+        {
+            cout << 0 << endl;
+        }
     }
     else
     {
-        int ans = 1e9 + 1;
-        if (last_o - first_o >= 0)
-            ans = n - (last_o - first_o + 1);
-        if (last_e - first_e >= 0)
-            ans = min(ans, n - (last_e - first_e + 1));
-        cout << ans << endl;
+        fori(0, n - 2) if (abs(a[i] - a[i + 1]) <= 1)
+        {
+            cout << 0 << endl;
+            return;
+        };
+        if (is_sorted(a.begin(), a.end()) || is_sorted(b.begin(), b.end()))
+        {
+            cout << -1 << endl;
+        }
+        else
+        {
+            cout << 1 << endl;
+        }
     }
 }
 
