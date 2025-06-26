@@ -1,0 +1,9 @@
+A : Se pueden intercambiar los roles de (l1, l2, l3) por (r1, r2, r3), es simetrico.
+
+Las condiciones son:
+	l1 == l2 && l2 == l3 && b2 + b3 + b1 == l1
+	l2 + l3 == l1 && b2 == b3 && b1 + b2 == l1
+	
+B : Es contar las que hay en las diagonales principales, pues si dos bolas chocan sus movimientos se intercambian, por tanto es como que intercambian los roles, por tanto las que inicialmente estaban bien, seran reemplazadas por otras que estaban bien 1 vs 1. 
+
+C : n <= m <= n(n+1)/2, la construccion es hacer un prefix-sum, poner n -> n-1 -> ... -> 1, cualquier numero de ahi para alla va a contar como uno el path.

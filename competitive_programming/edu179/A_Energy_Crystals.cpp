@@ -32,36 +32,21 @@ template <typename K, typename V> void print(const std::map<K, V> &m)
 int test_cases;
 using namespace std;
 
-int opt(int total, int less_than, int cost){
+void Solve()
+{
+    int x;
+    cin >> x;
+    vi sol(3, 0);
     int ans = 0;
-    if (total < less_than)
-        return 0;
-    ans += (total - less_than) / cost + 1;
-    
-    return ans;}
-
-    void Solve()
+    while (sol[0] != x || sol[2] != x)
     {
-        int k, a, b, x, y;
-        cin >> k >> a >> b >> x >> y;
-        int option1 = opt(k, max(a, b), x);
-        int option2 = opt(k, max(a, b), y);
-        int rem1 = k - x * option1;
-        int rem2 = k - y * option2;
-        vector<int> candidates;
-        if (min(a, b) == a)
-        {
-            candidates.push_back(option1 + opt(rem1, a, x));
-            candidates.push_back(option2 + opt(rem2, a, x));
-        }
-        if (min(a, b) == b)
-        {
-            candidates.push_back(option1 + opt(rem1, b, y));
-            candidates.push_back(option2 + opt(rem2, b, y));
-        }
-        sort(candidates.begin(), candidates.end());
-        cout << candidates.back() << endl;
+        sol[0] = 2 * sol[1] + 1;
+        sol[0] = min(x, sol[0]);
+        sort(sol.begin(), sol.end());
+        ans++;
     }
+    cout << ans << endl;
+}
 
 int main()
 {
