@@ -7,6 +7,6 @@ B : La construccion es swapear,
 [1 2 3] [4]
 [1 2 3 4]
 
-C : Activar un bit en un numero cuesta una potencia de 2, y no afecta a los demas. Para cada numero poner las potencias de 2, que se le pueden activar, juntarlas todas en un set e ir sacando mientras que k > 0 e iterar de menor a mayor por los costos.
+C : Si a un numero se le activan m bits de mas, es la misma forma optima de activarle m-1 bits de mas, esta observacion permite hacer lo siguiente, para cada numero guardar los costos de activarle 1, 2, 3, .. bits, poner todos esos costos en un set e ir sacando mientras que k sea mayor que 0. 
 
 La otra solucion es dp, pero la complejidad es 64 * (64 * n) * n, por lo que no entra.
