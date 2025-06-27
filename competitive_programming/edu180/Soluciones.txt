@@ -1,0 +1,18 @@
+A : Si a esta entre x, y, Bob va a perder del lado que mas lejano le quede. En otro caso Bob gana, poniendolo mas cercano.
+
+B : Si n == 2, es comprobar la condicion. Si n > 2 verificar que la diferencia sea <= 1 en ese caso es 1.
+
+Este es constructivo.
+
+Si no hay eso, entonces si el array esta ordenado creciente o decreciente, la operacion mantiene el array ordenado creciente o decreciente y ademas se sigue cumpliendo que la diferencia entre adyacentes es al menos 2.
+
+Si hay un par tal que: 
+
+a > b < c -> c c
+a < b > c, wlog a < c -> c c
+
+C : Ordenar el array, Alice escoge i, j tales que i < j, ahora falta por escoger k tal que:
+
+- k in [j+1, n-1]
+- k tal que a[k] < a[i] + a[j] (esto es una busqueda binaria y se obtiene la posicion)
+- k tal que a[i] + a[j] + a[k] >= a[n-1] (esto es una busqueda binaria y da la posicion)
