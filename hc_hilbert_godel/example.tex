@@ -112,23 +112,23 @@ Un sistema formal estaría compuesto por un conjunto de axiomas y unas reglas de
 
 Ejemplos de estos sistemas formales son la aritmética de Peano y los axiomas de la teoría de conjuntos.
 
-Entre las propiedades que pueden poseer estos sistemas están la completitud, la consistencia y la existencia de una axiomatización efectiva. \cite{enderton2001mathematical}
+Entre las propiedades que pueden poseer estos sistemas están la completitud, la consistencia y la existencia de una axiomatización efectiva. 
 
 \begin{itemize}
-    \item \textbf{Consistencia}: Un conjunto de axiomas es consistente si no se puede encontrar un enunciado en el lenguaje formal de los axiomas tal que: el enunciado y su negación es posible demostrarlos como verdaderos usando los axiomas. Un sistema formal consistente es libre de contradicciones. Para la aritmética de Peano, no es posible demostrar que es consistente usando solo sus propios axiomas.
+    \item \textbf{Consistencia} \cite{enderton2001consistency} : Un conjunto de axiomas es consistente si no se puede encontrar un enunciado en el lenguaje formal de los axiomas tal que: el enunciado y su negación es posible demostrarlos como verdaderos usando los axiomas. Un sistema formal consistente es libre de contradicciones. Para la aritmética de Peano, no es posible demostrar que es consistente usando solo sus propios axiomas.
 
-    \item \textbf{Completitud}: Un sistema formal es completo si para cualquier enunciado en el lenguaje formal de los axiomas, su negación o él puede ser demostrados como verdadero o falso a partir de los axiomas. 
+    \item \textbf{Completitud} \cite{enderton2001completeness}: Un sistema formal es completo si para cualquier enunciado en el lenguaje formal de los axiomas, su negación o él puede ser demostrados como verdadero o falso a partir de los axiomas. 
 
-    \item \textbf{Axiomatización Efectiva}: Un sistema formal posee esta propiedad si el conjunto de sus teoremas es recursivamente enumerable, lo que significa que existe un algoritmo que puede enumerar todos los teoremas del sistema sin incluir enunciados que no son teoremas.
+    \item \textbf{Axiomatización Efectiva} \cite{enderton2001effective}: Un sistema formal posee esta propiedad si el conjunto de sus teoremas es recursivamente enumerable, lo que significa que existe un algoritmo que puede enumerar todos los teoremas del sistema sin incluir enunciados que no son teoremas.
 \end{itemize}
 
 Hilbert pretendía que existiera un sistema formal con estas tres propiedades. Lo que implicaría que las demostraciones matemáticas se convirtieran en una aplicación mecánica de las reglas de inferencia junto a los axiomas, sin necesidad de una interpretación intuitiva de lo que los símbolos matemáticos están expresando. Sería una manipulación de símbolos en un lenguaje formal hasta demostrar que un enunciado es verdadero o falso.
 
 \section{Limitaciones de los sistemas Formales}
 
-Kurt Friedrich Gödel fue un matemático nacido en la actual República Checa que vivió entre $1906$ y $1978$. Enfatizó la importancia de largos cardinales en la teoria de conjuntos antes que su importancia quedara clara.  \cite{goedel}
+Kurt Friedrich Gödel fue un matemático nacido en la actual República Checa que vivió entre $1906$ y $1978$. Enfatizó la importancia de los diferentes cardinales concebidos por Cantor en la teoría de conjuntos antes que su importancia quedara clara.  \cite{goedel}
 
-Su rol en el proceso de responder las preguntas anteriores fue esencial. Pues enfocó su análisis desde un punto de vista diferente. 
+Su rol en el proceso de responder las preguntas anteriores fue esencial. Pues enfocó su análisis desde un punto de vista diferente. Los números naturales no se referencian a si mismos. ¿Cómo llevar al contexto de los números naturales, un enuciado autorreferencial como los vistos anteriormente?.
 
 En respuesta al problema de los enunciados autorreferenciales, Gödel publicó un artículo en el que demostró que cualquier sistema formal no puede poseer simultáneamente las tres propiedades anteriores.  Entre estos sistemas formales estaban los ideados por Hilbert: siempre contendrán enunciados que no podrán ser demostrados usando exclusivamente las herramientas de ese sistema.
 
@@ -145,7 +145,7 @@ Los teoremas publicados por Gödel demostraron que:
 
 Este dejó claro que las ideas de Hilbert eran imposibles. \cite{godel}
 
-Aunque los teoremas de Gödel demuestran que no es posible demostrar todos los enunciados a través de un sistema formal en específico, abre la puerta a la pregunta de determinar qué enunciados pueden, al menos, ser demostrados como verdaderos o falsos usando este sistema formal. Esto es análogo al problema de la parada (Halting Problem), que consiste en determinar si, dada una entrada, una máquina de Turing eventualmente se detendrá.
+Aunque los teoremas de Gödel afirman que no es posible demostrar todos los enunciados a través de un sistema formal en específico, abre la puerta a la pregunta de determinar qué enunciados pueden, al menos, ser demostrados como verdaderos o falsos usando este sistema formal sin recurrir a una contradicción. Esto es análogo al problema de la parada (Halting Problem), que consiste en determinar si, dada una entrada, una máquina de Turing eventualmente se detendrá.
 
 
 \section{Consecuencias de los teoremas de Gödel}
@@ -166,7 +166,7 @@ $3$: No era posible demostrar si eran verdaderos o falsos los enunciados que se 
 
 Los teoremas de incompletitud se aplican a sistemas formales que son lo suficientemente complejos como para expresar la aritmética básica de los números naturales. 
 
-Estos teoremas fueron de los primeros, que aclararon la limitación de los sistemas formales, demostrando formalmente, que hay sentencias que no son decidibles en estos sistemas.
+Estos teoremas fueron de los primeros, que aclararon la limitación de los sistemas formales, demostrando rigurosamente, que hay sentencias que no son decidibles en estos sistemas.
 
 \bibliographystyle{plainnat}
 \bibliography{Referencias}
