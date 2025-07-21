@@ -1,0 +1,16 @@
+C: La primera observacion es que con los bi, se arreglan las filas, pero esto no tiene nada que ver con las columnas. 
+
+O sea, se puede resolver el problema de  arreglar las filas con los bi, y despues resolver el mismo problema de arreglar las filas con los ai.
+
+Para arreglar las filas se puede lograr con dp, dp[i][j]
+dice si la poscion i fue escogida o no.
+
+Se crean tres arreglos de tamano n, equal, greater, less.
+
+Para cada i, se guarda si en al menos una fila ocurre una de estas situaciones, la posicion i es la de la izquierda:
+
+x x : equal[i] = 1
+x+1 x : greater[i] = 1
+x-1 x : less[i] = 1
+
+Para un i hay 8 posibles casos, o sea es una dp en la que para cada i, posee 2 estados, y hay 8 transiciones que involucran a estos estados.

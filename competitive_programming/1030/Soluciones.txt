@@ -10,3 +10,28 @@ B : La construccion es swapear,
 C : Si a un numero se le activan m bits de mas, es la misma forma optima de activarle m-1 bits de mas, esta observacion permite hacer lo siguiente, para cada numero guardar los costos de activarle 1, 2, 3, .. bits, poner todos esos costos en un set e ir sacando mientras que k sea mayor que 0. 
 
 La otra solucion es dp, pero la complejidad es 64 * (64 * n) * n, por lo que no entra.
+
+D : El problema se basa en dada una posicion y una direccion saber si existe la siguiente posicion en la que hay un semaforo en rojo.
+
+Los semaforos y sus dos direcciones hacen un grafo de 2n vertices, que se le hallan las scc, para saber si tiene ciclos.
+
+La solucion seria:
+	una posicion, preguntar si va a chocar con un semaforo:
+		- no, se escapa
+		- si, preguntarle al semaforo si pertenece a un ciclo:
+			- no, se escapa
+			- si, esta atrapado.
+			
+Si se va hacia la derecha desde una posicion pos, en un tiempo cur, chocara con un semaforo si:
+
+cur_time + (p[i] - pos) = d[i] mod k
+cur_time - pos = d[i] - p[i] mod k
+
+Se agrupan a los semaforos por el miembro derecho mod k, y seria dada una posicion y un cur_time eso corresponde a un grupo de semaforos, hallar la primera posicion que es >= que esa.
+
+En el caso de que se va a la izquierda seria analogo:
+
+cur_time + (pos - p[i]) = d[i] mod k
+cur_time + pos = p[i] + d[i] mod k
+
+

@@ -1,0 +1,3 @@
+C : La idea es que si se empieza un bfs desde un vertice v, se agrupan a los vertices por niveles, se puede demostrar que si se enumeran por nivel de mayor a menor, cuando se dice un vertice en el nivel k, la distancia de el raton a v es a lo mas k.
+
+Entonces hallar el camino de st a ed, desde st a ed, hacer en cada uno un bfs que ignore la rama que continue el camino a ed, cada vez que uno de estos bfs acaba el raton se encuentra en el vertice que comenzo. Por esta razon al final se encontrara en el vertice ed.

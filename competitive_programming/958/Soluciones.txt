@@ -1,0 +1,18 @@
+A :
+B :
+C :
+D :
+
+Observar que el problema parece un problema de coloreo donde hay que obtener un coloreo de costo minimo, hay casos donde no basta con 2 rondas, y es posible que hayan varias formas de llegar a la misma respuesta, en particular, varias formas de acabar con una ronda, con los mismos puntos de vida decrementados, pero con diferentes monstruos aniquilados, esto sugiere en cierta forma dp.
+
+Cada vertice va a ser aniquilado en una ronda, y el dano que infligira a la larga es i * ai. Por esta razon se puede hacer una dp, en la que:
+
+dp[v][r] significa el menor costo si el vertice v es aniquilado en la ronda r, como el arbol da lugar a un topological sort, se puede hacer una dp para comprobar esto.
+
+Por supuesto, para que esta solucion sea factible hay que demostrar que la cantidad de rondas esta acotada.
+
+La maxima cantidad de rondas factibles para un monstruo es su degree + 1, porque el ha de tener una arista con al menos un monstruo de cada una de las rondas en que no es aniquilado.
+
+Esto permite hacer la dp en O(n), pues la suma de los degrees es O(n).
+
+

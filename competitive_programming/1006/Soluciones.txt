@@ -1,0 +1,15 @@
+A :
+B :
+C :
+D :
+E :
+F : 
+
+Lo interesante es que despues de una potencia de dos se tiene esto:
+
+2^k + 1 : 1 0 0 0 ... 1
+
+Observar que se genera a partir de aqui el mismo patron que se genera cuando empezo el triangulo, esto permite resolver el problema con recursividad.
+
+G :
+H :

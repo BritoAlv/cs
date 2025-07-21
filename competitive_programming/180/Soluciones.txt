@@ -16,3 +16,19 @@ C : Ordenar el array, Alice escoge i, j tales que i < j, ahora falta por escoger
 - k in [j+1, n-1]
 - k tal que a[k] < a[i] + a[j] (esto es una busqueda binaria y se obtiene la posicion)
 - k tal que a[i] + a[j] + a[k] >= a[n-1] (esto es una busqueda binaria y da la posicion)
+
+D : Es necesario un vertice con grado exactamente 2, para resolver el problema, por defecto siempre hay al menos n-1, y se puede alcanzar n-1 alternando las direeciones, 
+
+v -> w <-
+  -> u <-
+  
+Si hay un vertice de grado 2 se puede hacer una construccion para que aporte exactamente uno mas.
+
+v -> w <-
+  <- u -> 
+  
+Desde u, se puede ir a v, y a w.
+
+Si no hay vertices de grado 2, la unica forma de asignarle direcciones a las aristas es la de ir alternando pues en otro caso se pasa de n, porque siempre aporta al menos 3. La unica forma de manejar esto es ponerlo alternando, pero si se hace asi se obtiene n-1.
+
+O sea o se pone alternando o se pasa de n, con los vertices de grado >= 3.
