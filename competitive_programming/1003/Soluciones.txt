@@ -1,3 +1,0 @@
-G : Esto es un problema de conteo, son interes los primos, y los numeros que son productos de dos primos.
-
-F : Observar que la majority secuence si existe, ha de existir una de tamano 3 o 2, ya esto reduce el problema a la fuerza bruta de verificar con un vertice y dos de sus adyacentes.

@@ -1,3 +1,0 @@
-G : Conociendo el primer elemento, el ultimo elemento, la suma de los ai, y la suma de la forma i * ai, cuando se realiza cualquiera de las tres operaciones se puede restablecer el orden, a excepcion de que cuando se realiza la primera operacion, como saber quien es el elemento a_{n-1}. Este es el bottleneck del problema.
-
-Utilizar una deque, y mantener con un booleano si se esta utilizando el principio o el final de la cola, cuando se revierte el array se cambia este booleano.

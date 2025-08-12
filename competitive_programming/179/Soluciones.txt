@@ -1,5 +1,0 @@
-A : Se puede simular, pues la respuesta parece ser logaritimica en escala, en fin el menor se puede hacer igual a 2 * mediano + 1 en cada paso, hasta que sean los tres iguales a k.
-
-B : Es suficiente con poder poner los dos mas grandes a lo largo de un eje, por las propiedades de los numeros de fibonacci se pueden poner los otros.
-
-C : Si no hay dos numeros iguales consecutivos lo optimo es aplicar la operacion en el menor numero a la izquierda y la derecha. Si los hay aplicar desde donde empieza hasta el principio, donde acaba hasta el final, iterando por todas las opciones.

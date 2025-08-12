@@ -1,5 +1,0 @@
-D : es claro que todos los pares, van a un grupo y todos los impares van a otro.
-
-Se puede hacer una dp : dp[cant_even][i], cantidad de combinaciones que se pueden hacer distribuyendo las primeras i letras de forma tal que posea una cantidad de letras en las posiciones pares (cant_even) fijada.
-
-El detalle esta en que las transiciones son a partir de la idea de los separadores, y eso no depende de como esten distribuidos los que estan insertados, solamente longitud y cantidad de separadores.
